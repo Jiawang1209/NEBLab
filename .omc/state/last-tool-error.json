@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"\\\\\\n  sed -i '' 's|uv run pytest|pytest|g; s|uv run uvicorn|uvicorn|g; s|uv run alembic|alembic|g; s|uv run python|python|g; s|uv run ruff|ruff|g; s|uv run pyright|pyright|g; s|uv run nebl...",
+  "error": "Exit code 1\n✓ 完成\n0",
+  "timestamp": "2026-05-01T16:04:41.328Z",
+  "retry_count": 1
+}
