@@ -6,7 +6,7 @@
 
 **Architecture:** Python (uv) + FastAPI 后端 + Provider Abstraction（LLM/Embedding/Reranker）+ PostgreSQL（元数据/全文）+ Qdrant Cloud（向量）+ OpenAI-compatible 远程 LLM/Embedding 端点。全云 API、零本地 GPU。Provider 抽象层让所有外部 AI 服务可热切换。
 
-**Tech Stack:** uv, Python 3.12, FastAPI, Pydantic v2, SQLAlchemy 2.0, Alembic, Qdrant Cloud, pyalex（OpenAlex SDK）, pytest, ruff, pyright, structlog, docker-compose.
+**Tech Stack:** uv, Python 3.12, FastAPI, Pydantic v2, SQLAlchemy 2.0, Alembic, Qdrant Cloud, pyalex（OpenAlex SDK）, pytest, ruff, pyright, structlog. 本地 Postgres 用 Homebrew（macOS）或包管理器原生安装；Qdrant 直接用 Cloud 免费层（dev/prod 一致）。
 
 **Spec reference:** `docs/superpowers/specs/2026-05-01-rag-v1-design.md`
 
@@ -17,11 +17,11 @@
 ## 前置假设（开始前必须满足）
 
 - [ ] **miniforge 已安装**（提供 `mamba` 命令）：https://github.com/conda-forge/miniforge
-- [ ] Docker + docker-compose 已安装（本地 Postgres）
+- [ ] **Postgres 16 已安装**（macOS：`brew install postgresql@16` 即可；其他平台用对应包管理器）
 - [ ] 你有以下访问权限：
   - DeepSeek API（OpenAI 兼容端点 + API key）
   - 内部 Qwen3 embedding/reranker 端点（OpenAI 兼容）
-  - Qdrant Cloud（免费层即可）
+  - **Qdrant Cloud 账号**（免费层即可；dev 和 prod 都用它，无需本地起 Qdrant）
 - [ ] 已在 `.env.local` 中保存以上 endpoint URL + API key（**不要 commit**）
 
 ## 工具链约定
@@ -42,8 +42,7 @@ NEBLab/
 ├── .python-version
 ├── .env.example                         # 配置模板（commit）
 ├── .gitignore
-├── docker-compose.yml                   # 本地 Postgres + Qdrant
-├── Makefile                             # 常用命令
+├── Makefile                             # 常用命令（启动本地 Postgres、跑 migration、起 dev server 等）
 ├── README.md
 ├── src/neblab_rag/
 │   ├── __init__.py
@@ -357,12 +356,12 @@ RERANKER_BASE_URL=http://your-internal-host/v1
 RERANKER_API_KEY=sk-internal
 RERANKER_MODEL=qwen3-reranker:8b
 
-# === Postgres ===
-POSTGRES_DSN=postgresql+psycopg2://neblab:neblab@localhost:5432/neblab
+# === Postgres (Homebrew native, trust auth, no password) ===
+POSTGRES_DSN=postgresql+psycopg2://neblab@localhost:5432/neblab
 
-# === Qdrant ===
-QDRANT_URL=http://localhost:6333
-QDRANT_API_KEY=
+# === Qdrant Cloud ===
+QDRANT_URL=https://your-cluster-id.region.cloud.qdrant.io:6333
+QDRANT_API_KEY=your-qdrant-cloud-api-key
 QDRANT_COLLECTION=neblab_abstracts
 
 # === OpenAlex ===
@@ -426,198 +425,6 @@ jobs:
 
       - name: Test
         run: pytest -m "not integration" --cov=src/neblab_rag --cov-report=term-missing
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add .github/workflows/ci.yml
-git commit -m "chore: add GitHub Actions CI"
-```
-
----
-
-### Task 3: 配置 ruff + pyright
-
-**Files:**
-- Modify: `pyproject.toml`
-
-- [ ] **Step 1: 在 `pyproject.toml` 末尾追加配置**
-
-```toml
-[tool.ruff]
-line-length = 100
-target-version = "py312"
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
-ignore = ["E501"]  # line length handled by formatter
-
-[tool.ruff.format]
-quote-style = "double"
-
-[tool.pyright]
-include = ["src", "tests"]
-pythonVersion = "3.12"
-typeCheckingMode = "strict"
-reportMissingTypeStubs = false
-
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-testpaths = ["tests"]
-addopts = "-v --tb=short"
-```
-
-- [ ] **Step 2: 跑一次格式化看是否生效**
-
-```bash
-ruff check src/ tests/ || true
-ruff format src/ tests/
-pyright src/ || true   # 第一次跑允许有错
-```
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add pyproject.toml
-git commit -m "chore: configure ruff + pyright"
-```
-
----
-
-### Task 4: 编写 .gitignore + .env.example
-
-**Files:**
-- Create: `.gitignore`, `.env.example`
-
-- [ ] **Step 1: 写 `.gitignore`**
-
-```gitignore
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-.venv/
-venv/
-.pytest_cache/
-.coverage
-.coverage.*
-htmlcov/
-.mypy_cache/
-.ruff_cache/
-.pyright/
-*.egg-info/
-build/
-dist/
-
-# Env
-.env
-.env.local
-.env.*.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-.DS_Store
-
-# Project artifacts
-data/
-logs/
-*.log
-.claude/settings.local.json
-```
-
-- [ ] **Step 2: 写 `.env.example`**
-
-```bash
-# === LLM (DeepSeek, OpenAI-compatible) ===
-LLM_BASE_URL=https://api.deepseek.com/v1
-LLM_API_KEY=sk-xxx
-LLM_DEFAULT_MODEL=deepseek-v3.2
-LLM_REASONING_MODEL=deepseek-r1:671b-64k
-LLM_LIGHT_MODEL=deepseek-v4-flash
-
-# === Embedding (Qwen3, OpenAI-compatible internal endpoint) ===
-EMBEDDING_BASE_URL=http://your-internal-host/v1
-EMBEDDING_API_KEY=sk-internal
-EMBEDDING_MODEL=qwen3-embedding:8b
-EMBEDDING_DIM=4096
-
-# === Reranker (Qwen3) ===
-RERANKER_BASE_URL=http://your-internal-host/v1
-RERANKER_API_KEY=sk-internal
-RERANKER_MODEL=qwen3-reranker:8b
-
-# === Postgres ===
-POSTGRES_DSN=postgresql+psycopg2://neblab:neblab@localhost:5432/neblab
-
-# === Qdrant ===
-QDRANT_URL=http://localhost:6333
-QDRANT_API_KEY=
-QDRANT_COLLECTION=neblab_abstracts
-
-# === OpenAlex ===
-OPENALEX_EMAIL=your-email@university.edu
-
-# === Logging ===
-LOG_LEVEL=INFO
-```
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add .gitignore .env.example
-git commit -m "chore: add gitignore and env template"
-```
-
----
-
-### Task 5: 添加 GitHub Actions CI
-
-**Files:**
-- Create: `.github/workflows/ci.yml`
-
-- [ ] **Step 1: 写 CI 配置**
-
-```yaml
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
-
-      - name: Set Python version
-        run: uv python install 3.12
-
-      - name: Install dependencies
-        run: uv pip install -e ".[dev]" --all-extras
-
-      - name: Lint
-        run: ruff check src tests
-
-      - name: Format check
-        run: ruff format --check src tests
-
-      - name: Type check
-        run: pyright src
-
-      - name: Test
-        run: pytest --cov=src/neblab_rag --cov-report=term-missing
 ```
 
 - [ ] **Step 2: Commit**
@@ -981,63 +788,87 @@ git commit -m "feat(api): scaffold FastAPI app with /health endpoint"
 
 ---
 
-### Task 9: docker-compose（Postgres + Qdrant 本地服务）
+### Task 9: 本地 Postgres（Homebrew）+ Qdrant Cloud 配置
+
+> **决策说明**：本 plan 不依赖 docker。Postgres 用 Homebrew native 安装；Qdrant 直接使用 Qdrant Cloud（免费层 1GB 足够 v1 用，且 dev 与 prod 完全一致）。
+>
+> 生产部署在 v1 之后另行解决（届时写一个 ~10 行的 `Dockerfile`，从 `python:3.12-slim` 跑 `pip install -e .`，conda 不进生产容器，`pyproject.toml` 是依赖单一事实源）。
 
 **Files:**
-- Create: `docker-compose.yml`, `Makefile`
+- Create: `Makefile`
 
-- [ ] **Step 1: 写 `docker-compose.yml`**
+- [ ] **Step 1: 启动 Postgres 服务**
 
-```yaml
-services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: neblab-postgres
-    environment:
-      POSTGRES_USER: neblab
-      POSTGRES_PASSWORD: neblab
-      POSTGRES_DB: neblab
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U neblab"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+前置假设里已 `brew install postgresql@16`。这里把它跑起来：
 
-  qdrant:
-    image: qdrant/qdrant:latest
-    container_name: neblab-qdrant
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_data:/qdrant/storage
+```bash
+brew services start postgresql@16
 
-volumes:
-  postgres_data:
-  qdrant_data:
+# 把 brew 的 postgresql@16 加进 PATH（zsh，只需做一次）
+echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# 验证
+psql --version
+# Expected: psql (PostgreSQL) 16.x
+
+brew services list | grep postgresql
+# Expected: postgresql@16  started ...
 ```
 
-- [ ] **Step 2: 写 `Makefile`**
+- [ ] **Step 2: 创建 DB 角色和数据库**
+
+```bash
+createuser -s neblab || true        # superuser 角色 neblab，本地开发免密
+createdb -O neblab neblab || true   # 库 neblab，owner = neblab
+
+# 验证
+psql -U neblab -d neblab -c "\conninfo"
+# Expected: You are connected to database "neblab" as user "neblab" via socket ...
+```
+
+> 安全提醒：本地 dev 角色无密码、靠 Unix socket trust 认证，**仅本机可连**。生产用托管 Postgres（RDS / Supabase / Neon），不沿用此配置。
+
+- [ ] **Step 3: 注册 Qdrant Cloud 并建 cluster**
+
+1. 打开 https://cloud.qdrant.io/，邮箱注册
+2. 创建一个 **free tier cluster**（1GB 容量，足够 5000 条 4096 维向量）
+   - Region 选离你最近的（亚洲推荐 AWS Singapore；欧洲推荐 Frankfurt）
+3. cluster 创建后，记录两个值：
+   - **Endpoint URL**：形如 `https://<cluster-id>.<region>.cloud.qdrant.io:6333`
+   - **API Key**：在 cluster 详情页 → "API Keys" 选项卡里生成一个 Read+Write key
+4. 把它们写入 `.env.local`（**不要 commit**）：
+
+```bash
+QDRANT_URL=https://<cluster-id>.<region>.cloud.qdrant.io:6333
+QDRANT_API_KEY=<paste from Qdrant Cloud>
+QDRANT_COLLECTION=neblab_abstracts
+```
+
+5. 验证 cloud endpoint 可访问：
+
+```bash
+source .env.local
+curl -s -H "api-key: $QDRANT_API_KEY" "$QDRANT_URL/collections" | python -m json.tool
+# Expected: {"result": {"collections": []}, "status": "ok", ...}
+```
+
+- [ ] **Step 4: 写 `Makefile`**
 
 ```makefile
-.PHONY: up down logs ps test lint format typecheck migrate ingest dev
+.PHONY: pg-start pg-stop pg-status test lint format typecheck migrate ingest dev
 
-up:
-	docker compose up -d
+# Postgres lifecycle (macOS / Homebrew)
+pg-start:
+	brew services start postgresql@16
 
-down:
-	docker compose down
+pg-stop:
+	brew services stop postgresql@16
 
-logs:
-	docker compose logs -f
+pg-status:
+	brew services list | grep postgresql
 
-ps:
-	docker compose ps
-
+# Quality
 test:
 	pytest
 
@@ -1050,6 +881,7 @@ format:
 typecheck:
 	pyright src
 
+# DB & app
 migrate:
 	alembic upgrade head
 
@@ -1060,21 +892,11 @@ dev:
 	uvicorn neblab_rag.api.main:app --reload --port 8000
 ```
 
-- [ ] **Step 3: 启动并验证**
+- [ ] **Step 5: Commit**
 
 ```bash
-make up
-sleep 5
-docker ps | grep neblab    # 应看到 neblab-postgres 和 neblab-qdrant
-curl http://localhost:6333  # Qdrant 应返回 JSON
-make down
-```
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add docker-compose.yml Makefile
-git commit -m "chore: add docker-compose and Makefile for local dev"
+git add Makefile
+git commit -m "chore: add Makefile (Postgres native + Qdrant Cloud)"
 ```
 
 ---
@@ -2035,11 +1857,10 @@ else:
     run_migrations_online()
 ```
 
-- [ ] **Step 3: 启动 Postgres + 生成首版 migration**
+- [ ] **Step 3: 确认 Postgres 已起，生成首版 migration**
 
 ```bash
-make up
-sleep 3
+make pg-status                # 应看到 postgresql@16 started
 alembic revision --autogenerate -m "initial: documents and abstracts"
 ```
 
@@ -2047,7 +1868,7 @@ alembic revision --autogenerate -m "initial: documents and abstracts"
 
 ```bash
 alembic upgrade head
-docker exec -it neblab-postgres psql -U neblab -d neblab -c "\dt"
+psql -U neblab -d neblab -c "\dt"
 # Expected: alembic_version, abstracts, documents
 ```
 
@@ -3741,11 +3562,11 @@ git commit -m "feat(api): add /query (sync) and /query/stream (SSE) endpoints"
 # scripts/smoke_run.sh
 set -euo pipefail
 
-echo "==> Starting docker-compose services"
-make up
-sleep 5
+echo "==> Ensuring Postgres is running (Homebrew service)"
+brew services list | grep -q "postgresql@16.*started" || brew services start postgresql@16
+sleep 2
 
-echo "==> Running migrations"
+echo "==> Running migrations (assumes Qdrant Cloud cluster is reachable via .env.local)"
 make migrate
 
 echo "==> Ingesting 50 docs from desertification topic (English)"
@@ -3796,7 +3617,7 @@ git commit -m "chore: add smoke-test script"
 
 ---
 
-### Task 31: 集成测试（带 docker 服务）
+### Task 31: 集成测试（带本地 Postgres + Qdrant Cloud）
 
 **Files:**
 - Create: `tests/integration/test_query_e2e.py`, `tests/conftest.py`
@@ -3832,7 +3653,7 @@ def monkeypatch_session():
 
 ```python
 # tests/integration/test_query_e2e.py
-"""End-to-end tests requiring real docker services + real API keys.
+"""End-to-end tests requiring local Postgres + Qdrant Cloud + real API keys.
 
 Skipped by default. Run with: `pytest tests/integration -v -m integration`
 """
@@ -3867,7 +3688,7 @@ def test_full_pipeline_runs():
 
 ```toml
 markers = [
-    "integration: tests that require docker services and real API keys",
+    "integration: tests that require local Postgres + Qdrant Cloud and real API keys",
 ]
 ```
 
@@ -3905,8 +3726,8 @@ uv pip install -e ".[dev]"
 cp .env.example .env.local
 $EDITOR .env.local
 
-# 3. 启动本地服务（Postgres + Qdrant）
-make up
+# 3. 启动本地 Postgres（Qdrant 是云服务，无需本地起）
+make pg-start
 make migrate
 
 # 4. 拉取摘要语料（默认 500 条荒漠化主题英文论文）
@@ -3959,8 +3780,9 @@ curl -X POST http://localhost:8000/query \
 
 | 命令 | 作用 |
 |------|------|
-| `make up` | 启动 Postgres + Qdrant |
-| `make down` | 停止 |
+| `make pg-start` | 启动本地 Postgres（Homebrew 服务） |
+| `make pg-stop` | 停止本地 Postgres |
+| `make pg-status` | 查看 Postgres 状态 |
 | `make migrate` | 跑 Alembic migration |
 | `make test` | 跑单元测试 |
 | `make lint` | ruff 检查 |
