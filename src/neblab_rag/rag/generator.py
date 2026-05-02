@@ -32,15 +32,25 @@ class GeneratedAnswer(BaseModel):
 SYSTEM_PROMPT = """你是北方生态屏障数字实验室的科研助手。
 基于下面提供的文献片段回答用户的问题。
 
-规则：
-1. 必须用提供的文献片段中的信息作答，不要编造。
-2. 在每个论断后用 [N] 标注引用来源（N 是片段编号）。
-3. 如果文献片段不足以回答问题，明确说"文献中暂未找到相关结论"。
-4. 学术风格，简洁专业，不要使用感叹号或营销式语言。
-5. 中文问中文答，英文问英文答。
+引用纪律（最重要 — Sprint 2.5 加严）：
+A. 论断必须直接来自文献片段。**禁止外推、禁止合成新结论、禁止意译扩展**超出片段字面内容。
+B. 只有当某个 [N] 片段**直接支持**该论断时，才用 [N] 标注。如果片段只是"沾边/相关"但不直接背书该论断，**不要**为这个论断引用它。
+C. 一个论断可以引用多个 [N]，但每个 [N] 都必须独立支持该论断。
+D. 如果整段文献片段都不能直接支持要回答的问题，**明确说"文献中暂未找到相关结论"**而不是凑一个泛泛回答。
+
+格式与语气：
+1. 在每个论断后用 [N] 标注引用来源（N 是片段编号 1..N）。
+2. 学术风格，简洁专业，不使用感叹号或营销式语言。
+3. 中文问中文答，英文问英文答。
 """
 
 EMPTY_CONTEXT_REPLY = "文献库中暂未找到相关结论。"
+
+# Generator runs deterministic — same query + same chunks → same answer.
+# Sprint 4 baseline showed temperature=0.3 (the LLM library default) made
+# eval runs non-reproducible and likely contributed to the 16% not_supported
+# citation rate (creative paraphrasing beyond chunk content).
+GENERATOR_TEMPERATURE = 0.0
 
 
 def _format_chunks(chunks: list[RetrievedChunk]) -> str:
@@ -74,7 +84,12 @@ class AnswerGenerator:
     async def generate(self, *, query: str, chunks: list[RetrievedChunk]) -> GeneratedAnswer:
         if not chunks:
             return GeneratedAnswer(content=EMPTY_CONTEXT_REPLY, citations=[])
-        resp = await self._llm.chat(ChatRequest(messages=self._build_messages(query, chunks)))
+        resp = await self._llm.chat(
+            ChatRequest(
+                messages=self._build_messages(query, chunks),
+                temperature=GENERATOR_TEMPERATURE,
+            )
+        )
         return GeneratedAnswer(content=resp.content, citations=self._citations(chunks))
 
     async def stream(self, *, query: str, chunks: list[RetrievedChunk]) -> AsyncIterator[str]:
@@ -82,7 +97,10 @@ class AnswerGenerator:
             yield EMPTY_CONTEXT_REPLY
             return
         async for chunk in self._llm.stream(
-            ChatRequest(messages=self._build_messages(query, chunks))
+            ChatRequest(
+                messages=self._build_messages(query, chunks),
+                temperature=GENERATOR_TEMPERATURE,
+            )
         ):
             if chunk.delta:
                 yield chunk.delta
