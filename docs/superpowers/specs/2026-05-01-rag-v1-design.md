@@ -290,7 +290,7 @@ A 形态（纯对话）
 
 | 阶段 | 周 | 主要产出 |
 |------|----|---------|
-| Sprint 0：基建 + 摘要 RAG | W1 | 仓库结构、CI、Provider 抽象层、采集脚手架；OpenAlex 5000 元数据入库；**摘要级 RAG 当周可演示** |
+| ✅ Sprint 0：基建 + 摘要 RAG | W1 | 仓库结构、CI、Provider 抽象层、采集脚手架；OpenAlex 5000 元数据入库；**摘要级 RAG 当周可演示** — 已交付 2026-05-02：50 篇 desertification (en) 全链路真机验证通过，5000 篇按需 `neblab-ingest --max 5000` 即可拉满 |
 | Sprint 1：全文采集冲刺（与 Sprint 2/3 并行）| W2-W4 | 2500 全文 + 250 学位 + 25 灰文献入库；MinerU + deepseek-ocr 解析 pipeline |
 | Sprint 2：核心 RAG | W2-W3 | Chunking → Embedding（qwen3-emb）→ Qdrant → Reranker（qwen3-rerank）→ 生成 端到端跑通；引用校验 |
 | Sprint 3：UI v1 | W3-W4 | Next.js 前端 + 流式（SSE）+ 引用卡片 + 双形态切换 |
