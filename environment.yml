@@ -1,0 +1,17 @@
+# environment.yml — bootstrap the NEBLab environment.
+#
+# Usage:
+#   mamba env create -f environment.yml
+#   mamba activate NEBLab
+#
+# To re-sync after pyproject.toml changes:
+#   uv pip install -e ".[dev]"
+name: NEBLab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - uv
+  - pip:
+      - -e .[dev]

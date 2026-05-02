@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777645445326,
+  "projectRoot": "/Users/liuyue/Desktop/Github_repos/NEBLab",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "docs/superpowers/specs/2026-05-01-rag-v1-design.md",
+      "accessCount": 10,
+      "lastAccessed": 1777650472318,
+      "type": "file"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-01-rag-v1-plan-01-foundation.md",
+      "accessCount": 3,
+      "lastAccessed": 1777651466327,
+      "type": "file"
+    },
+    {
+      "path": "pyproject.toml",
+      "accessCount": 1,
+      "lastAccessed": 1777652027851,
+      "type": "file"
+    },
+    {
+      "path": ".python-version",
+      "accessCount": 1,
+      "lastAccessed": 1777652033470,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
