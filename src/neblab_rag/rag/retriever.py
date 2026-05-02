@@ -2,13 +2,17 @@
 
 Three stages:
   1. Embed query into a single 4096-d vector
-  2. Qdrant cosine search → ``candidate_k`` (~30) hits
+  2. Qdrant cosine search → ``candidate_k`` (~30) chunk hits
   3. Rerank candidates → ``top_k`` (~5) final chunks
 
-``RetrievedChunk.text`` is the abstract (or title if no abstract was
-captured — some OpenAlex records like IPCC reports have no abstract).
-The reranker sees ``title + "\\n\\n" + abstract`` to match what the
-indexer embedded into Qdrant.
+Payload shape (set by Sprint-2 ChunkIndexer):
+  chunk_id, doc_id, chunk_index, openalex_id, title, text,
+  year, topic, language
+
+``RetrievedChunk.text`` is the chunk text (stored under payload['text']).
+Multiple retrieved chunks may share the same doc_id when a query matches
+multiple parts of one document — the generator handles that fine, the
+UI may want to group/dedupe by doc_id (Sprint 3 concern).
 """
 
 from pydantic import BaseModel
@@ -19,24 +23,20 @@ from neblab_rag.vector import QdrantRepo
 
 
 class RetrievedChunk(BaseModel):
+    chunk_id: int
     doc_id: int
+    chunk_index: int
     openalex_id: str | None
     title: str
     text: str
     score: float
 
 
-def _chunk_body(payload: dict[str, object]) -> str:
-    """Prefer the abstract; fall back to title for abstract-less records."""
-    abstract = payload.get("abstract") or ""
-    title = payload.get("title") or ""
-    return str(abstract) if abstract else str(title)
-
-
 def _rerank_doc(payload: dict[str, object]) -> str:
+    """Reranker sees title + chunk text — same shape the embedder saw."""
     title = str(payload.get("title") or "")
-    abstract = str(payload.get("abstract") or "")
-    return f"{title}\n\n{abstract}" if abstract else title
+    text = str(payload.get("text") or "")
+    return f"{title}\n\n{text}" if text else title
 
 
 class HybridRetriever:
@@ -69,10 +69,12 @@ class HybridRetriever:
             h = hits[r.index]
             out.append(
                 RetrievedChunk(
+                    chunk_id=h.payload.get("chunk_id", -1),
                     doc_id=h.payload.get("doc_id", -1),
+                    chunk_index=h.payload.get("chunk_index", 0),
                     openalex_id=h.payload.get("openalex_id"),
                     title=h.payload.get("title", ""),
-                    text=_chunk_body(h.payload),
+                    text=h.payload.get("text") or h.payload.get("title", ""),
                     score=r.score,
                 )
             )

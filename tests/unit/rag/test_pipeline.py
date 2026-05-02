@@ -8,7 +8,11 @@ from neblab_rag.rag.retriever import RetrievedChunk
 
 
 async def test_answer_orchestrates_retriever_and_generator() -> None:
-    chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="t", text="x", score=0.9)]
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
     retriever = MagicMock()
     retriever.retrieve = AsyncMock(return_value=chunks)
     generator = MagicMock()
@@ -45,7 +49,11 @@ async def test_answer_passes_top_k_through_to_retriever() -> None:
 
 
 async def test_answer_flags_invalid_citations() -> None:
-    chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="t", text="x", score=0.9)]
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
     retriever = MagicMock()
     retriever.retrieve = AsyncMock(return_value=chunks)
     generator = MagicMock()

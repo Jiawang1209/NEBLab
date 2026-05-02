@@ -21,7 +21,17 @@ from neblab_rag.rag.retriever import RetrievedChunk
 def _make_result(query: str = "What is sand control?") -> RAGResult:
     return RAGResult(
         query=query,
-        chunks=[RetrievedChunk(doc_id=1, openalex_id="W1", title="A", text="x", score=0.9)],
+        chunks=[
+            RetrievedChunk(
+                chunk_id=1,
+                doc_id=1,
+                chunk_index=0,
+                openalex_id="W1",
+                title="A",
+                text="x",
+                score=0.9,
+            )
+        ],
         answer=GeneratedAnswer(
             content="Per [1].",
             citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="A")],
@@ -64,7 +74,11 @@ def test_query_passes_top_k_to_pipeline() -> None:
 
 
 def test_query_stream_emits_citations_then_deltas_then_done() -> None:
-    chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="A", text="x", score=0.9)]
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="A", text="x", score=0.9
+        )
+    ]
 
     async def fake_stream(*, query: str, chunks: list[RetrievedChunk]) -> AsyncIterator[str]:
         yield "Per "
