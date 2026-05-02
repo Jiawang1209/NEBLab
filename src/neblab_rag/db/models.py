@@ -56,6 +56,9 @@ class Document(Base):
     abstract: Mapped["AbstractRecord | None"] = relationship(
         back_populates="document", cascade="all, delete-orphan", uselist=False
     )
+    fulltext: Mapped["FullText | None"] = relationship(
+        back_populates="document", cascade="all, delete-orphan", uselist=False
+    )
     chunks: Mapped[list["Chunk"]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
@@ -77,6 +80,37 @@ class AbstractRecord(Base):
     language: Mapped[str] = mapped_column(String(10))
 
     document: Mapped[Document] = relationship(back_populates="abstract")
+
+
+class FullText(Base):
+    """Parsed full text per document, when we successfully fetch+parse a PDF.
+
+    Sprint-1 introduces this alongside the existing AbstractRecord. ChunkIndexer
+    prefers fulltext over abstract when present (more material → better chunks).
+
+    ``parser_name`` records WHICH parser produced this text (pymupdf / mineru /
+    llamaparse / deepseek-ocr). Future re-parsing campaigns can filter by
+    parser to selectively re-process docs whose text was extracted poorly.
+
+    ``page_count`` is informational; ``source_url`` records where the PDF came
+    from (typically OpenAlex's best_oa_location.pdf_url) so we can refetch
+    or audit provenance.
+    """
+
+    __tablename__ = "fulltexts"
+    __table_args__ = (UniqueConstraint("document_id"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    document_id: Mapped[int] = mapped_column(
+        ForeignKey("documents.id", ondelete="CASCADE"), index=True
+    )
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    page_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    parser_name: Mapped[str] = mapped_column(String(50), nullable=False)
+    source_url: Mapped[str | None] = mapped_column(String(1000))
+    fetched_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    document: Mapped[Document] = relationship(back_populates="fulltext")
 
 
 class Chunk(Base):
