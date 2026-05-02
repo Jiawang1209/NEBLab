@@ -17,6 +17,7 @@ from neblab_rag.eval.data import load_eval_set
 from neblab_rag.eval.judge import CitationJudge
 from neblab_rag.eval.runner import build_report, run_eval
 from neblab_rag.providers.factory import (
+    build_bm25_index,
     build_embedding_provider,
     build_llm_provider,
     build_qdrant_repo,
@@ -28,12 +29,13 @@ from neblab_rag.rag.query_rewriter import QueryRewriter
 from neblab_rag.rag.retriever import HybridRetriever
 
 
-def _build_pipeline(*, with_rewriter: bool) -> RAGPipeline:
+def _build_pipeline(*, with_rewriter: bool, with_bm25: bool) -> RAGPipeline:
     llm = build_llm_provider()
     retriever = HybridRetriever(
         embedder=build_embedding_provider(),
         qdrant=build_qdrant_repo(),
         reranker=build_reranker_provider(),
+        bm25=build_bm25_index() if with_bm25 else None,
     )
     return RAGPipeline(
         retriever=retriever,
@@ -65,12 +67,14 @@ def _print_summary(report_path: Path, report: object) -> None:
 
 async def _run(args: argparse.Namespace) -> int:
     eval_set = load_eval_set(Path(args.questions))
-    pipeline = _build_pipeline(with_rewriter=not args.no_rewriter)
+    pipeline = _build_pipeline(with_rewriter=not args.no_rewriter, with_bm25=not args.no_bm25)
     judge = CitationJudge(llm=build_llm_provider()) if args.judge else None
 
     print(
         f"Running {len(eval_set.cases)} cases from {eval_set.version} "
-        f"(judge={'on' if judge else 'off'}, rewriter={'off' if args.no_rewriter else 'on'}) ..."
+        f"(judge={'on' if judge else 'off'}, "
+        f"rewriter={'off' if args.no_rewriter else 'on'}, "
+        f"bm25={'off' if args.no_bm25 else 'on'}) ..."
     )
     results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k, judge=judge)
 
@@ -108,6 +112,11 @@ def main(argv: list[str] | None = None) -> int:
         "--no-rewriter",
         action="store_true",
         help="Disable query rewriter (zh→en) — for A/B comparison against rewriter-on baselines",
+    )
+    parser.add_argument(
+        "--no-bm25",
+        action="store_true",
+        help="Disable BM25 sparse retrieval — for A/B comparison against hybrid baselines",
     )
     parser.add_argument(
         "--judge",

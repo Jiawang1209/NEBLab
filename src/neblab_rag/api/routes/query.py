@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
 from neblab_rag.providers.factory import (
+    build_bm25_index,
     build_embedding_provider,
     build_llm_provider,
     build_qdrant_repo,
@@ -58,6 +59,9 @@ def _build_pipeline() -> RAGPipeline:
         embedder=build_embedding_provider(),
         qdrant=build_qdrant_repo(),
         reranker=build_reranker_provider(),
+        # Sprint 2.5: BM25 hybrid. Index built once at startup from current
+        # Postgres state — restart the API after re-indexing the corpus.
+        bm25=build_bm25_index(),
     )
     return RAGPipeline(
         retriever=retriever,

@@ -9,10 +9,13 @@ here, no other module is touched.
 from qdrant_client import QdrantClient
 
 from neblab_rag.config import Settings, get_settings
+from neblab_rag.db.engine import get_session
+from neblab_rag.db.models import Chunk
 from neblab_rag.providers.embedding import EmbeddingProvider, Qwen3EmbeddingProvider
 from neblab_rag.providers.llm import LLMProvider
 from neblab_rag.providers.llm.deepseek import DeepSeekProvider
 from neblab_rag.providers.reranker import Qwen3RerankerProvider, RerankerProvider
+from neblab_rag.rag.bm25_index import BM25Index
 from neblab_rag.vector import QdrantRepo
 
 
@@ -51,3 +54,10 @@ def build_qdrant_repo(settings: Settings | None = None) -> QdrantRepo:
         api_key=s.qdrant.api_key or None,
     )
     return QdrantRepo(client=client, collection=s.qdrant.collection, dim=s.embedding.dim)
+
+
+def build_bm25_index() -> BM25Index:
+    """Snapshot of current Postgres chunks. Rebuild after re-indexing."""
+    with get_session() as session:
+        rows = session.query(Chunk.id, Chunk.text).all()
+    return BM25Index.from_chunks([(int(r[0]), str(r[1])) for r in rows])
