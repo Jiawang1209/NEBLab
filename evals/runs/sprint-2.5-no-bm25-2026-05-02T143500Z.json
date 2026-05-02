@@ -1,0 +1,400 @@
+{
+  "eval_set_version": "v1",
+  "sprint_label": "sprint-2.5-no-bm25",
+  "timestamp_utc": "2026-05-02T14:35:00Z",
+  "cases": [
+    {
+      "case_id": "easy.en.feedback",
+      "question": "What positive feedback mechanisms are involved in desertification?",
+      "answer": "The loss of soil fertility in barren areas between shrubs through erosion and gaseous emissions creates a positive feedback loop that leads to desertification. [1]",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.468971207970753,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.feedback",
+          "claim": "[1]",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk describes a general process of desertification with examples from specific regions, which is topically adjacent, but does not directly mention or specify the claim's unknown subject due to its placeholder '[1]'."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.connectivity",
+      "question": "What is the connectivity hypothesis in desertification research?",
+      "answer": "文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.120502542005852,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "easy.en.dust",
+      "question": "How does atmospheric dust influence precipitation in arid regions?",
+      "answer": "Atmospheric dust influences precipitation in arid regions by reducing precipitation from clouds that it affects. This reduction in precipitation can lead to drier soil conditions, which in turn can raise more dust into the atmosphere. This process establishes a feedback loop that can further decrease precipitation [3].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.325331625004765,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.dust",
+          "claim": "This process establishes a feedback loop that can further decrease precipitation [3].",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that reduced precipitation can cause drier soil and raise more dust, forming a feedback loop to further decrease precipitation, which matches the claim perfectly."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.causes",
+      "question": "What are the main causes of desertification according to global studies?",
+      "answer": "根据所提供的文献片段，未直接找到对全球研究得出的荒漠化成因进行明确归因或列表式总结的结论。文献片段主要讨论了与荒漠化相关的特定因素、反馈机制及研究方法，但并未系统地列举其主要原因。\n\n例如，文献提到了文化、金融、政治经济等因素可能与之相关[1]，强调了理解变化和连通性对逆转荒漠化的重要性[2]，指出全球气候变暖可能加剧未来荒漠化[3]，并阐述了因果模式具有区域和历史特异性[4]。此外，还探讨了粉尘抑制降水作为一种可能的反馈循环[5]。\n\n然而，这些内容并未直接或全面回答“全球研究认定的荒漠化主要成因是什么”这一问题。因此，依据提供的文献片段，**文献中暂未找到相关结论**。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.458764291019179,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.causes",
+          "claim": "例如，文献提到了文化、金融、政治经济等因素可能与之相关[1]，强调了理解变化和连通性对逆转荒漠化的重要性[2]，指出全球气候变暖可能加剧未来荒漠化[3]，并阐述了因果模式具有区域和历史特异性[4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "etation and degradation; local action; cultural factors; financial issues; land reclaimations; the political economy and desertification; and desertification and refugees.",
+          "verdict": "partial",
+          "rationale": "The chunk lists topics like 'cultural factors' and 'political economy' which are relevant, but does not directly state or imply most of the specific claims about the importance of understanding change or causal patterns being region-specific."
+        },
+        {
+          "case_id": "easy.en.causes",
+          "claim": "例如，文献提到了文化、金融、政治经济等因素可能与之相关[1]，强调了理解变化和连通性对逆转荒漠化的重要性[2]，指出全球气候变暖可能加剧未来荒漠化[3]，并阐述了因果模式具有区域和历史特异性[4]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "nge is essential to understanding, and potentially reversing, the harmful effects of desertification.",
+          "verdict": "partial",
+          "rationale": "The chunk mentions understanding and reversing desertification but does not specifically mention '变化和连通性' (change and connectivity) which is the central concept of the claim being evaluated."
+        },
+        {
+          "case_id": "easy.en.causes",
+          "claim": "例如，文献提到了文化、金融、政治经济等因素可能与之相关[1]，强调了理解变化和连通性对逆转荒漠化的重要性[2]，指出全球气候变暖可能加剧未来荒漠化[3]，并阐述了因果模式具有区域和历史特异性[4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk explicitly supports only the specific claim that global climate warming may exacerbate future desertification, but does not mention the other claims about cultural, financial, political-economic factors, understanding change and connectivity, or the regional and historical specificity of causal patterns."
+        },
+        {
+          "case_id": "easy.en.causes",
+          "claim": "例如，文献提到了文化、金融、政治经济等因素可能与之相关[1]，强调了理解变化和连通性对逆转荒漠化的重要性[2]，指出全球气候变暖可能加剧未来荒漠化[3]，并阐述了因果模式具有区域和历史特异性[4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "ynergies among causal factors, in combination with feedback mechanisms and regional land-use and environmental histories, make up specific pathways of land change for each region and time period. Unde",
+          "verdict": "partial",
+          "rationale": "The chunk explains that causal patterns are regionally and historically specific, which aligns with the claim's part about regional and historical specificity, but it does not address the other elements of the claim such as cultural, financial, politico-economic factors, climate change, or the importance of understanding change and connectivity."
+        },
+        {
+          "case_id": "easy.en.causes",
+          "claim": "此外，还探讨了粉尘抑制降水作为一种可能的反馈循环[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly describes dust reducing precipitation leading to drier soil and more dust, which is exactly the feedback loop claimed."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.bio_vs_climate",
+      "question": "Compare biological feedback mechanisms with climate-driven mechanisms in desertification.",
+      "answer": "文献片段中直接提及并比较了生物反馈机制和气候驱动机制在荒漠化中的作用。\n\n1. 生物反馈机制：荒漠化过程中，灌木丛间的贫瘠区域因侵蚀和气体排放而失去土壤肥力，这种正反馈机制会导致土地荒漠化 [1]。这类过程涉及生态系统内部的变化和响应，属于生物反馈机制。\n\n2. 气候驱动机制：全球气候变暖预计会加剧未来的荒漠化进程 [1]。同时，气候变化也会通过间接途径影响荒漠化，例如人类活动改变土地利用、暴露表层土壤，可能引发一个荒漠化反馈过程 [4]。\n\n总的来说，文献表明，荒漠化的加剧是生物反馈机制（如土壤侵蚀导致的肥力丧失）与外部气候驱动机制（如全球变暖）共同作用的结果 [1], [4]，并且这些不同途径的因果关系会因区域和历史而形成特定的动态模式 [3]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 19.425862333970144,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "生物反馈机制：荒漠化过程中，灌木丛间的贫瘠区域因侵蚀和气体排放而失去土壤肥力，这种正反馈机制会导致土地荒漠化 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the barren area between shrubs loses soil fertility via erosion and gaseous emissions, and that this positive feedback leads to desertification, which fully supports the claim's components."
+        },
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "气候驱动机制：全球气候变暖预计会加剧未来的荒漠化进程 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that future desertification is likely to be exacerbated by global climate warming, which matches the claim's assertion that global warming will intensify future desertification processes."
+        },
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "同时，气候变化也会通过间接途径影响荒漠化，例如人类活动改变土地利用、暴露表层土壤，可能引发一个荒漠化反馈过程 [4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes in land use which expose the topsoil can initiate a desertification feedback process, directly matching the central point of the claim."
+        },
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "总的来说，文献表明，荒漠化的加剧是生物反馈机制（如土壤侵蚀导致的肥力丧失）与外部气候驱动机制（如全球变暖）共同作用的结果 [1], [4]，并且这些不同途径的因果关系会因区域和历史而形成特定的动态模式 [3]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk provides clear support for the claim's components about soil fertility loss from erosion being a positive feedback mechanism and desertification being exacerbated by global warming, which matches two core aspects, but it does not address the claim's second part about causal pathways forming specific dynamic patterns depending on region and history, which [3] is cited for."
+        },
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "总的来说，文献表明，荒漠化的加剧是生物反馈机制（如土壤侵蚀导致的肥力丧失）与外部气候驱动机制（如全球变暖）共同作用的结果 [1], [4]，并且这些不同途径的因果关系会因区域和历史而形成特定的动态模式 [3]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "partial",
+          "rationale": "The chunk discusses a desertification feedback loop involving precipitation, soil, and dust, aligning with the claim's mention of feedback mechanisms and external factors, but does not specifically address regional/historical patterns or the combined role with global warming."
+        },
+        {
+          "case_id": "medium.en.bio_vs_climate",
+          "claim": "总的来说，文献表明，荒漠化的加剧是生物反馈机制（如土壤侵蚀导致的肥力丧失）与外部气候驱动机制（如全球变暖）共同作用的结果 [1], [4]，并且这些不同途径的因果关系会因区域和历史而形成特定的动态模式 [3]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "ynergies among causal factors, in combination with feedback mechanisms and regional land-use and environmental histories, make up specific pathways of land change for each region and time period. Unde",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that feedback mechanisms and regional histories combine to create specific pathways of land change for each region, which directly supports the claim's assertion about region- and history-specific dynamic patterns of causation."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.shrub_invasion",
+      "question": "How does shrub invasion affect grassland ecosystems and soil resources?",
+      "answer": "Based on the provided fragment, the relevant information is limited to a specific effect observed in the area between shrubs.\n\nIn grassland ecosystems where shrubs have invaded, the barren area between shrubs loses soil fertility through processes of erosion and gaseous emissions. This initiates a positive feedback loop that can lead to desertification of formerly productive land, as observed in southern New Mexico. [1]",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.780070832988713,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.shrub_invasion",
+          "claim": "[1]",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "not_supported",
+          "rationale": "The claim is empty ('[1]'), so no factual statement exists for the chunk to support."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.monitoring",
+      "question": "How is desertification monitored at regional and global scales?",
+      "answer": "文献中暂未找到关于区域和全球尺度沙漠化监测方法的具体结论。提供的大部分文献片段仅涉及标题或非常宏观的介绍，未描述监测指标、技术或系统细节 [2, 3, 4, 5]。仅片段[1]提到了一个监测系统利用植被覆盖、土壤图和数字高程模型等指标进行评估，并具备近实时监测潜力，但未明确其监测的地理范围是区域还是全球。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.95410108298529,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "仅片段[1]提到了一个监测系统利用植被覆盖、土壤图和数字高程模型等指标进行评估，并具备近实时监测潜力，但未明确其监测的地理范围是区域还是全球。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "tion cover, the digital soil maps and a digital elevation model (DEM). The four indicators were then combined to highlight the areas with the greatest degradation susceptibility. The system has potent",
+          "verdict": "partial",
+          "rationale": "The chunk discusses the system's indicators and near-real-time monitoring potential but does not address the claim's focal point about an unspecified regional or global geographic scope."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.mechanisms",
+      "question": "沙漠化有哪些主要机制？包括生物学、气候、土壤等方面的论述。",
+      "answer": "基于提供的文献片段：\n1.  植被退化（如灌木间出现裸地）会导致土壤肥力通过侵蚀和气体排放流失，这是一个导致沙漠化的正反馈机制 [1]。\n2.  未来的沙漠化可能因全球气候变暖而加剧 [1]。\n\n文献中暂未找到关于其他方面（如气候、土壤）具体机制的专门论述。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 16.836187208013143,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.mechanisms",
+          "claim": "植被退化（如灌木间出现裸地）会导致土壤肥力通过侵蚀和气体排放流失，这是一个导致沙漠化的正反馈机制 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that in barren areas between shrubs, soil fertility is lost by erosion and gaseous emissions, and that this positive feedback leads to desertification, which exactly matches the claim."
+        },
+        {
+          "case_id": "medium.zh.mechanisms",
+          "claim": "未来的沙漠化可能因全球气候变暖而加剧 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that 'Future desertification is likely to be exacerbated by global climate warming,' which is the exact claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.shrub",
+      "question": "灌木入侵对草原生态系统会产生什么影响？",
+      "answer": "根据提供的文献片段内容，没有直接讨论或提到“灌木入侵对草原生态系统的影响”。文献片段仅列出了与气候变化、干旱、荒漠化、地中海地区土地退化、评估方法及贫困相关的标题，并未提供任何具体的研究结论或数据。因此，文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.973009750014171,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.synthesis",
+      "question": "How do biological feedback loops interact with atmospheric dust feedback to amplify desertification?",
+      "answer": "文献[1]指出，灌木丛之间的裸露区域会因侵蚀和气体排放而丧失土壤肥力，这种正反馈会导致土地荒漠化，且未来荒漠化可能因全球变暖而加剧 [1]。文献[2]表明，大气中的荒漠粉尘会减少降水量，导致土壤变得更干燥，进而扬起更多粉尘，从而构成一个可能进一步减少降水的反馈循环 [2]。此外，[2]还指出，人类改变土地利用方式、暴露表土可以启动这种荒漠化反馈过程 [2]。这些描述分别展示了生物反馈和粉尘反馈的独立机制。然而，所提供的文献片段并未直接阐述这两个具体反馈循环之间如何相互作用或耦合，以共同放大荒漠化过程。文献暂未找到关于生物反馈循环与大气粉尘反馈之间直接相互作用的结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.797047375002876,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "文献[1]指出，灌木丛之间的裸露区域会因侵蚀和气体排放而丧失土壤肥力，这种正反馈会导致土地荒漠化，且未来荒漠化可能因全球变暖而加剧 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk's statements on barren area soil loss, the positive feedback causing desertification, and future exacerbation by global warming directly and completely match the claim."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "文献[1]指出，灌木丛之间的裸露区域会因侵蚀和气体排放而丧失土壤肥力，这种正反馈会导致土地荒漠化，且未来荒漠化可能因全球变暖而加剧 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "Chunk directly states all key elements of the claim: barren areas lose soil fertility via erosion and gaseous emissions, this positive feedback leads to desertification, and future desertification will be exacerbated by global warming."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "文献[2]表明，大气中的荒漠粉尘会减少降水量，导致土壤变得更干燥，进而扬起更多粉尘，从而构成一个可能进一步减少降水的反馈循环 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that reduction of precipitation from desert dust leads to drier soil and more dust, forming a feedback loop that further decreases precipitation, which exactly matches the claim."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "文献[2]表明，大气中的荒漠粉尘会减少降水量，导致土壤变得更干燥，进而扬起更多粉尘，从而构成一个可能进一步减少降水的反馈循环 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that reduced precipitation from dust leads to drier soil and more dust, creating a feedback loop that further decreases precipitation, which matches the claim exactly."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "此外，[2]还指出，人类改变土地利用方式、暴露表土可以启动这种荒漠化反馈过程 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing the topsoil can initiate a desertification feedback process, which is identical to the claim."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "此外，[2]还指出，人类改变土地利用方式、暴露表土可以启动这种荒漠化反馈过程 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that anthropogenic changes of land use exposing the topsoil can initiate such a desertification feedback process, which matches the claim verbatim."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.china",
+      "question": "What policies has China implemented for combating sand control and desertification?",
+      "answer": "根据提供的文献片段，无法直接回答关于中国已实施的具体治沙和荒漠化防治政策的问题。文献片段未提供相关政策措施的细节。[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.644059374986682,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.china",
+          "claim": "[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "not_supported",
+          "rationale": "The chunk states a general topic of desertification assessment, while the claim is an analysis of what specific citations [1][2][3][4][5] do and do not contain regarding policy implementation."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "partial",
+          "rationale": "The chunk only provides the general topic of the paper, which is related but does not specifically address the claim about what the numbered citations state or contain."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "not_supported",
+          "rationale": "The chunk only presents the title of a general topic ('Desertification: Its causes and consequences'), which contains no information about policy guarantees, research suggestions, or the content of references [1], [3], [4], and [5] as described in the claim."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk addresses desertification, which is related to the claim's topic, but does not specifically discuss the construction of policy systems or distinguish between research suggestions and implemented policies as required by the claim."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "[1][3][4][5]仅提及了相关主题或背景，[2]虽提及“构建退化土地重建的政策保障体系”（constructing a policy guarantee system for the reconstruction of degraded land），但这只是一个未来研究方向或建议，并非对已实施政策的阐述。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "hnologies, new monitoring methods for land degradation, theory enhancement, methods and models of ecological restoration, reconstruction of degraded land, multidisciplinary integrated system research,",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly includes the exact phrase 'constructing a policy guarantee system for the reconstruction of degraded land,' confirming it is mentioned as a listed item, aligning with the claim that it is a future research direction or suggestion."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.zh.china_north",
+      "question": "中国北方沙漠化的主要驱动因素和具体地区差异是什么？",
+      "answer": "根据所提供文献片段，暂无直接说明中国北方沙漠化主要驱动因素及其具体地区差异的结论。\n\n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 18.84710733301472,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": []
+    }
+  ],
+  "metrics": {
+    "n_cases": 12,
+    "n_errors": 0,
+    "citation_validity_rate": 1.0,
+    "answered_rate": 0.5,
+    "expected_yes_answered_rate": 0.4444444444444444,
+    "expected_no_refused_rate": 0.5,
+    "avg_citations_per_answer": 5.0,
+    "avg_chunks_retrieved": 5.0,
+    "latency_p50": 14.797047375002876,
+    "latency_p95": 18.84710733301472,
+    "n_judgments": 28,
+    "citation_supported_rate": 0.5357142857142857,
+    "citation_partial_rate": 0.35714285714285715,
+    "citation_not_supported_rate": 0.10714285714285714
+  }
+}
