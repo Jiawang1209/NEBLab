@@ -40,4 +40,7 @@ class LLMProvider(ABC):
     async def chat(self, request: ChatRequest) -> ChatResponse: ...
 
     @abstractmethod
-    def stream(self, request: ChatRequest) -> AsyncIterator[StreamChunk]: ...
+    async def stream(self, request: ChatRequest) -> AsyncIterator[StreamChunk]:
+        """Stream chunks. Implementations are async generators (use ``yield``)."""
+        if False:  # pragma: no cover - abstract async-gen marker
+            yield StreamChunk(delta="")
