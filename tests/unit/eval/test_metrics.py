@@ -41,6 +41,21 @@ def test_is_fallback_answer_detects_chinese() -> None:
     assert is_fallback_answer("根据文献片段，文献中暂未找到相关结论。") is True
 
 
+def test_is_fallback_answer_detects_chinese_with_qualifier_variants() -> None:
+    """Sprint 2.5 v1 baseline (n=41) caught a real refusal as 'answered'
+    because the LLM said '文献片段中暂未找到' instead of plain '文献中暂未找到'."""
+    assert is_fallback_answer("文献片段中暂未找到相关结论。") is True
+    assert is_fallback_answer("文献库中暂未找到相关内容。") is True
+    assert is_fallback_answer("根据文献片段中暂未找到具体结论") is True
+
+
+def test_is_fallback_answer_does_not_match_unrelated_chinese() -> None:
+    """The regex window is tight (≤4 chars between '文献' and '中暂未找到')
+    so genuine prose shouldn't match accidentally."""
+    assert is_fallback_answer("这篇文献讨论了荒漠化的机制") is False
+    assert is_fallback_answer("文献中讨论了多种暂时性的影响") is False
+
+
 def test_is_fallback_answer_skips_substantive_answer() -> None:
     assert is_fallback_answer("Per [1] desertification is driven by X.") is False
 
