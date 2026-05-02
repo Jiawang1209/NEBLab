@@ -1,4 +1,4 @@
-"""Repository pattern for Document/Abstract.
+"""Repository pattern for Document / Abstract / Chunk.
 
 Repositories own the SQL queries; service code (corpus.ingestion, RAG
 indexer) talks to repositories instead of constructing Selects inline.
@@ -7,10 +7,11 @@ This keeps the query surface area small and testable in isolation.
 
 from collections.abc import Sequence
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
-from neblab_rag.db.models import AbstractRecord, Document, IndexStatus
+from neblab_rag.db.models import AbstractRecord, Chunk, Document, IndexStatus
+from neblab_rag.rag.chunker import Chunk as ChunkText
 
 
 class DocumentRepository:
@@ -96,8 +97,31 @@ class DocumentRepository:
             stmt = stmt.limit(limit)
         return self._session.execute(stmt).scalars().all()
 
-    def mark_qdrant_point(self, document_id: int, point_id: str) -> None:
-        """Record the Qdrant point id on the document's abstract after indexing."""
-        doc = self._session.get(Document, document_id)
-        if doc and doc.abstract:
-            doc.abstract.qdrant_point_id = point_id
+
+class ChunkRepository:
+    """Persists Chunk rows. Replace-on-write keeps re-indexing idempotent."""
+
+    def __init__(self, session: Session):
+        self._session = session
+
+    def replace_for_document(self, document_id: int, chunks: list[ChunkText]) -> list[Chunk]:
+        """Delete all existing chunks for ``document_id`` and insert ``chunks``.
+
+        Used when re-indexing a document: chunk count or boundaries may have
+        changed, so we drop the old set rather than try to merge. Caller is
+        responsible for ``session.commit()``.
+        """
+        self._session.execute(delete(Chunk).where(Chunk.document_id == document_id))
+        rows = [
+            Chunk(
+                document_id=document_id,
+                chunk_index=i,
+                text=c.text,
+                start_offset=c.start,
+                end_offset=c.end,
+            )
+            for i, c in enumerate(chunks)
+        ]
+        self._session.add_all(rows)
+        self._session.flush()  # populate row.id (used as Qdrant point id)
+        return rows

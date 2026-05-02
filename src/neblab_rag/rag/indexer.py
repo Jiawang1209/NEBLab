@@ -1,76 +1,95 @@
-"""Index abstracts into Qdrant.
+"""Index document chunks into Qdrant.
 
-For v1: 1 abstract = 1 chunk = 1 vector point. Plan 2 will add multi-chunk
-indexing for full text. Status ``FULLTEXT_INDEXED`` after the abstract is
-indexed is intentional — for v1 the abstract IS the indexed unit.
+Sprint-2 indexer: each document is split into N chunks (see rag.chunker),
+each chunk is its own Postgres row + Qdrant point. The chunk's int PK
+is used as the Qdrant point id directly.
 
-Embeds ``title + "\\n\\n" + abstract`` rather than just abstract: title
-adds semantic anchor terms (especially useful for short abstracts). Falls
-back to title-only if abstract is missing (e.g. some IPCC reports in
-OpenAlex).
+Per-doc atomicity: chunk → persist → embed → upsert → mark indexed all
+inside one document's iteration. If embedding fails halfway through the
+batch, the doc that crashed stays at METADATA_ONLY and operator can
+re-run; already-indexed docs aren't touched.
+
+Source text is the abstract (Sprint-2 corpus). Sprint-1 will introduce
+full-text alongside, sharing this same indexer pipeline by passing the
+parsed full text instead of the abstract.
 """
 
 from sqlalchemy.orm import Session
 
 from neblab_rag.db.models import IndexStatus
-from neblab_rag.db.repositories import DocumentRepository
+from neblab_rag.db.repositories import ChunkRepository, DocumentRepository
 from neblab_rag.logging_config import get_logger
 from neblab_rag.providers.embedding.base import EmbeddingProvider
+from neblab_rag.rag.chunker import chunk_text
 from neblab_rag.vector import QdrantRepo, VectorPoint
 
 log = get_logger(__name__)
 
 
-class AbstractIndexer:
+class ChunkIndexer:
     def __init__(
         self,
         session: Session,
         embedder: EmbeddingProvider,
         qdrant: QdrantRepo,
+        *,
+        chunk_size: int = 500,
+        overlap: int = 100,
     ):
         self._session = session
-        self._repo = DocumentRepository(session)
+        self._docs = DocumentRepository(session)
+        self._chunks = ChunkRepository(session)
         self._embedder = embedder
         self._qdrant = qdrant
+        self._chunk_size = chunk_size
+        self._overlap = overlap
 
-    async def index_pending(self, *, batch_size: int = 32) -> int:
+    async def index_pending(self) -> int:
+        """Index every doc in METADATA_ONLY state. Returns docs processed."""
         self._qdrant.ensure_collection()
-        pending = list(self._repo.list_documents_with_status(IndexStatus.METADATA_ONLY))
+        pending = list(self._docs.list_documents_with_status(IndexStatus.METADATA_ONLY))
 
         total = 0
-        for i in range(0, len(pending), batch_size):
-            batch = pending[i : i + batch_size]
-            texts = [f"{d.title}\n\n{d.abstract.text}" if d.abstract else d.title for d in batch]
-            vectors = await self._embedder.embed(texts)
+        for doc in pending:
+            source_text = doc.abstract.text if doc.abstract else doc.title
+            chunks_text = chunk_text(
+                source_text, chunk_size=self._chunk_size, overlap=self._overlap
+            )
+            chunk_rows = self._chunks.replace_for_document(doc.id, chunks_text)
+
+            if not chunk_rows:
+                # Doc has no usable text — mark failed so we don't keep retrying
+                doc.status = IndexStatus.FAILED
+                self._session.flush()
+                log.warning("index_skip_empty", doc_id=doc.id)
+                continue
+
+            vectors = await self._embedder.embed([row.text for row in chunk_rows])
 
             points = [
                 VectorPoint(
-                    id=d.id,
-                    vector=v,
+                    id=row.id,
+                    vector=vec,
                     payload={
-                        "doc_id": d.id,
-                        "openalex_id": d.openalex_id,
-                        "title": d.title,
-                        # Store the abstract in payload so retriever can hand it to
-                        # the generator without a Postgres roundtrip. Sprint-0 corpus
-                        # is small (~5k docs × ~1KB) — payload size is fine.
-                        "abstract": d.abstract.text if d.abstract else "",
-                        "year": d.year,
-                        "topic": d.primary_topic,
-                        "language": d.language,
+                        "chunk_id": row.id,
+                        "doc_id": doc.id,
+                        "chunk_index": row.chunk_index,
+                        "openalex_id": doc.openalex_id,
+                        "title": doc.title,
+                        "text": row.text,
+                        "year": doc.year,
+                        "topic": doc.primary_topic,
+                        "language": doc.language,
                     },
                 )
-                for d, v in zip(batch, vectors, strict=True)
+                for row, vec in zip(chunk_rows, vectors, strict=True)
             ]
             self._qdrant.upsert_points(points)
 
-            for d in batch:
-                d.status = IndexStatus.FULLTEXT_INDEXED
-                if d.abstract:
-                    d.abstract.qdrant_point_id = str(d.id)
-
-            total += len(batch)
+            doc.status = IndexStatus.FULLTEXT_INDEXED
             self._session.flush()
-            log.info("index_progress", processed=total, total=len(pending))
+            total += 1
+            log.info("index_doc_done", doc_id=doc.id, chunks=len(chunk_rows))
 
+        log.info("index_pending_done", total_docs=total)
         return total

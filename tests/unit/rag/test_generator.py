@@ -13,8 +13,24 @@ from neblab_rag.rag.retriever import RetrievedChunk
 @pytest.mark.asyncio
 async def test_generate_builds_prompt_with_citations() -> None:
     chunks = [
-        RetrievedChunk(doc_id=1, openalex_id="W1", title="A", text="content of A", score=0.9),
-        RetrievedChunk(doc_id=2, openalex_id="W2", title="B", text="content of B", score=0.8),
+        RetrievedChunk(
+            chunk_id=10,
+            doc_id=1,
+            chunk_index=0,
+            openalex_id="W1",
+            title="A",
+            text="content of A",
+            score=0.9,
+        ),
+        RetrievedChunk(
+            chunk_id=20,
+            doc_id=2,
+            chunk_index=0,
+            openalex_id="W2",
+            title="B",
+            text="content of B",
+            score=0.8,
+        ),
     ]
     llm = MagicMock()
     llm.chat = AsyncMock(
@@ -53,7 +69,11 @@ async def test_generate_returns_fallback_when_no_chunks() -> None:
 
 @pytest.mark.asyncio
 async def test_generate_passes_system_and_user_messages_to_llm() -> None:
-    chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="t", text="x", score=0.9)]
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
     llm = MagicMock()
     llm.chat = AsyncMock(
         return_value=ChatResponse(content="Per [1].", model="m", finish_reason="stop")
@@ -71,7 +91,11 @@ async def test_generate_passes_system_and_user_messages_to_llm() -> None:
 
 @pytest.mark.asyncio
 async def test_stream_yields_deltas_from_llm() -> None:
-    chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="t", text="x", score=0.9)]
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
 
     async def fake_stream(_request: object) -> AsyncIterator[StreamChunk]:
         yield StreamChunk(delta="Per ")

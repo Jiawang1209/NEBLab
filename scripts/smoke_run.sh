@@ -24,24 +24,24 @@ make migrate
 echo "==> [3/6] Ingesting up to 50 desertification (en) docs from OpenAlex"
 neblab-ingest ingest --topic desertification --language en --max 50
 
-echo "==> [4/6] Embedding pending abstracts and upserting to Qdrant"
+echo "==> [4/6] Chunking + embedding pending docs and upserting to Qdrant"
 python <<'PY'
 import asyncio
 
 from neblab_rag.db.engine import get_session
 from neblab_rag.providers.factory import build_embedding_provider, build_qdrant_repo
-from neblab_rag.rag.indexer import AbstractIndexer
+from neblab_rag.rag.indexer import ChunkIndexer
 
 
 async def main() -> None:
     with get_session() as session:
-        indexer = AbstractIndexer(
+        indexer = ChunkIndexer(
             session=session,
             embedder=build_embedding_provider(),
             qdrant=build_qdrant_repo(),
         )
-        n = await indexer.index_pending(batch_size=16)
-        print(f"Indexed {n} abstracts")
+        n = await indexer.index_pending()
+        print(f"Indexed {n} documents (each split into N chunks)")
 
 
 asyncio.run(main())

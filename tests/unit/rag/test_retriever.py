@@ -7,15 +7,26 @@ from neblab_rag.rag.retriever import HybridRetriever
 from neblab_rag.vector import SearchHit
 
 
-def _hit(*, doc_id: int, title: str, abstract: str, oa_id: str, score: float) -> SearchHit:
+def _hit(
+    *,
+    chunk_id: int,
+    doc_id: int,
+    chunk_index: int = 0,
+    title: str,
+    text: str,
+    oa_id: str,
+    score: float,
+) -> SearchHit:
     return SearchHit(
-        id=doc_id,
+        id=chunk_id,
         score=score,
         payload={
+            "chunk_id": chunk_id,
             "doc_id": doc_id,
+            "chunk_index": chunk_index,
             "openalex_id": oa_id,
             "title": title,
-            "abstract": abstract,
+            "text": text,
         },
     )
 
@@ -27,9 +38,9 @@ async def test_retrieve_calls_embed_then_search_then_rerank():
 
     qdrant = MagicMock()
     qdrant.search.return_value = [
-        _hit(doc_id=1, title="A", abstract="abs A", oa_id="W1", score=0.7),
-        _hit(doc_id=2, title="B", abstract="abs B", oa_id="W2", score=0.6),
-        _hit(doc_id=3, title="C", abstract="abs C", oa_id="W3", score=0.5),
+        _hit(chunk_id=10, doc_id=1, title="A", text="abs A", oa_id="W1", score=0.7),
+        _hit(chunk_id=20, doc_id=2, title="B", text="abs B", oa_id="W2", score=0.6),
+        _hit(chunk_id=30, doc_id=3, title="C", text="abs C", oa_id="W3", score=0.5),
     ]
 
     rr = MagicMock()
@@ -46,22 +57,22 @@ async def test_retrieve_calls_embed_then_search_then_rerank():
     assert len(chunks) == 2
     assert chunks[0].title == "C"  # reranker put index 2 first
     assert chunks[1].title == "A"
+    assert chunks[0].chunk_id == 30 and chunks[1].chunk_id == 10
 
-    # Generator needs the abstract content, not just the title — title alone
-    # is too sparse for the LLM to ground answers on.
+    # Generator needs the chunk text, not just the title.
     assert chunks[0].text == "abs C"
     assert chunks[1].text == "abs A"
 
-    # Reranker should see both title + abstract so it scores against the
+    # Reranker should see both title + text so it scores against the
     # actual content, matching what was embedded into Qdrant.
     rr_docs = rr.rerank.call_args.kwargs["documents"]
     assert "A" in rr_docs[0] and "abs A" in rr_docs[0]
 
 
 @pytest.mark.asyncio
-async def test_retrieve_falls_back_to_title_when_abstract_missing():
-    """Some OpenAlex records (IPCC reports) have no abstract — chunk.text
-    should fall back to title rather than be empty."""
+async def test_retrieve_falls_back_to_title_when_text_missing():
+    """Defensive: a payload that somehow lacks 'text' still yields a usable
+    chunk by falling back to the title (rather than an empty string)."""
     embed = MagicMock()
     embed.embed = AsyncMock(return_value=[[0.1, 0.2, 0.3, 0.4]])
 
@@ -70,7 +81,13 @@ async def test_retrieve_falls_back_to_title_when_abstract_missing():
         SearchHit(
             id=1,
             score=0.7,
-            payload={"doc_id": 1, "openalex_id": "W1", "title": "Only Title Here"},
+            payload={
+                "chunk_id": 1,
+                "doc_id": 1,
+                "chunk_index": 0,
+                "openalex_id": "W1",
+                "title": "Only Title Here",
+            },
         ),
     ]
 
