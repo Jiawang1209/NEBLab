@@ -33,17 +33,17 @@ bash scripts/smoke_run.sh
 # 拉摘要语料（最大 5000，主题 desertification，英文）
 neblab-ingest ingest --topic desertification --language en --max 500
 
-# 把 status=METADATA_ONLY 的摘要 embed + upsert 到 Qdrant
+# 把 status=METADATA_ONLY 的文档切分 chunk → embed → upsert 到 Qdrant
 python -c "
 import asyncio
 from neblab_rag.db.engine import get_session
 from neblab_rag.providers.factory import build_embedding_provider, build_qdrant_repo
-from neblab_rag.rag.indexer import AbstractIndexer
+from neblab_rag.rag.indexer import ChunkIndexer
 
 async def main():
     with get_session() as s:
-        idx = AbstractIndexer(session=s, embedder=build_embedding_provider(), qdrant=build_qdrant_repo())
-        print(await idx.index_pending(batch_size=32))
+        idx = ChunkIndexer(session=s, embedder=build_embedding_provider(), qdrant=build_qdrant_repo())
+        print(await idx.index_pending())
 
 asyncio.run(main())
 "
@@ -96,7 +96,11 @@ OpenAlex API → DocumentRepository.upsert (Postgres)
                                         ↓
                               status=METADATA_ONLY
                                         ↓
-                              AbstractIndexer (Qwen3 emb + Qdrant upsert)
+                              ChunkIndexer
+                                  ├─ chunk_text() → N chunks per doc
+                                  ├─ ChunkRepository.replace_for_document()
+                                  ├─ Qwen3 emb (per-chunk)
+                                  └─ Qdrant upsert (point_id = chunk PK)
                                         ↓
                              status=FULLTEXT_INDEXED
                                         ↓
@@ -106,8 +110,9 @@ OpenAlex API → DocumentRepository.upsert (Postgres)
 | 存储 | 内容 |
 |---|---|
 | Postgres `documents` | OpenAlex 元数据 + 本地状态（IndexStatus enum） |
-| Postgres `abstracts` | 摘要纯文本 + 对应 Qdrant point id |
-| Qdrant Cloud `neblab_abstracts` | 4096-d cosine 向量，payload = {doc_id, openalex_id, title, year, topic, language} |
+| Postgres `abstracts` | 摘要纯文本（源文本） |
+| Postgres `chunks` | 1 行 / chunk：text + 在源文本中的 (start_offset, end_offset)；chunk 的 int PK 直接用作 Qdrant point id |
+| Qdrant Cloud `neblab_abstracts` | 4096-d cosine 向量；payload = {chunk_id, doc_id, chunk_index, openalex_id, title, text, year, topic, language} |
 
 ---
 
