@@ -5,9 +5,10 @@ Three stages:
   2. Qdrant cosine search → ``candidate_k`` (~30) hits
   3. Rerank candidates → ``top_k`` (~5) final chunks
 
-For v1, ``RetrievedChunk.text`` is the title (payload has title only,
-abstract lives in Postgres). Generator (Task 26) decides whether to
-hydrate from DB by ``doc_id`` if it needs the full text.
+``RetrievedChunk.text`` is the abstract (or title if no abstract was
+captured — some OpenAlex records like IPCC reports have no abstract).
+The reranker sees ``title + "\\n\\n" + abstract`` to match what the
+indexer embedded into Qdrant.
 """
 
 from pydantic import BaseModel
@@ -23,6 +24,19 @@ class RetrievedChunk(BaseModel):
     title: str
     text: str
     score: float
+
+
+def _chunk_body(payload: dict[str, object]) -> str:
+    """Prefer the abstract; fall back to title for abstract-less records."""
+    abstract = payload.get("abstract") or ""
+    title = payload.get("title") or ""
+    return str(abstract) if abstract else str(title)
+
+
+def _rerank_doc(payload: dict[str, object]) -> str:
+    title = str(payload.get("title") or "")
+    abstract = str(payload.get("abstract") or "")
+    return f"{title}\n\n{abstract}" if abstract else title
 
 
 class HybridRetriever:
@@ -45,7 +59,7 @@ class HybridRetriever:
         if not hits:
             return []
 
-        candidate_texts = [h.payload.get("title", "") for h in hits]
+        candidate_texts = [_rerank_doc(h.payload) for h in hits]
         rerank_results = await self._reranker.rerank(
             query=query, documents=candidate_texts, top_k=top_k
         )
@@ -58,7 +72,7 @@ class HybridRetriever:
                     doc_id=h.payload.get("doc_id", -1),
                     openalex_id=h.payload.get("openalex_id"),
                     title=h.payload.get("title", ""),
-                    text=h.payload.get("title", ""),
+                    text=_chunk_body(h.payload),
                     score=r.score,
                 )
             )

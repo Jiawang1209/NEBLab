@@ -51,6 +51,10 @@ class AbstractIndexer:
                         "doc_id": d.id,
                         "openalex_id": d.openalex_id,
                         "title": d.title,
+                        # Store the abstract in payload so retriever can hand it to
+                        # the generator without a Postgres roundtrip. Sprint-0 corpus
+                        # is small (~5k docs × ~1KB) — payload size is fine.
+                        "abstract": d.abstract.text if d.abstract else "",
                         "year": d.year,
                         "topic": d.primary_topic,
                         "language": d.language,
