@@ -1,0 +1,151 @@
+{
+  "eval_set_version": "v1",
+  "sprint_label": "sprint-4-rewriter-on",
+  "timestamp_utc": "2026-05-02T11:52:11Z",
+  "cases": [
+    {
+      "case_id": "easy.en.feedback",
+      "question": "What positive feedback mechanisms are involved in desertification?",
+      "answer": "Desertification involves positive feedback mechanisms where the loss of vegetation, particularly in the barren areas between shrubs, leads to soil fertility loss through erosion and gaseous emissions. This process further degrades land, making it less productive and reinforcing desertification [1].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 10.024193749995902,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "easy.en.connectivity",
+      "question": "What is the connectivity hypothesis in desertification research?",
+      "answer": "Based on the provided literature fragments, there is no information regarding a \"connectivity hypothesis\" in desertification research. The fragments only list titles or partial sentences related to the diversity of vegetation patterns, drivers, feedbacks, causes, consequences, and assessment of desertification [1][2][3][4][5]. Therefore, the specific content or definition of the connectivity hypothesis cannot be addressed.\n\n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.673828291008249,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "easy.en.dust",
+      "question": "How does atmospheric dust influence precipitation in arid regions?",
+      "answer": "Atmospheric dust can suppress precipitation in arid regions. The presence of desert dust in the atmosphere reduces precipitation from clouds that are affected by it. This leads to drier soil conditions, which in turn can raise more dust into the atmosphere. This process establishes a feedback loop that further decreases precipitation [3]. Additionally, anthropogenic land-use changes that expose topsoil can initiate this desertification feedback process [3].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.098156416992424,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "easy.en.causes",
+      "question": "What are the main causes of desertification according to global studies?",
+      "answer": "According to the provided literature, the main causes of desertification are complex and involve multiple interacting factors. Key causes and mechanisms include:\n\n1. **Biological Feedbacks**: The loss of vegetation cover, particularly the expansion of barren areas between shrubs, leads to soil fertility loss through erosion and gaseous emissions. This creates a positive feedback loop that drives desertification [3].\n\n2. **Anthropogenic Land-Use Changes**: Human activities that expose topsoil can initiate desertification feedback processes [5].\n\n3. **Synergistic Causal Factors**: Desertification arises from synergies among various causal factors, combined with feedback mechanisms and regional land-use and environmental histories. These combinations form specific pathways of land change that are unique to each region and time period [4].\n\n4. **Climate Interactions**: Future desertification is likely to be exacerbated by global climate warming [3]. Furthermore, a specific atmospheric feedback loop involves desert dust suppressing precipitation, leading to drier soil, which in turn raises more dust, further reducing precipitation [5].\n\nThe literature also indicates that desertification involves **cultural factors, financial issues, and the political economy**, though these are listed without detailed explanation in the provided fragments [1].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.28312820798601,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "medium.en.bio_vs_climate",
+      "question": "Compare biological feedback mechanisms with climate-driven mechanisms in desertification.",
+      "answer": "在沙漠化过程中，生物反馈机制与气候驱动机制的主要区别在于其直接驱动因素和作用路径。\n\n生物反馈机制主要涉及植被与土壤之间的相互作用。例如，在灌木丛之间的裸露区域，土壤肥力通过侵蚀和气体排放而丧失，这种正反馈导致土地生产力下降并加剧沙漠化 [1]。此外，土地利用变化（如人类活动使表土暴露）可以启动一个反馈过程：裸露土壤增加粉尘排放，粉尘抑制降水，导致土壤更干，进而产生更多粉尘 [4]。\n\n气候驱动机制则主要指大尺度气候条件变化对沙漠化的直接推动作用。全球气候变暖可能加剧未来的沙漠化，并导致全球生物地球化学循环发生显著变化 [1]。虽然气候变暖是一个重要驱动因素，但文献片段未详细描述其独立于生物反馈的具体作用路径。\n\n两者的关联在于，气候驱动因素（如变暖）可能加剧生物反馈过程 [1]，而由土地利用引发的生物地球物理反馈（如粉尘-降水反馈）也会进一步影响局部气候条件 [4]。因此，在实际的沙漠化路径中，多种因果因素与反馈机制常产生协同作用 [3]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.085624833998736,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "medium.en.shrub_invasion",
+      "question": "How does shrub invasion affect grassland ecosystems and soil resources?",
+      "answer": "Shrub invasion in grassland ecosystems leads to soil resource degradation through erosion and nutrient loss. Specifically, in the barren areas between shrubs, soil fertility is diminished by both erosion and gaseous emissions [1]. This process establishes a positive feedback loop that contributes to the desertification of previously productive land [1].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.027964207984041,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "medium.en.monitoring",
+      "question": "How is desertification monitored at regional and global scales?",
+      "answer": "Desertification can be monitored at regional and global scales by integrating remote sensing data with key environmental indicators. For instance, one system combines satellite-derived vegetation cover, digital soil maps, and a digital elevation model (DEM) to create composite indicators that highlight areas with the greatest degradation susceptibility [1]. This approach enables near-real-time monitoring, and applying the methodology to remote sensing data archives allows for the determination of both spatial and temporal trends in land degradation [1].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.984737582999514,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "medium.zh.mechanisms",
+      "question": "沙漠化有哪些主要机制？包括生物学、气候、土壤等方面的论述。",
+      "answer": "沙漠化的主要机制涉及多个层面的相互作用，包括生物反馈、气候反馈以及土壤退化过程。\n\n1. **生物反馈机制**：在灌木丛之间的裸露区域，土壤肥力因侵蚀和气体排放而丧失。这种正反馈机制导致原本具有生产力的土地（如美国新墨西哥州南部和萨赫勒地区）发生沙漠化 [3]。\n\n2. **气候反馈机制**：\n   - **全球气候变暖**：未来沙漠化可能因全球气候变暖而加剧，并导致全球生物地球化学循环发生显著变化 [3]。\n   - **尘埃-降水反馈循环**：大气中的沙漠尘埃会抑制降水，受沙漠尘埃影响的云层降水减少会导致土壤更干燥，进而扬起更多尘埃，形成一个可能进一步减少降水的反馈循环 [5]。\n\n3. **土壤与土地利用机制**：\n   - **土壤退化**：裸露地表土壤肥力的丧失是沙漠化过程的核心环节 [3]。\n   - **人为土地利用变化**：人为土地利用改变（如使表土暴露）可以启动上述沙漠化反馈过程 [5]。\n   - **区域动态路径**：因果因素间的协同作用，结合反馈机制以及区域土地利用和环境历史，构成了特定区域和时期土地变化的具体路径 [4]。\n\n这些机制相互关联，共同驱动沙漠化进程。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.41536879198975,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "medium.zh.shrub",
+      "question": "灌木入侵对草原生态系统会产生什么影响？",
+      "answer": "根据提供的文献片段，灌木入侵对草原生态系统的影响主要体现在导致土地退化和荒漠化。具体而言，灌木之间的裸露土地会因侵蚀和气体排放而丧失土壤肥力，这种正反馈机制会导致原本具有生产力的土地发生荒漠化 [1]。该现象在美国新墨西哥州南部及萨赫勒等地区均有发生 [1]。此外，未来的全球气候变暖可能会加剧这一过程，并引发生物地球化学循环的显著改变 [1]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.962453750020359,
+      "expected_coverage": "yes",
+      "error": null
+    },
+    {
+      "case_id": "hard.en.synthesis",
+      "question": "How do biological feedback loops interact with atmospheric dust feedback to amplify desertification?",
+      "answer": "Based on the provided literature fragments, biological feedback loops and atmospheric dust feedback can interact synergistically to amplify desertification. The process involves a sequence where one feedback exacerbates the conditions for the other.\n\nFirst, a biological feedback process, such as the loss of vegetation and soil fertility in barren areas between shrubs, leads to increased soil erosion and exposure of the topsoil [1][2]. This land degradation can be initiated or accelerated by anthropogenic land-use changes [2].\n\nThe exposed, dry soil then becomes a source for increased atmospheric desert dust [2]. The presence of this dust in the atmosphere suppresses precipitation from clouds, leading to drier soil conditions [2].\n\nThe resulting drier soil further reinforces the initial biological feedback by hindering vegetation recovery and potentially increasing erosion, which in turn raises even more dust [2]. This creates an interconnected feedback loop where biological degradation and atmospheric dust suppression of precipitation mutually reinforce each other, driving further desertification.\n\nFurthermore, these region-specific feedback interactions form part of broader dynamic causal pathways for land change, which are influenced by synergies among factors and local environmental histories [4].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.86540729200351,
+      "expected_coverage": "partial",
+      "error": null
+    },
+    {
+      "case_id": "hard.en.china",
+      "question": "What policies has China implemented for combating sand control and desertification?",
+      "answer": "Based on the provided literature fragments, there is no specific information on the concrete policies implemented by China for combating sand control and desertification. The fragments mention policy-related research areas but do not detail enacted policies.\n\nFragment [2] indicates that \"constructing a policy guarantee system for the reconstruction of degraded land\" is a future research direction [2]. However, this refers to a need for research and system construction, not to established policies.\n\nTherefore, the fragments are insufficient to answer the question regarding specific implemented policies.\n\n**Answer:** The provided literature fragments do not contain specific information on the policies China has implemented for sand control and desertification.",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.500565500027733,
+      "expected_coverage": "no",
+      "error": null
+    },
+    {
+      "case_id": "hard.zh.china_north",
+      "question": "中国北方沙漠化的主要驱动因素和具体地区差异是什么？",
+      "answer": "根据所提供的文献片段，无法直接回答关于中国北方沙漠化主要驱动因素和具体地区差异的问题。文献片段中提及的案例研究区域包括美国新墨西哥州南部、萨赫勒地区以及印度，并未涉及中国北方地区 [3][5]。文献强调了沙漠化驱动因素具有协同作用、反馈机制和区域特异性，但未提供针对中国北方地区的具体分析 [1]。因此，文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.440498416981427,
+      "expected_coverage": "no",
+      "error": null
+    }
+  ],
+  "metrics": {
+    "n_cases": 12,
+    "n_errors": 0,
+    "citation_validity_rate": 1.0,
+    "answered_rate": 0.8333333333333334,
+    "expected_yes_answered_rate": 0.8888888888888888,
+    "expected_no_refused_rate": 0.5,
+    "avg_citations_per_answer": 5.0,
+    "avg_chunks_retrieved": 5.0,
+    "latency_p50": 15.962453750020359,
+    "latency_p95": 17.41536879198975
+  }
+}
