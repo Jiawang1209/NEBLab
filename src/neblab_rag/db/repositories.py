@@ -104,9 +104,7 @@ class ChunkRepository:
     def __init__(self, session: Session):
         self._session = session
 
-    def replace_for_document(
-        self, document_id: int, chunks: list[ChunkText]
-    ) -> list[Chunk]:
+    def replace_for_document(self, document_id: int, chunks: list[ChunkText]) -> list[Chunk]:
         """Delete all existing chunks for ``document_id`` and insert ``chunks``.
 
         Used when re-indexing a document: chunk count or boundaries may have
