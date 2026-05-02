@@ -1,0 +1,97 @@
+"""CLI: ``python -m neblab_rag.eval --questions evals/v1/questions.json``.
+
+Runs each question through the production pipeline (real DeepSeek + Qwen3
++ Qdrant), prints a summary table, and writes the full report to a JSON
+file under ``evals/runs/`` so we can diff metrics across sprints.
+
+Note: this hits paid APIs. Treat as a developer command, not CI default.
+"""
+
+import argparse
+import asyncio
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+
+from neblab_rag.eval.data import load_eval_set
+from neblab_rag.eval.runner import build_report, run_eval
+from neblab_rag.providers.factory import (
+    build_embedding_provider,
+    build_llm_provider,
+    build_qdrant_repo,
+    build_reranker_provider,
+)
+from neblab_rag.rag.generator import AnswerGenerator
+from neblab_rag.rag.pipeline import RAGPipeline
+from neblab_rag.rag.retriever import HybridRetriever
+
+
+def _build_pipeline() -> RAGPipeline:
+    retriever = HybridRetriever(
+        embedder=build_embedding_provider(),
+        qdrant=build_qdrant_repo(),
+        reranker=build_reranker_provider(),
+    )
+    generator = AnswerGenerator(llm=build_llm_provider())
+    return RAGPipeline(retriever=retriever, generator=generator)
+
+
+def _print_summary(report_path: Path, report: object) -> None:
+    m = report.metrics  # type: ignore[attr-defined]
+    print(f"\n=== Eval summary ({report.sprint_label}) ===")  # type: ignore[attr-defined]
+    print(f"  cases:                    {m.n_cases}")
+    print(f"  errors:                   {m.n_errors}")
+    print(f"  citation_validity_rate:   {m.citation_validity_rate:.1%}")
+    print(f"  answered_rate:            {m.answered_rate:.1%}")
+    print(f"  expected_yes_answered:    {m.expected_yes_answered_rate:.1%}")
+    print(f"  expected_no_refused:      {m.expected_no_refused_rate:.1%}")
+    print(f"  avg_citations_per_answer: {m.avg_citations_per_answer:.2f}")
+    print(f"  avg_chunks_retrieved:     {m.avg_chunks_retrieved:.2f}")
+    print(f"  latency_p50:              {m.latency_p50:.2f}s")
+    print(f"  latency_p95:              {m.latency_p95:.2f}s")
+    print(f"\nFull report → {report_path}\n")
+
+
+async def _run(args: argparse.Namespace) -> int:
+    eval_set = load_eval_set(Path(args.questions))
+    pipeline = _build_pipeline()
+
+    print(f"Running {len(eval_set.cases)} cases from {eval_set.version} ...")
+    results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k)
+
+    timestamp = datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+    report = build_report(
+        eval_set_version=eval_set.version,
+        sprint_label=args.label,
+        timestamp_utc=timestamp,
+        results=results,
+    )
+
+    out_path = Path(args.out_dir) / f"{args.label}-{timestamp.replace(':', '')}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(report.model_dump_json(indent=2), encoding="utf-8")
+
+    _print_summary(out_path, report)
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="neblab_rag.eval", description=__doc__)
+    parser.add_argument(
+        "--questions",
+        default="evals/v1/questions.json",
+        help="Path to question set JSON (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--label",
+        required=True,
+        help="Sprint label for the report filename, e.g. 'sprint-2-baseline'",
+    )
+    parser.add_argument("--out-dir", default="evals/runs", help="Where to write the JSON report")
+    parser.add_argument("--top-k", type=int, default=5)
+    args = parser.parse_args(argv)
+    return asyncio.run(_run(args))
+
+
+if __name__ == "__main__":
+    sys.exit(main())

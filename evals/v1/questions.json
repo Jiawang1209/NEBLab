@@ -1,0 +1,114 @@
+{
+  "version": "v1",
+  "description": "Seed eval set for Sprint 4 baseline. 12 hand-written questions targeting the current 50-doc desertification corpus. Mix of difficulty + language + corpus coverage. Goal: produce reproducible baseline metrics that future sprints can compare against.",
+  "cases": [
+    {
+      "id": "easy.en.feedback",
+      "text": "What positive feedback mechanisms are involved in desertification?",
+      "language": "en",
+      "difficulty": "easy",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Multiple papers in corpus discuss feedback loops (biological, dust-precipitation, vegetation-erosion)"
+    },
+    {
+      "id": "easy.en.connectivity",
+      "text": "What is the connectivity hypothesis in desertification research?",
+      "language": "en",
+      "difficulty": "easy",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Direct hit: 'Do Changes in Connectivity Explain Desertification?' is in corpus"
+    },
+    {
+      "id": "easy.en.dust",
+      "text": "How does atmospheric dust influence precipitation in arid regions?",
+      "language": "en",
+      "difficulty": "easy",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Corpus has 'Desert dust suppressing precipitation: A possible desertification feedback loop'"
+    },
+    {
+      "id": "easy.en.causes",
+      "text": "What are the main causes of desertification according to global studies?",
+      "language": "en",
+      "difficulty": "easy",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Generic question, multiple synthesis papers cover this"
+    },
+    {
+      "id": "medium.en.bio_vs_climate",
+      "text": "Compare biological feedback mechanisms with climate-driven mechanisms in desertification.",
+      "language": "en",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Cross-paper synthesis required; tests whether retriever surfaces both biological and climate papers"
+    },
+    {
+      "id": "medium.en.shrub_invasion",
+      "text": "How does shrub invasion affect grassland ecosystems and soil resources?",
+      "language": "en",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Specific phenomenon; Schlesinger biological-feedbacks paper is the main source"
+    },
+    {
+      "id": "medium.en.monitoring",
+      "text": "How is desertification monitored at regional and global scales?",
+      "language": "en",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Several monitoring/mapping papers in corpus"
+    },
+    {
+      "id": "medium.zh.mechanisms",
+      "text": "沙漠化有哪些主要机制？包括生物学、气候、土壤等方面的论述。",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Chinese question over English corpus — tests cross-lingual retrieval + Chinese answer generation"
+    },
+    {
+      "id": "medium.zh.shrub",
+      "text": "灌木入侵对草原生态系统会产生什么影响？",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "Cross-lingual: same shrub invasion topic as medium.en.shrub_invasion, asked in Chinese"
+    },
+    {
+      "id": "hard.en.synthesis",
+      "text": "How do biological feedback loops interact with atmospheric dust feedback to amplify desertification?",
+      "language": "en",
+      "difficulty": "hard",
+      "source": "handwritten",
+      "corpus_coverage_expected": "partial",
+      "notes": "Requires combining at least 2 distinct mechanism papers; corpus has both ingredients but no single paper synthesizes them"
+    },
+    {
+      "id": "hard.en.china",
+      "text": "What policies has China implemented for combating sand control and desertification?",
+      "language": "en",
+      "difficulty": "hard",
+      "source": "handwritten",
+      "corpus_coverage_expected": "no",
+      "notes": "OUT OF COVERAGE — corpus is global, no China-specific policy paper. Correct response is to refuse rather than hallucinate. Tests honesty."
+    },
+    {
+      "id": "hard.zh.china_north",
+      "text": "中国北方沙漠化的主要驱动因素和具体地区差异是什么？",
+      "language": "zh",
+      "difficulty": "hard",
+      "source": "handwritten",
+      "corpus_coverage_expected": "no",
+      "notes": "OUT OF COVERAGE in Chinese — same honesty test as hard.en.china. Plus tests Chinese 'no answer' template."
+    }
+  ]
+}
