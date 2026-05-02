@@ -49,11 +49,19 @@ def test_is_fallback_answer_detects_chinese_with_qualifier_variants() -> None:
     assert is_fallback_answer("根据文献片段中暂未找到具体结论") is True
 
 
+def test_is_fallback_answer_detects_more_refusal_phrasings() -> None:
+    """Sprint 1 v0.1 baseline (n=41 against fulltext) added these phrasings —
+    the LLM gets more creative when it has a richer corpus to politely refuse."""
+    assert is_fallback_answer("文献中未提及CRISPR基因编辑技术") is True
+    assert is_fallback_answer("文献片段仅讨论了干旱区，未涉及海洋酸化") is True
+    assert is_fallback_answer("根据所提供的文献片段，无法回答您的问题") is True
+
+
 def test_is_fallback_answer_does_not_match_unrelated_chinese() -> None:
-    """The regex window is tight (≤4 chars between '文献' and '中暂未找到')
-    so genuine prose shouldn't match accidentally."""
+    """Tight regexes — genuine prose shouldn't match accidentally."""
     assert is_fallback_answer("这篇文献讨论了荒漠化的机制") is False
     assert is_fallback_answer("文献中讨论了多种暂时性的影响") is False
+    assert is_fallback_answer("无法精确测量该现象") is False  # "无法" w/o "回答 + 文献"
 
 
 def test_is_fallback_answer_skips_substantive_answer() -> None:

@@ -1,0 +1,1818 @@
+{
+  "eval_set_version": "v1",
+  "sprint_label": "sprint-1-fulltext-v0.1",
+  "timestamp_utc": "2026-05-02T17:48:45Z",
+  "cases": [
+    {
+      "case_id": "easy.en.feedback",
+      "question": "What positive feedback mechanisms are involved in desertification?",
+      "answer": "在沙漠化过程中，一个核心的正反馈机制是：灌木丛间的裸露区域由于水土流失和气体排放导致土壤肥力丧失，这一过程进一步加剧了土地退化 [1-4]。该机制在美国新墨西哥州南部、萨赫勒地区等地的生产力土地沙漠化中发挥作用 [1-4]。未来，全球气候变暖可能加剧这一沙漠化进程 [1-4]。\n\n此外，文献指出，因果关系间的协同作用、反馈机制以及区域土地利用和环境历史的结合，构成了特定区域和时期土地变化的具体路径 [5]。这表明正反馈机制并非孤立运行，而是与多种因素协同形成特定的沙漠化动态模式。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.874159708037041,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.feedback",
+          "claim": "此外，文献指出，因果关系间的协同作用、反馈机制以及区域土地利用和环境历史的结合，构成了特定区域和时期土地变化的具体路径 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "ynergies among causal factors, in combination with feedback mechanisms and regional land-use and environmental histories, make up specific pathways of land change for each region and time period. Unde",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the same concept regarding synergies, feedback mechanisms, and regional histories constituting specific pathways of land change, which is the exact claim made."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.connectivity",
+      "question": "What is the connectivity hypothesis in desertification research?",
+      "answer": "根据提供的文献片段，无法直接或间接回答关于“荒漠化研究中的连通性假说”的具体内容。所有提供的片段仅重复了各文献的标题，未包含任何关于该假说的定义、解释或相关讨论。因此，依据引用纪律D，文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.704883790982421,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "easy.en.dust",
+      "question": "How does atmospheric dust influence precipitation in arid regions?",
+      "answer": "Based on the provided literature, atmospheric dust in arid regions can suppress precipitation.  \n\nThe reduction of precipitation occurs when clouds are affected by desert dust, leading to drier soil conditions. The drier soil then raises more dust into the atmosphere, creating a feedback loop that further decreases precipitation. Anthropogenic land-use changes that expose topsoil can initiate this desertification feedback process [1][2].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.570445208984893,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.dust",
+          "claim": "Anthropogenic land-use changes that expose topsoil can initiate this desertification feedback process [1][2].",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing the topsoil can initiate a desertification feedback process, which is the exact claim."
+        },
+        {
+          "case_id": "easy.en.dust",
+          "claim": "Anthropogenic land-use changes that expose topsoil can initiate this desertification feedback process [1][2].",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing topsoil can initiate the desertification feedback process, which is the exact claim made."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.causes",
+      "question": "What are the main causes of desertification according to global studies?",
+      "answer": "根据提供的文献片段，已发表的研究（如《Global desertification: Drivers and feedbacks》等）指出，荒漠化的主要驱动因素和成因是多方面的，包括自然和人为因素的综合作用 [5]。具体涵盖以下几个方面：\n\n1.  **直接驱动因素**：包括植被退化和土地退化，这些是荒漠化过程中的核心表现和直接原因 [1, 2]。\n2.  **社会经济与政策因素**：荒漠化与**政治经济**因素密切相关，相关的**金融/资金问题**以及**地方行动**的成效也是重要影响因素 [1, 2, 3, 4]。\n3.  **人文社会因素**：**文化因素**也被确认为影响荒漠化的一个方面 [1, 2]。\n\n这些因素相互关联，共同驱动全球范围内的荒漠化进程 [5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.748901874991134,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.causes",
+          "claim": "根据提供的文献片段，已发表的研究（如《Global desertification: Drivers and feedbacks》等）指出，荒漠化的主要驱动因素和成因是多方面的，包括自然和人为因素的综合作用 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "该文献标题表明其主题是荒漠化的驱动因素和反馈，与CLAIM方向一致，但仅凭标题无法证实其具体论述了'自然和人为因素的综合作用'这一具体论断。"
+        },
+        {
+          "case_id": "easy.en.causes",
+          "claim": "这些因素相互关联，共同驱动全球范围内的荒漠化进程 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk's title mentions drivers of desertification, which aligns with the claim's theme, but it doesn't explicitly state the specific claim about their interconnectedness or their combined effect on a global process."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.bio_vs_climate",
+      "question": "Compare biological feedback mechanisms with climate-driven mechanisms in desertification.",
+      "answer": "基于提供的文献片段，无法全面比较两者，因为片段仅提及气候变暖的作用，而未描述具体的“气候驱动机制”。\n\n片段中唯一明确提到的机制是“生物反馈”（即灌木间裸露区域的土壤肥力因侵蚀和气体排放而丧失，构成一种正反馈，导致土地荒漠化）及其与气候因素的关联 [1-4]。关于气候，片段仅指出全球气候变暖（global climate warming）可能会“加剧”（exacerbate）未来的荒漠化 [1-4]。片段没有说明气候变暖是通过何种具体机制（如改变降水模式、增加蒸发等）驱动荒漠化，也没有将这类“气候驱动机制”作为一个类别与“生物反馈机制”在运作原理或效应上进行并置比较。\n\n因此，根据引用纪律，文献中缺乏支撑进行两者比较所需的信息。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.117417999950703,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "medium.en.shrub_invasion",
+      "question": "How does shrub invasion affect grassland ecosystems and soil resources?",
+      "answer": "根据所提供文献片段，关于灌木入侵对草地生态系统和土壤资源的影响，目前缺乏直接信息。文献片段主要讨论了荒漠化评估的概况、地中海干旱生态系统中植被空间格局与荒漠化的关系，以及干旱区水蚀-风蚀与植被动态的相互作用，但未具体涉及灌木入侵这一过程或其对草地及土壤资源的具体影响[1-5]。因此，无法基于现有片段做出回答。\n\n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.216676124953665,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "medium.en.monitoring",
+      "question": "How is desertification monitored at regional and global scales?",
+      "answer": "根据现有文献片段，无法直接回答如何对荒漠化进行区域和全球尺度的监测。\n\n文献中暂未找到相关结论。提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.650547416007612,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "not_supported",
+          "rationale": "The chunk title only confirms the overview topic mentioned in the claim, but does not address the claim's specific critique about the lack of monitoring methods, techniques, or indicator systems."
+        },
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "supported",
+          "rationale": "The chunk only mentions an overview of desertification assessment, which aligns with the claim that it does not cover specific monitoring methods or technical details."
+        },
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk's title indicates discussion of causes and consequences of desertification, which relates to the claim that the provided excerpts cover overview, causes, and consequences but not monitoring methods."
+        },
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "supported",
+          "rationale": "The chunk's title 'Desertification: Its causes and consequences' directly aligns with the claim that it covers '成因与后果' (causes and consequences), confirming it does not address '监测方法、技术或指标体系' (monitoring methods, techniques, or indicator systems)."
+        },
+        {
+          "case_id": "medium.en.monitoring",
+          "claim": "提供的片段标题仅涉及荒漠化评估的概述、成因与后果以及全球荒漠化的驱动因素与反馈，但没有具体说明监测方法、技术或指标体系 [1][2][3][4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "supported",
+          "rationale": "The chunk's title 'Global desertification: Drivers and feedbacks' directly corresponds to the claim's reference to '全球荒漠化的驱动因素与反馈' (global desertification drivers and feedbacks), which the claim states is covered, thus verifying that specific part of the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.mechanisms",
+      "question": "沙漠化有哪些主要机制？包括生物学、气候、土壤等方面的论述。",
+      "answer": "基于提供的文献片段，未能找到关于沙漠化具体机制的论述。  \n文献片段[1]至[5]仅列出了文献标题（如\"Desertification assessment in China: An overview\"），均未提供具体内容，因此无法从中提取生物学、气候或土壤等方面的沙漠化机制信息。\n\n**结论**  \n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.4166550419759,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.mechanisms",
+          "claim": "文献片段[1]至[5]仅列出了文献标题（如\"Desertification assessment in China: An overview\"），均未提供具体内容，因此无法从中提取生物学、气候或土壤等方面的沙漠化机制信息。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "supported",
+          "rationale": "The chunk is only a title, 'Desertification assessment in China: An overview', which contains no specific content about desertification mechanisms, thus supporting the claim that it cannot provide the required information."
+        },
+        {
+          "case_id": "medium.zh.mechanisms",
+          "claim": "文献片段[1]至[5]仅列出了文献标题（如\"Desertification assessment in China: An overview\"），均未提供具体内容，因此无法从中提取生物学、气候或土壤等方面的沙漠化机制信息。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification of Arid Lands",
+          "verdict": "partial",
+          "rationale": "The chunk is a literature title that mentions desertification of arid lands, which is on-topic for desertification assessment, but it does not provide any specific content about biological, climatic, or soil mechanisms as claimed."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.shrub",
+      "question": "灌木入侵对草原生态系统会产生什么影响？",
+      "answer": "根据提供的文献片段，目前无法回答该问题。所有给定的文献片段仅提供了标题层级（例如“Interactions between climate and desertification”、“Desertification of Arid Lands”），未包含任何关于灌木入侵对草原生态系统影响的具体研究内容、数据或结论。\n\n因此，依据引用纪律D，**文献中暂未找到相关结论**。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.748695916030556,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.synthesis",
+      "question": "How do biological feedback loops interact with atmospheric dust feedback to amplify desertification?",
+      "answer": "根据文献片段，生物反馈与大气粉尘反馈可以通过协同作用共同加剧沙漠化。具体机制和交互方式如下：\n\n1.  **生物反馈机制**：在灌木间的裸地区域，土壤肥力通过侵蚀和气体排放而丧失。这一正反馈过程导致原为生产性土地的沙漠化（如美国新墨西哥州南部和萨赫勒地区）[1, 2, 3, 4]。\n\n2.  **大气粉尘反馈机制**：大气中荒漠粉尘的存在会抑制受其影响的云层降水。降水减少导致土壤更干旱，进而扬起更多粉尘，形成一个可能进一步减少降水的反馈循环[5]。此外，人类改变土地利用方式使表土暴露，也可能启动此类沙漠化反馈过程[5]。\n\n3.  **两种反馈的相互作用与放大效应**：虽然文献片段没有直接描述两者之间的具体交互细节，但它们各自的作用环节存在逻辑关联。生物反馈导致的植被退化和土壤暴露[1, 2, 3, 4]，可能为大气粉尘反馈提供更充足的尘源（即“扬起更多粉尘”[5]）。而大气粉尘反馈通过抑制降水导致土壤干旱[5]，又会进一步加剧生物反馈中的土壤退化过程（如侵蚀和肥力丧失）[1, 2, 3, 4]，从而形成一个协同放大的正反馈循环，共同推动沙漠化。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.754716124967672,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "降水减少导致土壤更干旱，进而扬起更多粉尘，形成一个可能进一步减少降水的反馈循环[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that dust reduces precipitation, causing drier soil which raises more dust, forming a feedback loop that further decreases precipitation, which directly matches the claim."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "此外，人类改变土地利用方式使表土暴露，也可能启动此类沙漠化反馈过程[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing the topsoil can initiate such a desertification feedback process, which matches the claim verbatim."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "生物反馈导致的植被退化和土壤暴露[1, 2, 3, 4]，可能为大气粉尘反馈提供更充足的尘源（即“扬起更多粉尘”[5]）。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "partial",
+          "rationale": "The chunk discusses a desertification feedback loop where drier soil raises more dust, which is on-topic, but it does not specifically address the claim's mechanism that vegetation degradation and soil exposure provide a more abundant dust source, nor does it mention biological feedback causing vegetation degradation."
+        },
+        {
+          "case_id": "hard.en.synthesis",
+          "claim": "而大气粉尘反馈通过抑制降水导致土壤干旱[5]，又会进一步加剧生物反馈中的土壤退化过程（如侵蚀和肥力丧失）[1, 2, 3, 4]，从而形成一个协同放大的正反馈循环，共同推动沙漠化。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that dust reduces precipitation, causing drier soil, which in turn raises more dust, creating a feedback loop that aligns with the claim's description of a synergistic positive feedback cycle driving desertification."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.china",
+      "question": "What policies has China implemented for combating sand control and desertification?",
+      "answer": "根据提供的文献片段，中国为防治荒漠化和土地退化（包括治沙）所实施的政策主要体现在两份文件中：采纳《联合国防治荒漠化公约》（UNCCD）并制定国家行动计划（NAP）[1]。\n\n具体而言，中国政府于2000年采纳了《联合国防治荒漠化公约》，并随之编制了国家行动计划（NAP）[1]。该计划设定了短期和长期目标，旨在通过推广可持续牧场管理、集水、植树造林、发展牲畜市场以及其他策略来应对土地退化问题[1]。\n\n注：文献片段主要提供了国家层面的框架性政策信息。关于中国其他具体区域（如西南地区石漠化）的治理政策或更详细的措施，在所提供的片段中未予说明。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.229241208988242,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.china",
+          "claim": "根据提供的文献片段，中国为防治荒漠化和土地退化（包括治沙）所实施的政策主要体现在两份文件中：采纳《联合国防治荒漠化公约》（UNCCD）并制定国家行动计划（NAP）[1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Toumma National Nature and Cultural\nReserve in 2007, which covers 97,000 km2 or 14 % of the land area (Sahara\nConservation Fund 2007). To address desertiﬁcation and land degradation in\ngeneral, the go",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that the government adopted the UNCCD convention in 2000 and prepared its National Action Plan (NAP), which directly matches the claim's details."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "具体而言，中国政府于2000年采纳了《联合国防治荒漠化公约》，并随之编制了国家行动计划（NAP）[1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Toumma National Nature and Cultural\nReserve in 2007, which covers 97,000 km2 or 14 % of the land area (Sahara\nConservation Fund 2007). To address desertiﬁcation and land degradation in\ngeneral, the go",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that the government adopted the UNCCD convention in 2000 and prepared its National Action Plan, which matches the claim but with Tunisia as the implied subject rather than China."
+        },
+        {
+          "case_id": "hard.en.china",
+          "claim": "该计划设定了短期和长期目标，旨在通过推广可持续牧场管理、集水、植树造林、发展牲畜市场以及其他策略来应对土地退化问题[1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Toumma National Nature and Cultural\nReserve in 2007, which covers 97,000 km2 or 14 % of the land area (Sahara\nConservation Fund 2007). To address desertiﬁcation and land degradation in\ngeneral, the go",
+          "verdict": "supported",
+          "rationale": "The chunk directly contains the same sentence describing the NAP's short/long-term plans and the specific strategies mentioned in the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.zh.china_north",
+      "question": "中国北方沙漠化的主要驱动因素和具体地区差异是什么？",
+      "answer": "基于提供的文献片段，无法回答“中国北方沙漠化的主要驱动因素和具体地区差异是什么”这一问题。\n\n文献片段[1]和[2]虽然提及了荒漠化的因果模式和路径具有区域特异性，但并未专门针对“中国北方”，也未列出具体的驱动因素（如气候变化、过度放牧、水资源不合理利用等）或比较不同地区的差异 [1, 2]。\n\n片段[3]和[4]仅提供了文献标题“Desertification assessment in China: An overview”，但缺乏具体内容 [3, 4]。片段[5]则明确讨论的是中国西南地区的“石漠化”问题，而非北方的沙漠化 [5]。\n\n因此，文献中暂未找到能直接或间接支撑该问题的相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 16.319058707973454,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "文献片段[1]和[2]虽然提及了荒漠化的因果模式和路径具有区域特异性，但并未专门针对“中国北方”，也未列出具体的驱动因素（如气候变化、过度放牧、水资源不合理利用等）或比较不同地区的差异 [1, 2]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "ynergies among causal factors, in combination with feedback mechanisms and regional land-use and environmental histories, make up specific pathways of land change for each region and time period. Unde",
+          "verdict": "supported",
+          "rationale": "该片段明确指出荒漠化的因果模式和路径具有区域特异性，完全印证了CLAIM中关于'荒漠化的因果模式和路径具有区域特异性'的核心观点。"
+        },
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "文献片段[1]和[2]虽然提及了荒漠化的因果模式和路径具有区域特异性，但并未专门针对“中国北方”，也未列出具体的驱动因素（如气候变化、过度放牧、水资源不合理利用等）或比较不同地区的差异 [1, 2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "ynergies among causal factors, in combination with feedback mechanisms and regional land-use and environmental histories, make up specific pathways of land change for each region and time period. Unde",
+          "verdict": "partial",
+          "rationale": "The chunk discusses pathways of land change (e.g., desertification) as region-specific but does not explicitly mention 'China' or provide a defined list of drivers like climate change or overgrazing as requested in the claim."
+        },
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "片段[3]和[4]仅提供了文献标题“Desertification assessment in China: An overview”，但缺乏具体内容 [3, 4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "partial",
+          "rationale": "The chunk contains the specified title which confirms its existence, but it lacks any specific assessment content or details mentioned in the claim."
+        },
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "片段[3]和[4]仅提供了文献标题“Desertification assessment in China: An overview”，但缺乏具体内容 [3, 4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly shows the title 'Desertification assessment in China: An overview', which directly confirms the claim that these fragments provided the title but no further content."
+        },
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "片段[5]则明确讨论的是中国西南地区的“石漠化”问题，而非北方的沙漠化 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "supported",
+          "rationale": "The chunk's title directly mentions 'Rocky desertification in Southwest China', which explicitly states the geographical region and phenomenon (石漠化) referenced in the claim."
+        },
+        {
+          "case_id": "hard.zh.china_north",
+          "claim": "片段[5]则明确讨论的是中国西南地区的“石漠化”问题，而非北方的沙漠化 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "partial",
+          "rationale": "The chunk confirms the topic of rocky desertification in Southwest China, which aligns with the claim's distinction of location, but it does not explicitly mention or refute a focus on northern desertification."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.definition-desertification",
+      "question": "What is desertification?",
+      "answer": "沙漠化（Desertification）是指干旱、半干旱及亚湿润干旱区的土地退化过程，表现为植被丧失、生产力下降、土壤肥力减损及沙质堆积等 [3]。该过程导致土地支持生物多样性与农业生产的能力减弱 [4]。在中国，相关的评估研究也关注这一现象在特定区域的表征 [5]。\n\n文献未具体定义“沙漠化”一词，但以上描述基于其成因与后果的普遍论述 [3, 4] 及对中国沙漠化评估的概述 [5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 11.262034666026011,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.definition-desertification",
+          "claim": "沙漠化（Desertification）是指干旱、半干旱及亚湿润干旱区的土地退化过程，表现为植被丧失、生产力下降、土壤肥力减损及沙质堆积等 [3]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk only provides the title of a document about desertification, which is thematically relevant but does not contain the specific details about the process, manifestations, or regional scope stated in the claim."
+        },
+        {
+          "case_id": "easy.en.definition-desertification",
+          "claim": "该过程导致土地支持生物多样性与农业生产的能力减弱 [4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk discusses the general concept of desertification and its impacts, which is related to reduced land capability, but does not directly address the specific claim about biodiversity and agricultural production."
+        },
+        {
+          "case_id": "easy.en.definition-desertification",
+          "claim": "在中国，相关的评估研究也关注这一现象在特定区域的表征 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "not_supported",
+          "rationale": "The chunk only provides a general title about desertification assessment in China and gives no information about evaluation studies focusing on the phenomenon's manifestation in specific regions."
+        },
+        {
+          "case_id": "easy.en.definition-desertification",
+          "claim": "文献未具体定义“沙漠化”一词，但以上描述基于其成因与后果的普遍论述 [3, 4] 及对中国沙漠化评估的概述 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "partial",
+          "rationale": "The chunk is about desertification assessment in China which is thematically related to the mention of '对中国沙漠化评估的概述', but it does not state or imply that the literature fails to specifically define the term 'desertification'."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.zh.definition-land-degradation",
+      "question": "土地退化的定义是什么？",
+      "answer": "根据现有文献片段，无法提供土地退化的定义。所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。\n\n因此，**文献中暂未找到相关结论**。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.156733041978441,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.zh.definition-land-degradation",
+          "claim": "所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Mediterranean desertification and land degradation",
+          "verdict": "partial",
+          "rationale": "The chunk is on-topic as it contains the phrase 'desertification and land degradation', which relates to the claim's subject, but it does not provide evidence about being a title-only fragment or lacking explanatory content."
+        },
+        {
+          "case_id": "easy.zh.definition-land-degradation",
+          "claim": "所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Mediterranean desertification and land degradation",
+          "verdict": "partial",
+          "rationale": "This chunk is on-topic as it directly contains the phrase 'land degradation' which is part of the claim's subject, but it does not provide specific information to confirm the claim's statement about the content of the five fragments."
+        },
+        {
+          "case_id": "easy.zh.definition-land-degradation",
+          "claim": "所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Assessing desertification",
+          "verdict": "partial",
+          "rationale": "该文献片段只提供了主题词‘Assessing desertification’，证实了CLAIM中关于片段内容仅为标题描述的一部分，但未包含具体信息以支持‘没有包含任何具体的定义、描述或解释性信息’这一批评性论断。"
+        },
+        {
+          "case_id": "easy.zh.definition-land-degradation",
+          "claim": "所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Assessing desertification",
+          "verdict": "partial",
+          "rationale": "The chunk is precisely the title on the claimed topic but, as acknowledged in the claim itself, lacks the detailed content that would be needed to fully support the assertion about what the literature fragments contain."
+        },
+        {
+          "case_id": "easy.zh.definition-land-degradation",
+          "claim": "所提供的五个文献片段虽然标题涉及“土地退化”和“荒漠化”等主题 [1][2][3][4][5]，但片段内容仅为标题的重复，没有包含任何具体的定义、描述或解释性信息。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification of Arid Lands",
+          "verdict": "partial",
+          "rationale": "The chunk provides the phrase 'Desertification of Arid Lands' which is directly on-topic and relevant to the claim's mention of literature titles involving 'desertification', but it does not confirm or refute the claim's specific assertion that the fragment contains only the title and no explanatory content."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.climate-desertification-link",
+      "question": "How is climate change linked to desertification?",
+      "answer": "根据文献片段，气候变化与荒漠化之间存在关联：全球气候变暖可能加剧未来的荒漠化。片段指出，未来荒漠化很可能因全球气候变暖而加剧（\"Future desertification is likely to be exacerbated by global climate warming\"），并可能导致全球生物地球化学循环发生显著变化 [3][4][5]。片段中所描述的正反馈过程（灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失）导致了如新墨西哥州南部和萨赫勒地区等地的荒漠化，但片段并未直接阐述气候变暖如何具体加剧这一过程，仅指出了两者之间存在“加剧”的可能性关联 [3][4][5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.039959333953448,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段指出，未来荒漠化很可能因全球气候变暖而加剧（\"Future desertification is likely to be exacerbated by global climate warming\"），并可能导致全球生物地球化学循环发生显著变化 [3][4][5]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that 'Future desertification is likely to be exacerbated by global climate warming and to cause significant changes in global biogeochemical cycles,' which matches the claim verbatim."
+        },
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段指出，未来荒漠化很可能因全球气候变暖而加剧（\"Future desertification is likely to be exacerbated by global climate warming\"），并可能导致全球生物地球化学循环发生显著变化 [3][4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the exact sentence that makes up the claim, including the likelihood of exacerbation by global warming and the resulting changes to biogeochemical cycles."
+        },
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段指出，未来荒漠化很可能因全球气候变暖而加剧（\"Future desertification is likely to be exacerbated by global climate warming\"），并可能导致全球生物地球化学循环发生显著变化 [3][4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the exact claim about future desertification being exacerbated by global warming and causing changes in biogeochemical cycles."
+        },
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段中所描述的正反馈过程（灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失）导致了如新墨西哥州南部和萨赫勒地区等地的荒漠化，但片段并未直接阐述气候变暖如何具体加剧这一过程，仅指出了两者之间存在“加剧”的可能性关联 [3][4][5]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk directly supports the claim's description of the positive feedback process and its link to desertification in the stated regions, but it does not explain how global warming specifically exacerbates this process, aligning with the claim's assertion that the mechanism is not detailed."
+        },
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段中所描述的正反馈过程（灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失）导致了如新墨西哥州南部和萨赫勒地区等地的荒漠化，但片段并未直接阐述气候变暖如何具体加剧这一过程，仅指出了两者之间存在“加剧”的可能性关联 [3][4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states the positive feedback process (soil loss in shrub interspaces leading to desertification) and names the same locations (southern New Mexico, the Sahel), and it asserts that future desertification is likely to be exacerbated by global climate warming, which aligns with the claim of an 'exacerbation' link."
+        },
+        {
+          "case_id": "easy.en.climate-desertification-link",
+          "claim": "片段中所描述的正反馈过程（灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失）导致了如新墨西哥州南部和萨赫勒地区等地的荒漠化，但片段并未直接阐述气候变暖如何具体加剧这一过程，仅指出了两者之间存在“加剧”的可能性关联 [3][4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the positive feedback leading to desertification in the specified regions and mentions future exacerbation by global warming, matching the claim's description of the process and its link to climate change."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.causes-feedbacks",
+      "question": "What are the main anthropogenic drivers and biological feedback loops involved in global desertification?",
+      "answer": "主要的人为驱动因素和生物反馈循环如下：\n\n**人为驱动因素**\n- 土地利用变化导致表土暴露，例如农业开发或植被清除，可能启动荒漠化反馈过程 [5]。\n\n**生物反馈循环**\n1.  **土壤退化与植被丧失的正反馈**：灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失，这种正反馈导致原先（如美国新墨西哥州南部和萨赫勒地区）具有生产力的土地发生荒漠化 [1][2][3][4]。\n2.  **粉尘抑制降水的反馈循环**：大气中的沙漠尘粒会减少受影响云层的降水，进而导致土壤更干燥，从而产生更多粉尘，形成进一步减少降水的反馈循环 [5]。人为土地利用变化暴露表土可以启动这一过程 [5]。\n\n**加剧因素**\n- 未来的全球气候变暖可能加剧荒漠化 [1][2][3][4]。\n\n文献中未具体列出其他如过度放牧、水资源管理不善等常见人为驱动因素的直接描述。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.581282416998874,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "主要的人为驱动因素和生物反馈循环如下：\n\n**人为驱动因素**\n- 土地利用变化导致表土暴露，例如农业开发或植被清除，可能启动荒漠化反馈过程 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic land use changes exposing topsoil can initiate a desertification feedback process, which matches the claim."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**土壤退化与植被丧失的正反馈**：灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失，这种正反馈导致原先（如美国新墨西哥州南部和萨赫勒地区）具有生产力的土地发生荒漠化 [1][2][3][4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly describes the same positive feedback process of soil fertility loss between shrubs leading to desertification in the same specific regions, fully substantiating the claim."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**土壤退化与植被丧失的正反馈**：灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失，这种正反馈导致原先（如美国新墨西哥州南部和萨赫勒地区）具有生产力的土地发生荒漠化 [1][2][3][4]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states the same concept of a positive feedback loop where loss of soil fertility between shrubs leads to desertification, using identical terminology and citing the same locations."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**土壤退化与植被丧失的正反馈**：灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失，这种正反馈导致原先（如美国新墨西哥州南部和萨赫勒地区）具有生产力的土地发生荒漠化 [1][2][3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly describes the same positive feedback leading to desertification in the specified regions, directly supporting the claim."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**土壤退化与植被丧失的正反馈**：灌木间裸露区域因侵蚀和气体排放导致土壤肥力丧失，这种正反馈导致原先（如美国新墨西哥州南部和萨赫勒地区）具有生产力的土地发生荒漠化 [1][2][3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states the same cause, effect, feedback, locations, and outcome as the claim, confirming the described positive feedback leads to desertification in the specified regions."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**粉尘抑制降水的反馈循环**：大气中的沙漠尘粒会减少受影响云层的降水，进而导致土壤更干燥，从而产生更多粉尘，形成进一步减少降水的反馈循环 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly describes the feedback loop where desert dust reduces precipitation leading to drier soil, more dust, and further precipitation decrease, matching the claim exactly."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "人为土地利用变化暴露表土可以启动这一过程 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing the topsoil can initiate a desertification feedback process, which is the exact claim."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**加剧因素**\n- 未来的全球气候变暖可能加剧荒漠化 [1][2][3][4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk directly states that future desertification is likely to be exacerbated by global climate warming, which strongly supports the claim, but the claim additionally includes a citation marker for '加剧因素' and specific markers ([1][2][3][4]) which are not part of the chunk's content."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**加剧因素**\n- 未来的全球气候变暖可能加剧荒漠化 [1][2][3][4]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "partial",
+          "rationale": "The chunk mentions future desertification may be exacerbated by global climate warming which is consistent with the basic idea in the claim, but it does not explicitly attribute future global warming to potentially *exacerbating desertification* as a listed '加剧因素' in the context of the Sahel region, instead stating it as a general likelihood."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**加剧因素**\n- 未来的全球气候变暖可能加剧荒漠化 [1][2][3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that future desertification is likely to be exacerbated by global climate warming."
+        },
+        {
+          "case_id": "medium.en.causes-feedbacks",
+          "claim": "**加剧因素**\n- 未来的全球气候变暖可能加剧荒漠化 [1][2][3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "he barren area between shrubs, soil fertility is lost by erosion and gaseous emissions. This positive feedback leads to the desertification of formerly productive land in southern New Mexico and in ot",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that future desertification is likely to be exacerbated by global climate warming, which matches the claim exactly."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.ldn-framework",
+      "question": "Explain the scientific conceptual framework for Land Degradation Neutrality (LDN).",
+      "answer": "根据提供的文献片段，关于土地退化零增长（Land Degradation Neutrality, LDN）的科学概念框架，文献中直接相关的信息有限。片段[3]和[4]指出，实现土地退化零增长需要一些概念范式转换，特别是通过基于自然解决方案和系统分析来实现截至2030年的目标[3][4]。同时，还需要提升对新型治理、经济、景观、土地利用规划与管理方式的认知[3][4]。\n\n然而，片段中并未详细阐述LDN科学概念框架的具体构成要素，例如其定义、目标层次、平衡机制或核心组成部分。因此，基于现有片段无法完整解释其科学概念框架。\n\n**结论**：文献中暂未找到关于土地退化零增长（LDN）科学概念框架的详细结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.121033583011013,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "片段[3]和[4]指出，实现土地退化零增长需要一些概念范式转换，特别是通过基于自然解决方案和系统分析来实现截至2030年的目标[3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly mentions using nature-based solutions and systems analysis to achieve Land Degradation Neutrality by 2030, directly supporting the claim."
+        },
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "片段[3]和[4]指出，实现土地退化零增长需要一些概念范式转换，特别是通过基于自然解决方案和系统分析来实现截至2030年的目标[3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that using nature-based solutions and systems analysis is necessary to achieve Land Degradation Neutrality by 2030 and describes this need as a paradigm shift, which supports the claim."
+        },
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "片段[3]和[4]指出，实现土地退化零增长需要一些概念范式转换，特别是通过基于自然解决方案和系统分析来实现截至2030年的目标[3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that systems analysis and nature-based solutions are needed to achieve Land Degradation Neutrality by 2030, matching the claim."
+        },
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "片段[3]和[4]指出，实现土地退化零增长需要一些概念范式转换，特别是通过基于自然解决方案和系统分析来实现截至2030年的目标[3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk states that ecosystem-based systems analysis and nature-based solutions are necessary to achieve Land Degradation Neutrality by 2030, which directly supports the claim."
+        },
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "同时，还需要提升对新型治理、经济、景观、土地利用规划与管理方式的认知[3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that awareness-raising regarding a different type of governance, economy, landscape, and land-use planning and management is needed to achieve Land Degradation Neutrality."
+        },
+        {
+          "case_id": "medium.en.ldn-framework",
+          "claim": "同时，还需要提升对新型治理、经济、景观、土地利用规划与管理方式的认知[3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that awareness-raising in relation to a new type of governance, economy, landscape, and land-use planning and management is needed."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.china-karst-desertification",
+      "question": "中国西南部喀斯特石漠化的主要影响和恢复措施有哪些？",
+      "answer": "中国西南部喀斯特石漠化的主要影响包括水土资源退化、生态系统服务功能下降和加剧区域贫困 [5]。其恢复措施主要涉及植被恢复、土壤改良与水资源管理 [5]。具体而言，通过人工造林与封山育林进行植被恢复，并辅以工程措施（如梯田、拦水坝）和农业管理调整（如发展生态农业），以综合改善生态环境 [5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.508148166001774,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.china-karst-desertification",
+          "claim": "中国西南部喀斯特石漠化的主要影响包括水土资源退化、生态系统服务功能下降和加剧区域贫困 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "not_supported",
+          "rationale": "The provided text chunk is merely a general title or topic heading that does not contain any specific information about the impacts, causes, or restoration methods to support the details of the claim."
+        },
+        {
+          "case_id": "medium.zh.china-karst-desertification",
+          "claim": "其恢复措施主要涉及植被恢复、土壤改良与水资源管理 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "partial",
+          "rationale": "The chunk mentions restoration but does not specify the exact measures of vegetation recovery, soil improvement, and water resource management cited in the claim."
+        },
+        {
+          "case_id": "medium.zh.china-karst-desertification",
+          "claim": "具体而言，通过人工造林与封山育林进行植被恢复，并辅以工程措施（如梯田、拦水坝）和农业管理调整（如发展生态农业），以综合改善生态环境 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "partial",
+          "rationale": "The chunk's title indicates relevance to restoration in southwest China, matching part of the claim's topic, but it does not specifically mention the detailed measures like afforestation, terracing, or ecological agriculture described in the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.monitoring-indicators",
+      "question": "What methodological approaches are used for selecting indicators to monitor land degradation and desertification?",
+      "answer": "基于所给的文献片段，无法确定选择土地退化和荒漠化监测指标的具体方法论。文献片段中仅确认了研究的目标，即“为评估易发生荒漠化地区的土地退化和荒漠化风险，利用简单指标制定一套方法论”，并指出单一指标（如植被密度）不足以判断风险，需要与其他指标（如年降雨量、坡度等）结合 [4, 5]。然而，关于指标选择的具体方法论（例如，选择标准、流程或框架）在提供的片段中并未被描述。\n\n因此，根据文献片段提供的信息，**文献中暂未找到关于指标选择方法论的相关结论**。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 14.496894000039902,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.dust-precipitation-feedback",
+      "question": "Describe the proposed feedback mechanism where desert dust suppresses precipitation, potentially accelerating desertification.",
+      "answer": "文献中描述的反馈机制包括以下过程：  \n1. 悬浮在空气中的沙尘（desert dust）能够影响云层，降低降水量[5]。  \n2. 降水减少导致土壤更加干燥[5]。  \n3. 干燥的土壤更容易扬起更多沙尘[5]。  \n4. 增加的沙尘进一步抑制降水，从而形成一个正反馈循环，可能加速荒漠化[5]。  \n此外，人为改变土地利用（如破坏地表覆盖）使表土暴露也可启动这一反馈过程[5]。  \n\n参考文献：[5]",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.312861791986506,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "悬浮在空气中的沙尘（desert dust）能够影响云层，降低降水量[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that the reduction of precipitation from clouds is affected by desert dust, supporting the claim that desert dust influences clouds and reduces precipitation."
+        },
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "降水减少导致土壤更加干燥[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that reduction of precipitation from clouds affected by desert dust can cause drier soil, which directly supports the claim."
+        },
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "干燥的土壤更容易扬起更多沙尘[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that drier soil raises more dust, which directly supports the claim that dry soil leads to more airborne dust."
+        },
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "增加的沙尘进一步抑制降水，从而形成一个正反馈循环，可能加速荒漠化[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that reduction of precipitation from desert dust leads to drier soil and raises more dust, creating a feedback loop that further decreases precipitation, which matches the claim exactly."
+        },
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "此外，人为改变土地利用（如破坏地表覆盖）使表土暴露也可启动这一反馈过程[5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that anthropogenic changes of land use exposing the topsoil can initiate such a desertification feedback process, which matches the claim directly."
+        },
+        {
+          "case_id": "hard.en.dust-precipitation-feedback",
+          "claim": "参考文献：[5]",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that desert dust reduces precipitation, leading to drier soil and more dust, forming a feedback loop that can initiate desertification through anthropogenic land use changes."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.remote-sensing-use",
+      "question": "What role do GIS and remote sensing play in monitoring land degradation?",
+      "answer": "地理信息系统（GIS）与遥感技术在监测土地退化中主要发挥以下作用：\n1. **提供数据基础与分析平台**：GIS整合数字土壤地图、数字高程模型（DEM）等多源空间数据，并与遥感获取的植被覆盖等信息结合，用于评估土地退化的敏感性区域 [1][2]。\n2. **支持大范围动态监测**：遥感能够以近实时的方式监测区域至全球尺度的土地退化，其历史存档数据有助于分析退化的空间格局与时间变化趋势 [1][2][5]。\n3. **支撑退化制图与评估**：全球土地退化制图依赖于遥感与现场观测的结合，此类地图为政策制定者提供了关键工具 [5]。\n4. **方法应用与模型构建**：已有研究利用遥感与GIS建立模型，例如监测与预测土壤盐渍化与内涝等问题 [4]。\n\n文献未明确描述GIS与遥感在监测中的所有具体技术细节，但以上基于片段信息概括了其主要角色。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 27.334865166980308,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**提供数据基础与分析平台**：GIS整合数字土壤地图、数字高程模型（DEM）等多源空间数据，并与遥感获取的植被覆盖等信息结合，用于评估土地退化的敏感性区域 [1][2]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "tion cover, the digital soil maps and a digital elevation model (DEM). The four indicators were then combined to highlight the areas with the greatest degradation susceptibility. The system has potent",
+          "verdict": "supported",
+          "rationale": "The chunk directly mentions using digital soil maps, DEM, and land cover for assessing degradation susceptibility, matching the claim's main points."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**提供数据基础与分析平台**：GIS整合数字土壤地图、数字高程模型（DEM）等多源空间数据，并与遥感获取的植被覆盖等信息结合，用于评估土地退化的敏感性区域 [1][2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "tion cover, the digital soil maps and a digital elevation model (DEM). The four indicators were then combined to highlight the areas with the greatest degradation susceptibility. The system has potent",
+          "verdict": "partial",
+          "rationale": "The chunk provides the exact data sources and the purpose of identifying degradation susceptibility but does not explicitly state that GIS integrates these for creating an 'analysis platform' to assess land degradation sensitivity areas."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**支持大范围动态监测**：遥感能够以近实时的方式监测区域至全球尺度的土地退化，其历史存档数据有助于分析退化的空间格局与时间变化趋势 [1][2][5]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "tion cover, the digital soil maps and a digital elevation model (DEM). The four indicators were then combined to highlight the areas with the greatest degradation susceptibility. The system has potent",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that the remote sensing system enables near‑real‑time monitoring and that applying the methodology to remote sensing archives allows determination of spatial and temporal trends in degradation, which directly matches the claim."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**支持大范围动态监测**：遥感能够以近实时的方式监测区域至全球尺度的土地退化，其历史存档数据有助于分析退化的空间格局与时间变化趋势 [1][2][5]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "tion cover, the digital soil maps and a digital elevation model (DEM). The four indicators were then combined to highlight the areas with the greatest degradation susceptibility. The system has potent",
+          "verdict": "partial",
+          "rationale": "The chunk mentions near-real-time monitoring and using archival data to determine spatial and temporal degradation trends, aligning with parts of the claim, but it doesn't directly tie these capabilities specifically to a 'large-scale (regional to global)' scope."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**支持大范围动态监测**：遥感能够以近实时的方式监测区域至全球尺度的土地退化，其历史存档数据有助于分析退化的空间格局与时间变化趋势 [1][2][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "global analysis identifying the extent and intensity of land degrada-\ntion would be an invaluable tool for policy makers, and as such has been an active\ntopic of research for nearly a decade. In this ",
+          "verdict": "partial",
+          "rationale": "The chunk discusses regional-to-global land degradation monitoring via remote sensing, aligning with the claim's topic, but does not explicitly mention near-real-time capability or the use of historical archives for temporal trends."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**支撑退化制图与评估**：全球土地退化制图依赖于遥感与现场观测的结合，此类地图为政策制定者提供了关键工具 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "global analysis identifying the extent and intensity of land degrada-\ntion would be an invaluable tool for policy makers, and as such has been an active\ntopic of research for nearly a decade. In this ",
+          "verdict": "supported",
+          "rationale": "The chunk directly states that global land degradation maps are formulated and evaluated using remote sensing and field-based observations, which matches the claim's assertion that such mapping relies on the combination of remote sensing and ground observation."
+        },
+        {
+          "case_id": "easy.en.remote-sensing-use",
+          "claim": "**方法应用与模型构建**：已有研究利用遥感与GIS建立模型，例如监测与预测土壤盐渍化与内涝等问题 [4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "raded Soils, Valencia\nGoosen D (1967) Aerial photo interpretation in soil survey. FAO soil \nBull. No. 6 FAO, Rome\nGoossens R, De Dapper M, Gad A, Ghabour T (1993) A model for \nmonitoring and predictio",
+          "verdict": "not_supported",
+          "rationale": "The chunk is a bibliography list of references, including titles on modelling soil salinity, but it does not contain the actual research details or findings needed to support the specific claim about the methodology or model application."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.zero-net-degradation",
+      "question": "What are the main challenges and opportunities for achieving Zero Net Land Degradation?",
+      "answer": "Based on the provided literature fragments, the information on the specific challenges and opportunities for achieving Zero Net Land Degradation (ZLD) or Land Degradation Neutrality (LDN) is very limited. The fragments primarily emphasize the general importance of the goal and the need for paradigm shifts.\n\n1.  **Opportunity**: Reversing land degradation and investing in sustainable land management are presented as valuable and rewarding endeavors [1, 2]. This implies that a key opportunity lies in the positive economic and environmental returns of such investments.\n\n2.  **Broad Challenge/Requirement**: Achieving LDN by 2030 is described as requiring a chance that hinges on \"systems analysis\" and concepts like \"nature-based solutions\" [3, 4]. Furthermore, it necessitates major paradigm shifts, which depend on raising awareness about transforming governance structures, economic models, and approaches to landscape planning and land-use management [3, 4].\n\nThe documents reference a titled work on \"Achieving Zero Net Land Degradation: Challenges and opportunities\" [5], but the provided fragment from this source does not list any specific challenges or opportunities. Therefore, the detailed contents of that analysis are not available in the given excerpts.\n\n**Conclusion**: The available fragments confirm that achieving Zero Net Land Degradation/Land Degradation Neutrality is a recognized target with associated rewards [1, 2]. However, the main identifiable challenge from the text is the need for comprehensive systemic changes across governance, economy, and land-use planning [3, 4]. Specific, enumerated challenges and opportunities are not detailed in the provided sections.",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.56185033300426,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.zero-net-degradation",
+          "claim": "The documents reference a titled work on \"Achieving Zero Net Land Degradation: Challenges and opportunities\" [5], but the provided fragment from this source does not list any specific challenges or opportunities.",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Achieving Zero Net Land Degradation: Challenges and opportunities",
+          "verdict": "not_supported",
+          "rationale": "The chunk is only the title of the work, providing no content that lists or describes specific challenges or opportunities, which is the subject of the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.economics-land-restoration",
+      "question": "盐渍化导致的土地退化，其经济学成本和恢复的经济学考量是什么？",
+      "answer": "文献中暂无直接针对盐渍化土地退化经济学成本和恢复经济考量的内容。依据现有片段，仅可确认关于荒漠化的研究信息，但未涉及盐渍化或具体的经济分析。  \n因此，**根据所提供的文献片段，无法回答此问题。** [1][2][3][4][5]",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.144950875022914,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.economics-land-restoration",
+          "claim": "** [1][2][3][4][5]",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification of Arid Lands",
+          "verdict": "not_supported",
+          "rationale": "The chunk contains no information to verify or relate to the given claim, as the claim itself appears to be only a placeholder or incomplete."
+        },
+        {
+          "case_id": "medium.zh.economics-land-restoration",
+          "claim": "** [1][2][3][4][5]",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Desertification of Arid Lands",
+          "verdict": "not_supported",
+          "rationale": "The chunk is an incomplete, non-sentient phrase that provides no information to evaluate the claim."
+        },
+        {
+          "case_id": "medium.zh.economics-land-restoration",
+          "claim": "** [1][2][3][4][5]",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk is on-topic and adjacent by focusing on desertification, but it does not state or imply any specific cause, consequence, or detail mentioned in the CLAIM markers."
+        },
+        {
+          "case_id": "medium.zh.economics-land-restoration",
+          "claim": "** [1][2][3][4][5]",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "not_supported",
+          "rationale": "The chunk is a general document title with no specific content, so it cannot support the detailed claim of authorship attribution."
+        },
+        {
+          "case_id": "medium.zh.economics-land-restoration",
+          "claim": "** [1][2][3][4][5]",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification in China: An assessment",
+          "verdict": "not_supported",
+          "rationale": "The chunk is the title of an assessment document and does not contain the data, analysis, or statements needed to evaluate or support any specific claim about desertification."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.zh.china-desertification-assessment",
+      "question": "中国沙漠化的总体评估结论是什么？",
+      "answer": "根据提供的文献片段，无法对中国沙漠化的总体评估结论进行具体描述。文献内容仅限于对“干旱土地沙漠化”、“气候与沙漠化相互作用”以及“地中海地区沙漠化与土地退化”等通用标题的重复列举，并未包含任何实质性信息或评估数据，也未涉及中国这一特定区域的情况。\n\n因此，文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.978199958975893,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "medium.en.sdg-soil-concepts",
+      "question": "What four soil-related concepts are proposed to make Land Degradation Neutrality and restoration work in the context of the Sustainable Development Goals?",
+      "answer": "根据提供的文献片段，无法直接识别出使其具体提及的四个土壤相关概念。片段[1]和[2]强调了实现土地退化零增长所需的一系列范式转变，包括提升对治理、经济和景观规划等不同模式的认知，但未明确列出具体概念。片段[5]则提到了可持续土地管理对于实现可持续发展目标的重要性。然而，这些片段均未具体说明所提出的四个核心概念。\n\n因此，文献中暂未找到该问题的相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.688359207997564,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.sdg-soil-concepts",
+          "claim": "片段[1]和[2]强调了实现土地退化零增长所需的一系列范式转变，包括提升对治理、经济和景观规划等不同模式的认知，但未明确列出具体概念。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "partial",
+          "rationale": "The chunk mentions awareness-raising about governance, economy, and landscape planning but does not state that the specific concepts themselves were not listed, which is the core of the claim."
+        },
+        {
+          "case_id": "medium.en.sdg-soil-concepts",
+          "claim": "片段[1]和[2]强调了实现土地退化零增长所需的一系列范式转变，包括提升对治理、经济和景观规划等不同模式的认知，但未明确列出具体概念。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "al systems analysis, using concepts such as nature-based solutions, do we stand a chance to achieve Land Degradation Neutrality by 2030. To make these paradigm shifts, awareness-raising in relation to",
+          "verdict": "partial",
+          "rationale": "The chunk mentions the need for paradigm shifts and awareness-raising in governance, economy, and landscape planning to achieve Land Degradation Neutrality, but it does not state directly whether specific concepts or a list of them were explicitly provided in any source."
+        },
+        {
+          "case_id": "medium.en.sdg-soil-concepts",
+          "claim": "片段[5]则提到了可持续土地管理对于实现可持续发展目标的重要性。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "ability, the United Nations have set 17 Sustainable\nDevelopment Goals (SDGs) to guide the future global development agenda. One of\nthe 17 targets aims to “protect, restore and promote sustainable use ",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly describes a UN Sustainable Development Goal target that includes sustainable use of terrestrial ecosystems and sustainable forest management, directly aligning with the claim about the importance of sustainable land management for achieving the SDGs."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.asian-desertification-onset",
+      "question": "What evidence from loess deposits in China suggests the onset of Asian desertification around 22 million years ago, and what are the implications?",
+      "answer": "根据提供的文献片段，无法回答您的问题。文献中讨论的是现代或近现代的荒漠化过程、评估及修复，例如沙尘对降水的可能反馈[1]以及中国西南地区的石漠化[4, 5]。文献未涉及约2200万年前黄土沉积物与亚洲荒漠化起源相关的古环境证据及其意义。\n\n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.001962292008102,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.asian-desertification-onset",
+          "claim": "文献中讨论的是现代或近现代的荒漠化过程、评估及修复，例如沙尘对降水的可能反馈[1]以及中国西南地区的石漠化[4, 5]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "e of desert dust in the atmosphere renders it important. The reduction of precipitation from clouds affected by desert dust can cause drier soil, which in turn raises more dust, thus providing a possi",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly describes a possible feedback loop where desert dust reduces precipitation, which aligns with the claim's mention of '沙尘对降水的可能反馈'."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.vegetation-patterns-desertification",
+      "question": "How can spatial vegetation patterns serve as an indicator of imminent desertification in arid ecosystems?",
+      "answer": "根据所提供的文献片段，植被的空间格局可以作为干旱生态系统即将发生荒漠化的指示器。\n\n文献表明，在干旱生态系统中，特定的空间植被格局（例如斑点、条带或迷宫状分布）的存在，可能意味着生态系统存在多个稳定状态 [1,2]。这些格局是植被在有限水资源条件下自组织形成的，当环境压力（如干旱）加剧时，系统可能越过某个生态阈值，从有植被覆盖的状态突然转变为荒漠化状态（即裸地占主导的状态）[3,4]。因此，观测到这些自组织植被格局，特别是当它们呈现出某种临界特征时，可以预警生态系统已处于不稳定边缘，荒漠化可能迫在眉睫 [3,4]。\n\n此外，植被格局的动态与水文-风蚀过程紧密耦合。植被通过其分布影响地表径流、土壤水分和风蚀过程，而这些侵蚀过程反过来又会破坏植被的稳定性 [5]。当这种相互作用失衡，导致侵蚀过程加剧并超过植被的恢复能力时，便会推动系统向荒漠化发展 [5]。因此，植被格局的变化（如从连续覆盖破碎化为离散斑块）可以反映这种关键的相互作用是否正在恶化，从而指示土地退化和荒漠化风险。\n\n**总结：** 空间植被格局作为生态系统状态和稳定性的可视化表征，其出现、持续或崩塌式的转变，可以指示系统是否正接近从植被覆盖状态向荒漠化状态转变的临界点，为即将发生的荒漠化提供早期预警 [1,2,3,4,5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 16.412706166971475,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.vegetation-patterns-desertification",
+          "claim": "植被通过其分布影响地表径流、土壤水分和风蚀过程，而这些侵蚀过程反过来又会破坏植被的稳定性 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk introduces the topic of land degradation and the interaction between erosion processes (hydrologic and aeolian) and vegetation, which aligns with the broad concept of the claim but does not specifically confirm the bidirectional cause-effect cycle described."
+        },
+        {
+          "case_id": "medium.en.vegetation-patterns-desertification",
+          "claim": "当这种相互作用失衡，导致侵蚀过程加剧并超过植被的恢复能力时，便会推动系统向荒漠化发展 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk broadly addresses the interaction of erosion and vegetation in drylands—a key concept in the claim—but does not directly state or imply the specific imbalance and sequential 'exceeding recovery capacity' mechanism described."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.biochar-efficacy-debate",
+      "question": "Critically evaluate the potential of biochar to counter land degradation in different agro-ecological zones, citing limitations.",
+      "answer": "基于提供的文献片段，文献[1]，[4]和[5]直接或隐含地讨论了生物炭与土地退化治理的关系。\n\n生物炭在应对土地退化方面具有潜力，主要体现在改善土壤方面。文献[4]和[5]的标题明确指出，生物炭具有“应对土地退化”和“改善农业”的潜力[4][5]。这一潜力很可能通过改善土壤物理、化学或生物特性来实现，从而直接或间接地对抗导致退化的过程。\n\n然而，文献在支持的深度上存在一个重要限制。这些片段没有提供任何具体证据、案例研究或机制细节来阐明生物炭在不同农业生态区（如干旱区、湿润区、温带区）的效力有何不同。文献[1]主要关注土地退化的定义、概念以及埃及和印度的案例研究，并未探讨生物炭的应用[1]。片段[4]和[5]仅停留在宣称生物炭具有“潜力”的层面，没有进一步阐述这种潜力的具体表现、其作用机制，或在不同环境条件下的局限性（例如，生物炭在不同土壤类型、气候或管理实践下的有效性变化）[4][5]。\n\n**结论**：\n文献片段肯定了生物炭具有应对土地退化的潜力[4][5]。然而，片段内容较为概略，缺乏具体数据和情境分析，因此无法基于这些片段对生物炭在不同农业生态区的应用潜力进行批判性评估，也无法详细列出其具体限制（例如，成本效益、长期效果、对特定土壤属性的影响差异等）。要完成此批判性评价，需要更详细的实证研究数据。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 16.29265400004806,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "基于提供的文献片段，文献[1]，[4]和[5]直接或隐含地讨论了生物炭与土地退化治理的关系。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "ical energy for a period of time does not have to be continuous, but temporary. Additionally, organic farming might be a substitute to prevent the deterioration of our soil. The emphasis of the curren",
+          "verdict": "partial",
+          "rationale": "The chunk discusses land degradation and its management in general, but it does not mention biochar or explicitly link biochar to land degradation management."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "基于提供的文献片段，文献[1]，[4]和[5]直接或隐含地讨论了生物炭与土地退化治理的关系。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "The chunk aligns with the general topic of biochar's potential in land degradation and agriculture, but it is a title or heading that does not contain the specific discussion referencing literature [1], [4], and [5] as mentioned in the claim."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "基于提供的文献片段，文献[1]，[4]和[5]直接或隐含地讨论了生物炭与土地退化治理的关系。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "虽然该文献片段暗示了生物炭在应对土地退化方面的潜力，因而与主题相关，但它并未具体讨论或隐含文献[1]、[4]和[5]是否直接或隐含地处理了这一关系。"
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[4]和[5]的标题明确指出，生物炭具有“应对土地退化”和“改善农业”的潜力[4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "The provided chunk is precisely the title of the cited literature, which directly matches the claim about its content."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[4]和[5]的标题明确指出，生物炭具有“应对土地退化”和“改善农业”的潜力[4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "The chunk's title verbatim states 'Potential for countering land degradation and for improving agriculture', which matches the precise claim regarding the titles of literature [4] and [5]."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[4]和[5]的标题明确指出，生物炭具有“应对土地退化”和“改善农业”的潜力[4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "The chunk directly matches the text 'Potential for countering land degradation and for improving agriculture' which is exactly what the claim states the titles indicate."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[4]和[5]的标题明确指出，生物炭具有“应对土地退化”和“改善农业”的潜力[4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "This chunk is the exact title of one of the cited papers, which directly states the potential for countering land degradation and improving agriculture mentioned in the claim."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[1]主要关注土地退化的定义、概念以及埃及和印度的案例研究，并未探讨生物炭的应用[1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "ical energy for a period of time does not have to be continuous, but temporary. Additionally, organic farming might be a substitute to prevent the deterioration of our soil. The emphasis of the curren",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the review will focus on explaining land degradation's definition and concept and presenting case studies from Egypt and India, aligning with the claim that it does not discuss biochar application."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "文献[1]主要关注土地退化的定义、概念以及埃及和印度的案例研究，并未探讨生物炭的应用[1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "ical energy for a period of time does not have to be continuous, but temporary. Additionally, organic farming might be a substitute to prevent the deterioration of our soil. The emphasis of the curren",
+          "verdict": "partial",
+          "rationale": "The chunk explicitly states the review will focus on land degradation definition, concept, and case studies from Egypt and India, which directly supports the first half of the claim, but it does not mention or imply the absence of a discussion on biochar application."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "片段[4]和[5]仅停留在宣称生物炭具有“潜力”的层面，没有进一步阐述这种潜力的具体表现、其作用机制，或在不同环境条件下的局限性（例如，生物炭在不同土壤类型、气候或管理实践下的有效性变化）[4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "not_supported",
+          "rationale": "The chunk discusses the potential of biochar for agriculture and countering land degradation in a general, titular form, but does not mention the absence of detailed mechanisms, specific environmental conditions, or limitations as claimed."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "片段[4]和[5]仅停留在宣称生物炭具有“潜力”的层面，没有进一步阐述这种潜力的具体表现、其作用机制，或在不同环境条件下的局限性（例如，生物炭在不同土壤类型、气候或管理实践下的有效性变化）[4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "not_supported",
+          "rationale": "The chunk merely states the topic and potential of biochar in a general sense, offering none of the specific details (mechanisms, limitations, effectiveness in varying conditions) that the claim says the cited passages lack."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "片段[4]和[5]仅停留在宣称生物炭具有“潜力”的层面，没有进一步阐述这种潜力的具体表现、其作用机制，或在不同环境条件下的局限性（例如，生物炭在不同土壤类型、气候或管理实践下的有效性变化）[4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "The chunk only states the general potential of biochar for land degradation and agriculture, matching the claim's first part, but it does not provide the specific details, mechanisms, or limitations the claim says are missing."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "片段[4]和[5]仅停留在宣称生物炭具有“潜力”的层面，没有进一步阐述这种潜力的具体表现、其作用机制，或在不同环境条件下的局限性（例如，生物炭在不同土壤类型、气候或管理实践下的有效性变化）[4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "The chunk is about biochar's potential for land degradation and agriculture but does not elaborate on specific mechanisms, effectiveness across conditions, or limitations, which is what the claim demands."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "**结论**：\n文献片段肯定了生物炭具有应对土地退化的潜力[4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that biochar has potential for countering land degradation, which directly matches the claim."
+        },
+        {
+          "case_id": "hard.en.biochar-efficacy-debate",
+          "claim": "**结论**：\n文献片段肯定了生物炭具有应对土地退化的潜力[4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "The chunk is on-topic and confirms the potential of biochar in general, but the specific claim that research affirmatively supports it is presented as the topic of the chunk rather than being directly stated within the given text."
+        }
+      ]
+    },
+    {
+      "case_id": "easy.en.poverty-link",
+      "question": "Is there a connection between land degradation and poverty?",
+      "answer": "是的。多份文献指出土地退化与贫困之间存在密切的相互强化的联系[1][3][4]。\n具体而言，**土地退化会导致并加剧贫困**，因为它直接损害了贫困人口赖以生存的农业生产力、牧场质量和自然资源基础，从而危及他们的生计[1][3][4]。同时，**贫困也可能加剧土地退化**，因为贫困人口可能被迫过度开发脆弱的土地资源以满足基本生存需求（如过度耕种、放牧和采伐薪柴），从而陷入一种“贫困导致退化，退化加深贫困”的恶性循环[4]。\n\n此结论基于对文献中相关论述的整合与转述。文献[1]和[3]明确指出了土地退化对生计的威胁，而文献[4]则明确描述了贫困与土地退化之间的“恶性循环”关系。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 21.300319667032454,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "多份文献指出土地退化与贫困之间存在密切的相互强化的联系[1][3][4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk only names desertification as a cause and a consequence but does not specifically mention the mutually reinforcing link with poverty, which the full claim requires."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "多份文献指出土地退化与贫困之间存在密切的相互强化的联系[1][3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "partial",
+          "rationale": "该片段只是文献的标题，虽然明确涉及土地退化与社会（可能隐含贫困问题），但并未直接陈述或具体指出与贫困之间存在相互强化的联系。"
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "多份文献指出土地退化与贫困之间存在密切的相互强化的联系[1][3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "not_supported",
+          "rationale": "The chunk only mentions the general topic of land degradation and society, but provides no specific content about a mutually reinforcing link with poverty, let alone evidence from multiple studies."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "具体而言，**土地退化会导致并加剧贫困**，因为它直接损害了贫困人口赖以生存的农业生产力、牧场质量和自然资源基础，从而危及他们的生计[1][3][4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "partial",
+          "rationale": "The chunk mentions desertification and its causes and consequences but does not explicitly state or directly imply that land degradation causes and exacerbates poverty by damaging the agricultural productivity, rangeland quality, and natural resource base that support the poor."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "具体而言，**土地退化会导致并加剧贫困**，因为它直接损害了贫困人口赖以生存的农业生产力、牧场质量和自然资源基础，从而危及他们的生计[1][3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "partial",
+          "rationale": "The title suggests a link between land degradation and society, but offers no specific evidence for the claim about poverty or agricultural impacts."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "具体而言，**土地退化会导致并加剧贫困**，因为它直接损害了贫困人口赖以生存的农业生产力、牧场质量和自然资源基础，从而危及他们的生计[1][3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "not_supported",
+          "rationale": "The chunk is merely a book or section title and provides no substantive content that addresses the specific claim about the causal relationship between land degradation and poverty."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "同时，**贫困也可能加剧土地退化**，因为贫困人口可能被迫过度开发脆弱的土地资源以满足基本生存需求（如过度耕种、放牧和采伐薪柴），从而陷入一种“贫困导致退化，退化加深贫困”的恶性循环[4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "partial",
+          "rationale": "The chunk does not mention poverty, overexploitation, or the poverty-degradation cycle, so it only indicates the general topic area."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "文献[1]和[3]明确指出了土地退化对生计的威胁，而文献[4]则明确描述了贫困与土地退化之间的“恶性循环”关系。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "not_supported",
+          "rationale": "The provided chunk is a general title about desertification's causes and consequences and does not contain the specific information about threats to livelihoods or a poverty-degradation 'vicious cycle' mentioned in the claim."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "文献[1]和[3]明确指出了土地退化对生计的威胁，而文献[4]则明确描述了贫困与土地退化之间的“恶性循环”关系。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "not_supported",
+          "rationale": "The chunk only provides the title of a book ('Land Degradation and Society'), which does not contain any specific information about threats to livelihoods or a vicious cycle between poverty and land degradation."
+        },
+        {
+          "case_id": "easy.en.poverty-link",
+          "claim": "文献[1]和[3]明确指出了土地退化对生计的威胁，而文献[4]则明确描述了贫困与土地退化之间的“恶性循环”关系。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Land Degradation and Society",
+          "verdict": "partial",
+          "rationale": "The chunk only states the topic ('Land Degradation and Society') but contains no explicit description of livelihoods threats or the poverty-degradation cycle mentioned in the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.co-benefit-practices",
+      "question": "哪些农业或土地管理措施能同时实现粮食安全、气候变化减缓和适应、以及防治土地退化？",
+      "answer": "根据所提供的文献片段，目前无法对问题给出具体答案。理由如下：\n\n1. 问题询问“哪些农业或土地管理措施”能同时实现多个目标，这表明需要列出或描述具体的技术或管理方法。\n2. 文献片段[1]、[2]、[3]的标题仅提及气候变化、干旱和荒漠化之间的宏观关联，未说明任何具体的管理措施。\n3. 文献片段[4]、[5]虽然提到了生物炭（Biochar）作为一种应对土地退化和改善农业的潜在措施，但其描述仅限于“潜力”，并未在提供的片段内容中证实或阐述它**具体如何同时实现**粮食安全、气候变化减缓和适应以及防治土地退化这三大目标。\n\n因此，文献片段中暂未找到相关结论，无法基于现有信息提供符合条件的措施列表或分析。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 21.615840624959674,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.co-benefit-practices",
+          "claim": "文献片段[1]、[2]、[3]的标题仅提及气候变化、干旱和荒漠化之间的宏观关联，未说明任何具体的管理措施。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Climate change, drought and desertification",
+          "verdict": "supported",
+          "rationale": "The chunk only mentions the general relationship between climate change, drought, and desertification, confirming it does not specify any concrete management measures."
+        },
+        {
+          "case_id": "medium.zh.co-benefit-practices",
+          "claim": "文献片段[1]、[2]、[3]的标题仅提及气候变化、干旱和荒漠化之间的宏观关联，未说明任何具体的管理措施。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Climate change, drought and desertification",
+          "verdict": "supported",
+          "rationale": "The chunk only lists the topics 'Climate change, drought and desertification', which aligns with the claim that it mentions macro-level links without specifying management measures."
+        },
+        {
+          "case_id": "medium.zh.co-benefit-practices",
+          "claim": "文献片段[1]、[2]、[3]的标题仅提及气候变化、干旱和荒漠化之间的宏观关联，未说明任何具体的管理措施。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Interactions between climate and desertification",
+          "verdict": "partial",
+          "rationale": "The chunk focuses on the interaction between climate and desertification, which is relevant to the broad topic of climate change and desertification, but does not specifically address the presence or absence of management measures as claimed."
+        },
+        {
+          "case_id": "medium.zh.co-benefit-practices",
+          "claim": "文献片段[4]、[5]虽然提到了生物炭（Biochar）作为一种应对土地退化和改善农业的潜在措施，但其描述仅限于“潜力”，并未在提供的片段内容中证实或阐述它**具体如何同时实现**粮食安全、气候变化减缓和适应以及防治土地退化这三大目标。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "partial",
+          "rationale": "该文献片段仅提及生物炭在应对土地退化和改善农业方面的潜力，与所述三大目标中的两项主题相关，但未具体阐述其如何实现这三大目标的机制，因此未能完全支持该特定宣称。"
+        },
+        {
+          "case_id": "medium.zh.co-benefit-practices",
+          "claim": "文献片段[4]、[5]虽然提到了生物炭（Biochar）作为一种应对土地退化和改善农业的潜在措施，但其描述仅限于“潜力”，并未在提供的片段内容中证实或阐述它**具体如何同时实现**粮食安全、气候变化减缓和适应以及防治土地退化这三大目标。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Biochar: Potential for countering land degradation and for improving agriculture",
+          "verdict": "supported",
+          "rationale": "引用的片段仅提及生物炭（Biochar）在应对土地退化及改善农业方面的潜力，但没有阐述其如何具体实现粮食安全、气候变化减缓和适应这三大目标，这与CLAIM的描述完全一致。"
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.sub-saharan-monitoring-trends",
+      "question": "Based on monitoring studies, what have been the dominant trends in desertification across sub-Saharan Africa over the past two decades, and what are the key regional variations?",
+      "answer": "Based on the provided literature fragments, the monitoring studies indicate both positive (\"greening\") and negative (degradation) trends in desertification across sub-Saharan Africa, with significant regional variations.\n\n引用哪些片段 \"greening\" 或 \"recovery\"，从文献中总结的\"植被恢复\"趋势，需要指出\"可能贯圈于\"的区域。\n1.  **Dominant Trends:**\n    *   **Evidence of Recovery/Greening:** Studies of the Sahel region, based on long-term Earth observation data, show a significant increasing trend in vegetation productivity (primary production) since the mid-1980s, indicating a process of recovery from previous degradation [3].\n    *   **Evidence of Land Degradation:** Sub-Saharan Africa is highlighted as a region where land degradation remains a serious threat to food security, implying that negative trends (desertification) persist [5].\n\n2.  **Key Regional Variations:**\n    *   **Sahel Region:** This region is highlighted in multiple studies for having experienced a \"regreening\" or \"rebuilding of resilience,\" particularly in specific areas like the Maradi and Zinder regions of Niger [2]. Long-term satellite-based monitoring confirms this positive trend in vegetation [3].\n    *   **East Africa:** A contrasting situation is noted in North Pare, Tanzania, where a two-thousand-year history of land use (including agriculture, metal smelting, and trade) is linked to significant soil erosion [4].\n    *   **Regional Reinterpretation:** There has been a **reinterpretation** of desertification dynamics in the Sahel itself. Earlier views of widespread, irreversible desertification have been challenged by observations of significant recovery and resilience, suggesting that trends are not uniformly negative and can vary over time and space [4].\n\n**Conclusion:** The dominant trend over the past two decades, particularly in the Sahel, shows a recovery or \"greening\" as detected by remote sensing [3], concurrent with persistent degradation challenges elsewhere in Sub-Saharan Africa [5]. Key variations include documented regreening in parts of the West African Sahel (e.g., Niger) [2, 3] versus long-term, human-induced soil erosion in parts of East Africa (e.g., Tanzania) [4]. The understanding of these trends, especially in the Sahel, has itself evolved [4].",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 31.871323458035477,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "**Dominant Trends:**\n    *   **Evidence of Recovery/Greening:** Studies of the Sahel region, based on long-term Earth observation data, show a significant increasing trend in vegetation productivity (primary production) since the mid-1980s, indicating a process of recovery from previous degradation [3].",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Huber, S., Horion, S., & Swinnen, E. (2013).\nAssessing Land Degradation/Recovery in the African Sahel from Long-Term Earth\nObservation Based Primary Productivity and Precipitation Relationships. Remot",
+          "verdict": "partial",
+          "rationale": "Both cited references focus on long-term Earth observation and vegetation analysis in the Sahel, but the claim's specific assertion of a 'significant increasing trend since the mid-1980s' is not directly verifiable from the given text."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "*   **Evidence of Land Degradation:** Sub-Saharan Africa is highlighted as a region where land degradation remains a serious threat to food security, implying that negative trends (desertification) persist [5].",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "bat desertiﬁcation in countries experiencing serious drought and/or\ndesertiﬁcation. Germany: Bonn.\nVlek, P., Le, Q. B., & Tamene, L. (2010). Assessment of land degradation, its possible causes and\nthr",
+          "verdict": "partial",
+          "rationale": "The chunk lists a citation whose title directly addresses land degradation and food security in Sub-Saharan Africa, but does not state or imply that desertification trends persist."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "**Key Regional Variations:**\n    *   **Sahel Region:** This region is highlighted in multiple studies for having experienced a \"regreening\" or \"rebuilding of resilience,\" particularly in specific areas like the Maradi and Zinder regions of Niger [2].",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "thern Africa using a\ntransdisciplinary research approach. Nairobi, Kenya: International Livestock Research Institute\n(ILRI).\nSendzimir, J., Reij, C. P., & Magnuszewski, P. (2011). Rebuilding resilienc",
+          "verdict": "partial",
+          "rationale": "The chunk includes the title 'Rebuilding resilience in the Sahel: Regreening in the Maradi and Zinder regions of Niger' which aligns directly with the claim, but the chunk as presented is a partial bibliography, not a substantive passage that states or elaborates on the 'regreening' or 'rebuilding of resilience'."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "Long-term satellite-based monitoring confirms this positive trend in vegetation [3].",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Huber, S., Horion, S., & Swinnen, E. (2013).\nAssessing Land Degradation/Recovery in the African Sahel from Long-Term Earth\nObservation Based Primary Productivity and Precipitation Relationships. Remot",
+          "verdict": "partial",
+          "rationale": "The CHUNK lists relevant studies on satellite-based vegetation monitoring in the Sahel, which is on-topic, but does not explicitly state or directly imply the specific claim of a confirmed positive trend in vegetation."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "*   **East Africa:** A contrasting situation is noted in North Pare, Tanzania, where a two-thousand-year history of land use (including agriculture, metal smelting, and trade) is linked to significant soil erosion [4].",
+          "chunk_number": 4,
+          "chunk_text_excerpt": " Africa. International Journal of Applied Earth Observation and\nGeoinformation, 28, 131–139.\nHeckmann, M. (2014). Farmers, smelters and caravans: Two thousand years of land use and soil\nerosion in Nor",
+          "verdict": "partial",
+          "rationale": "The chunk provides the citation title stating a two-thousand-year link between land use and soil erosion in North Pare, providing strong topical relevance, but the chunk is a bibliography entry that does not explicitly detail the contrasting situation or other regional examples described in the claim."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "Earlier views of widespread, irreversible desertification have been challenged by observations of significant recovery and resilience, suggesting that trends are not uniformly negative and can vary over time and space [4].",
+          "chunk_number": 4,
+          "chunk_text_excerpt": " Africa. International Journal of Applied Earth Observation and\nGeoinformation, 28, 131–139.\nHeckmann, M. (2014). Farmers, smelters and caravans: Two thousand years of land use and soil\nerosion in Nor",
+          "verdict": "not_supported",
+          "rationale": "The chunk only provides a reference list of article titles and authors without any substantive information that states, implies, or addresses the claim about challenged views of desertification, its recovery, or its variation."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "**Conclusion:** The dominant trend over the past two decades, particularly in the Sahel, shows a recovery or \"greening\" as detected by remote sensing [3], concurrent with persistent degradation challenges elsewhere in Sub-Saharan Africa [5].",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Huber, S., Horion, S., & Swinnen, E. (2013).\nAssessing Land Degradation/Recovery in the African Sahel from Long-Term Earth\nObservation Based Primary Productivity and Precipitation Relationships. Remot",
+          "verdict": "partial",
+          "rationale": "The chunk lists studies that address vegetation trends in the Sahel via remote sensing, aligning with the claim's topic of 'greening', but the titles do not directly confirm a past-two-decade 'dominant trend' of recovery or differentiate between the Sahel and other parts of Sub-Saharan Africa as stated in the claim."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "**Conclusion:** The dominant trend over the past two decades, particularly in the Sahel, shows a recovery or \"greening\" as detected by remote sensing [3], concurrent with persistent degradation challenges elsewhere in Sub-Saharan Africa [5].",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "bat desertiﬁcation in countries experiencing serious drought and/or\ndesertiﬁcation. Germany: Bonn.\nVlek, P., Le, Q. B., & Tamene, L. (2010). Assessment of land degradation, its possible causes and\nthr",
+          "verdict": "not_supported",
+          "rationale": "The chunk provides only bibliographic metadata and incomplete text fragments, with no substantive discussion of greening trends or degradation patterns to evaluate the claim."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": ", Tanzania) [4].",
+          "chunk_number": 4,
+          "chunk_text_excerpt": " Africa. International Journal of Applied Earth Observation and\nGeoinformation, 28, 131–139.\nHeckmann, M. (2014). Farmers, smelters and caravans: Two thousand years of land use and soil\nerosion in Nor",
+          "verdict": "not_supported",
+          "rationale": "The chunk is a bibliographic reference list, not a substantive passage that states or implies any specific claim."
+        },
+        {
+          "case_id": "hard.en.sub-saharan-monitoring-trends",
+          "claim": "The understanding of these trends, especially in the Sahel, has itself evolved [4].",
+          "chunk_number": 4,
+          "chunk_text_excerpt": " Africa. International Journal of Applied Earth Observation and\nGeoinformation, 28, 131–139.\nHeckmann, M. (2014). Farmers, smelters and caravans: Two thousand years of land use and soil\nerosion in Nor",
+          "verdict": "not_supported",
+          "rationale": "The chunk provides a general publication list including a study focused on desertification reinterpretation in the Sahel, but does not state or directly imply that the understanding of trends (especially in the Sahel) has evolved."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.hydrologic-aeolian-vegetation",
+      "question": "Explain the interactions among hydrologic erosion, aeolian (wind) erosion, and vegetation dynamics in driving land degradation in drylands.",
+      "answer": "在干旱区，水文侵蚀、风蚀与植被动态之间通过复杂的正反馈循环相互作用，共同驱动土地退化。文献指出：\n\n1.  **水文侵蚀与植被的相互作用**：植被覆盖减少会降低地表粗糙度，增加地表径流和土壤水分蒸发，从而加剧水文侵蚀 [2]。同时，水文侵蚀本身会剥离土壤养分和水分，进一步抑制植被生长和定居，形成植被衰退与土壤侵蚀加剧的循环 [1]。\n\n2.  **风蚀与植被的相互作用**：类似地，植被减少也会降低对地表的保护，增强风力作用，使风蚀加剧 [2]。风蚀过程吹走表层肥沃土壤和种子，破坏植物幼苗，直接阻碍植被恢复 [1][4]。\n\n3.  **水文与风蚀的协同作用**：这两种侵蚀过程并非独立。水文侵蚀（如径流）可以形成侵蚀沟渠或剥离地表结皮，为风蚀创造物质来源（松散的沉积物）和有利的微地形；反之，风蚀堆积的沙粒可能改变地表水文特性。它们共同作用，导致更严重的土壤流失 [1]。\n\n4.  **综合反馈与荒漠化**：这些相互作用构成了一个**正反馈循环**：初始的干扰（如干旱或过度放牧）导致植被减少 → 地表对水文和风力作用的抵抗力下降 → 水文侵蚀和风蚀加剧 → 土壤退化（养分流失、持水能力下降等） → 植被生长条件进一步恶化 → 植被覆盖持续减少 [2][3][4]。这种反馈一旦越过某个生态阈值，可能导致生态系统状态发生急剧且可能不可逆的转变，例如从植被斑块状景观转变为完全荒漠化状态 [5]。\n\n总之，在干旱区土地退化过程中，水文侵蚀、风蚀和植被动态是紧密耦合的。植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 21.848748916992918,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "**水文侵蚀与植被的相互作用**：植被覆盖减少会降低地表粗糙度，增加地表径流和土壤水分蒸发，从而加剧水文侵蚀 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk provides the general topic of interactions among hydrologic–aeolian erosion and vegetation dynamics, which is directly relevant to the claim, but it does not state or imply the specific causal chain that reduced vegetation cover lowers surface roughness, increases runoff and evaporation, and thus intensifies hydrologic erosion."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "同时，水文侵蚀本身会剥离土壤养分和水分，进一步抑制植被生长和定居，形成植被衰退与土壤侵蚀加剧的循环 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states that land degradation in drylands involves interactions between hydro-aeolian erosion and vegetation dynamics, which directly supports the claim's description of a cycle where soil erosion strips resources and suppresses vegetation."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "**风蚀与植被的相互作用**：类似地，植被减少也会降低对地表的保护，增强风力作用，使风蚀加剧 [2]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk mentions dryland degradation involving hydrologic, aeolian (wind), and vegetation dynamics but does not explicitly state that reduced vegetation leads to increased wind erosion."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "风蚀过程吹走表层肥沃土壤和种子，破坏植物幼苗，直接阻碍植被恢复 [1][4]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly identifies aeolian erosion interacting with vegetation dynamics as a core component of land degradation, directly supporting the claim that wind erosion (风蚀) damages the vegetation recovery process."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "风蚀过程吹走表层肥沃土壤和种子，破坏植物幼苗，直接阻碍植被恢复 [1][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "judge_error",
+          "rationale": "unknown verdict: 'unsupported'"
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "它们共同作用，导致更严重的土壤流失 [1]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk mentions hydrologic–aeolian erosion, which relates to soil erosion, but does not specifically address 'more severe' soil loss or the 'combined effect' implied by the claim."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "**综合反馈与荒漠化**：这些相互作用构成了一个**正反馈循环**：初始的干扰（如干旱或过度放牧）导致植被减少 → 地表对水文和风力作用的抵抗力下降 → 水文侵蚀和风蚀加剧 → 土壤退化（养分流失、持水能力下降等） → 植被生长条件进一步恶化 → 植被覆盖持续减少 [2][3][4]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk mentions the key components of land degradation, hydrologic-aeolian erosion, and vegetation dynamics, which are central to the claim's feedback loop, but it does not explicitly state or detail the specific causal sequence or outcomes described in the claim."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "**综合反馈与荒漠化**：这些相互作用构成了一个**正反馈循环**：初始的干扰（如干旱或过度放牧）导致植被减少 → 地表对水文和风力作用的抵抗力下降 → 水文侵蚀和风蚀加剧 → 土壤退化（养分流失、持水能力下降等） → 植被生长条件进一步恶化 → 植被覆盖持续减少 [2][3][4]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk mentions drivers and feedbacks in desertification, which is relevant to the claim about feedback loops, but does not include the specific causal steps and interactions described in the claim."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "**综合反馈与荒漠化**：这些相互作用构成了一个**正反馈循环**：初始的干扰（如干旱或过度放牧）导致植被减少 → 地表对水文和风力作用的抵抗力下降 → 水文侵蚀和风蚀加剧 → 土壤退化（养分流失、持水能力下降等） → 植被生长条件进一步恶化 → 植被覆盖持续减少 [2][3][4]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The provided chunk is a general title about global desertification and its drivers and feedbacks but contains no specific information that can be used to verify the detailed positive feedback loop described in the claim."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "这种反馈一旦越过某个生态阈值，可能导致生态系统状态发生急剧且可能不可逆的转变，例如从植被斑块状景观转变为完全荒漠化状态 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems",
+          "verdict": "partial",
+          "rationale": "The chunk describes the general phenomenon of spatial vegetation patterns preceding desertification, which is on-topic, but does not specifically mention irreversible tipping points, ecological thresholds, or the sudden state shift claimed."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "partial",
+          "rationale": "The chunk is on-topic and directly about the interaction between erosion processes and vegetation dynamics in the context of land degradation, but it does not explicitly state the specific self-reinforcing loop or mention ecosystem collapse and desertification."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics",
+          "verdict": "supported",
+          "rationale": "The chunk's title explicitly states it is about the interactions among hydrologic–aeolian (two types of) erosion and vegetation dynamics in drylands, which directly corresponds to the claim's core idea of a feedback loop between vegetation degradation and erosion processes leading to land degradation."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The chunk only provides a broad topic or title ('Global desertification: Drivers and feedbacks') which contains no specific information to verify or contradict the detailed mechanistic claim about vegetation degradation and erosion feedback loops."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk provides general context about desertification and feedbacks but lacks the specific details about the bidirectional interaction between vegetation degradation and erosion processes as stated in the claim."
+        },
+        {
+          "case_id": "medium.en.hydrologic-aeolian-vegetation",
+          "claim": "植被退化会触发并加剧两种侵蚀过程，而侵蚀过程又反过来抑制植被，形成一个相互强化的退化循环，最终可能导致生态系统崩溃和荒漠化 [1][2][3][4][5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems",
+          "verdict": "partial",
+          "rationale": "The sentence titles the study but does not provide any specific statement or evidence about the triggering mechanism, feedback loop, or potential ecosystem collapse described in the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "medium.en.future-bibliometric-trends",
+      "question": "According to bibliometric analysis, what are the emerging future research directions in the field of land degradation science?",
+      "answer": "根据所提供的文献片段，未来的研究重点主要包括以下几个方面：\n\n1. **技术创新与监测方法**：开发用于土地退化的新技术和新的监测方法是未来研究的明确方向之一 [1, 2, 3]。\n2. **理论与方法的提升**：未来研究致力于理论增强、生态恢复的方法与模型开发 [1, 2, 3]。\n3. **退化土地的修复与重建**：退化土地的重建是一个重要的未来研究方向 [1, 2, 3]。\n4. **多学科整合系统研究**：开展多学科集成系统研究是未来的关键方向之一 [1, 2, 3]。\n5. **政策保障体系**：为退化土地重建构建政策保障体系是未来需要加强的研究领域 [1, 2, 3]。\n6. **土地资源工程研究**：加强土地资源工程研究也被列为重点方向 [1, 2, 3]。\n7. **关键过程交互作用**：虽然具体研究主题未明确为“新兴方向”，但文献表明，理解干旱区水文-风蚀与植被动态之间的相互作用是土地退化科学中一个重要的研究领域 [4, 5]。这可以被视为学科内部重要的深化研究方向。\n\n这些方向均源于文献中对土地退化领域文献计量分析所识别出的未来发展重点 [1, 2, 3] 以及核心研究主题的强调 [4, 5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 24.585500375018455,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "easy.zh.india-desertification-map",
+      "question": "印度土地退化与荒漠化的现状制图情况如何？",
+      "answer": "根据提供的文献片段，无法回答您的问题。所有片段仅提供了标题（如“Assessing desertification”、“Interactions between climate and desertification”等），没有包含关于印度土地退化与荒漠化的现状、制图方法或具体研究情况的任何实质性信息。因此，基于现有材料，暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.346063665987458,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.land-use-planning-quandary",
+      "question": "What is meant by the 'land-use planning quandary' in the context of combating desertification, and why is it a significant challenge?",
+      "answer": "根据提供的文献片段，无法解释“土地利用规划困境”（land-use planning quandary）的具体含义及其在防治荒漠化背景下的挑战性。文献中未提及“quandary”（困境）这一概念或其相关讨论。\n\n文献片段中与之相关的信息是：有效的政策干预需要基于对特定区域荒漠化动态因果模式的理解 [3, 4]，并且国家行动计划（NAP）可通过可持续牧场管理、集水、植树等多种策略来应对土地退化 [5]。然而，这些片段均未探讨在制定或实施此类规划时可能存在的具体“困境”或挑战。\n\n因此，对于该问题，文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.412173125019763,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.land-use-planning-quandary",
+          "claim": "文献片段中与之相关的信息是：有效的政策干预需要基于对特定区域荒漠化动态因果模式的理解 [3, 4]，并且国家行动计划（NAP）可通过可持续牧场管理、集水、植树等多种策略来应对土地退化 [5]。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Toumma National Nature and Cultural\nReserve in 2007, which covers 97,000 km2 or 14 % of the land area (Sahara\nConservation Fund 2007). To address desertiﬁcation and land degradation in\ngeneral, the go",
+          "verdict": "partial",
+          "rationale": "The chunk describes the NAP's strategies for addressing land degradation, which align with the claim, but does not mention the need for understanding regional causal patterns for effective policy intervention as stated in the first part of the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.global-synthesis-regional",
+      "question": "Compare and contrast the key drivers and manifestations of desertification in the Mediterranean region versus the West African Sahel, based on regional syntheses.",
+      "answer": "基于提供的文献片段，无法完成对地中海地区与西非萨赫勒地区荒漠化的关键驱动因素和表现形式的比较分析。文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。\n\n**结论**：文献中暂未找到相关结论，无法基于这些片段对两个区域进行比较和对比。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.49992737499997,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.global-synthesis-regional",
+          "claim": "文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The claim states the literature chunk only lists titles without specific content, but the chunk provided is a specific literature title that is exactly cited, which is content supporting a claim about what literature exists, not an empirical data claim."
+        },
+        {
+          "case_id": "hard.en.global-synthesis-regional",
+          "claim": "文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "supported",
+          "rationale": "The chunk explicitly states the title 'Global desertification: Drivers and feedbacks', which is the first claim item listed and matches the chunk's content, confirming the literature only provides a title."
+        },
+        {
+          "case_id": "hard.en.global-synthesis-regional",
+          "claim": "文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Regional desertification: A global synthesis",
+          "verdict": "partial",
+          "rationale": "The chunk 'Regional desertification: A global synthesis' is directly related to the topic of regional desertification mentioned in the claim, but it is only a title and contains no specific empirical content or analysis to verify the claim's complaint of lacking such information."
+        },
+        {
+          "case_id": "hard.en.global-synthesis-regional",
+          "claim": "文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Regional desertification: A global synthesis",
+          "verdict": "supported",
+          "rationale": "The chunk shows only a generic title without empirical content, matching the claim that the literature fragment lacks specific data or analysis."
+        },
+        {
+          "case_id": "hard.en.global-synthesis-regional",
+          "claim": "文献片段仅列出了以下标题，没有提供任何具体的实证内容或区域分析：\n\n*   [1] Global desertification: Drivers and feedbacks\n*   [2] Global desertification: Drivers and feedbacks\n*   [3] Regional desertification: A global synthesis\n*   [4] Regional desertification: A global synthesis\n*   [5] Mediterranean desertification and land degradation\n\n片段中虽然提及了“地中海荒漠化”和“区域荒漠化”等主题，但未包含任何具体数据、机制描述或区域间对比的论述。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Mediterranean desertification and land degradation",
+          "verdict": "not_supported",
+          "rationale": "The chunk merely repeats a title without providing any of the specific content or analysis needed to back the claim."
+        }
+      ]
+    },
+    {
+      "case_id": "hard.en.out-of-scope-ocean-acidification",
+      "question": "How does ocean acidification impact calcifying organisms in coral reefs, and what are the implications for coastal desertification?",
+      "answer": "文献片段仅讨论了干旱区生物反馈对荒漠化的影响（例如，美国新墨西哥州南部和萨赫勒地区），未涉及海洋酸化的相关内容。因此，根据现有文献无法回答海洋酸化对珊瑚礁钙化生物的影响及其与海岸带荒漠化关系的具体问题。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 12.289553957991302,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.three-north-shelterbelt",
+      "question": "Describe the design principles, implementation history, and measured ecological outcomes of China's Three-North Shelterbelt Forest Program.",
+      "answer": "根据提供的文献片段，无法回答您关于中国“三北防护林工程”的设计原则、实施历史和生态成效的问题。文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.463164207991213,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.three-north-shelterbelt",
+          "claim": "文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": " the grasslands covered about 8.37 % of land area in China in 2001,\nthen decreased to 5.88 % in 2009. Shrublands and woodlands covered about 21.25\nand 9.23 % respectively of land area in 2001, and the",
+          "verdict": "partial",
+          "rationale": "The chunk discusses changes in grasslands, shrublands, woodlands, and forests, and attributes forest increase to the Grain for Green Project, which is relevant to land cover changes mentioned in the claim, but does not mention 'Three-North Shelterbelt Program' (三北防护林工程) at all."
+        },
+        {
+          "case_id": "hard.en.three-north-shelterbelt",
+          "claim": "文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。",
+          "chunk_number": 2,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "partial",
+          "rationale": "The chunk discusses desertification assessment in China, which is relevant to claims about desertification and adjacent topics in the CLAIM, but it does not address the specific referenced topics of steppe, shrub, wood, and forest transitions or the absence of the Three-North Shelterbelt Program, making the support incomplete."
+        },
+        {
+          "case_id": "hard.en.three-north-shelterbelt",
+          "claim": "文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Desertification assessment in China: An overview",
+          "verdict": "partial",
+          "rationale": "The chunk is about desertification assessment in China, which is related to the claim's mention of desertification, but it does not address the other topics like the Three-North Shelterbelt Project."
+        },
+        {
+          "case_id": "hard.en.three-north-shelterbelt",
+          "claim": "文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "not_supported",
+          "rationale": "该文献片段仅涉及中国西南部石漠化的影响、成因与恢复，并未提及草原、灌木林地、林地、森林面积的变化、荒漠化评估，也未提及'三北防护林工程'，因此与论述其'未提及'的声明本身无关。"
+        },
+        {
+          "case_id": "hard.en.three-north-shelterbelt",
+          "claim": "文献片段中主要讨论了中国的草原、灌木林地、林地、森林面积的变化[1]，以及荒漠化[2][3]和石漠化评估[4][5]等话题，但未提及“三北防护林工程”的具体信息。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Rocky desertification in Southwest China: Impacts, causes, and restoration",
+          "verdict": "not_supported",
+          "rationale": "该片段仅讨论中国西南部的石漠化议题，与'三北防护林工程'的区域和内容完全无关。"
+        }
+      ]
+    },
+    {
+      "case_id": "hard.zh.crispr-drought",
+      "question": "CRISPR 基因编辑技术在培育耐旱作物方面的最新进展，以及对防治土地退化的潜在贡献？",
+      "answer": "根据所提供的文献片段，无法回答您的问题。文献中未提及“CRISPR基因编辑技术”、“耐旱作物”或该技术在防治土地退化中的具体应用与贡献 [1-5]。\n\n文献片段主要讨论了土地退化研究的现状、发展方向（如监测方法、生态恢复理论与模型、政策保障等）以及干旱土地的荒漠化问题，并未涉及基因编辑或作物育种的具体技术进展 [1-5]。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 15.322637333010789,
+      "expected_coverage": "no",
+      "error": null,
+      "judgments": []
+    },
+    {
+      "case_id": "hard.en.cross-paper-synthesis",
+      "question": "Across the corpus, do studies that focus on ecological mechanisms (vegetation, feedbacks) and studies that focus on socioeconomic drivers (poverty, policy) reach compatible conclusions about which interventions work best for combating desertification?",
+      "answer": "根据提供的文献片段，无法得出相关结论。\n\n文献片段[1]至[5]仅列出了文献的标题，未提供任何关于研究内容、方法或结论的具体信息。因此，无法基于这些片段判断不同研究（无论其侧重于生态机制还是社会经济驱动因素）是否得出了关于防治荒漠化最佳干预措施的兼容结论 [1, 2, 3, 4, 5]。\n\n文献中暂未找到相关结论。",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 13.235338250000495,
+      "expected_coverage": "partial",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "hard.en.cross-paper-synthesis",
+          "claim": "文献片段[1]至[5]仅列出了文献的标题，未提供任何关于研究内容、方法或结论的具体信息。",
+          "chunk_number": 1,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The chunk is merely a title and does not provide, or allow for inference about, any information concerning the content, methods, or conclusions of the research, which is exactly what the claim states is missing."
+        },
+        {
+          "case_id": "hard.en.cross-paper-synthesis",
+          "claim": "文献片段[1]至[5]仅列出了文献的标题，未提供任何关于研究内容、方法或结论的具体信息。",
+          "chunk_number": 5,
+          "chunk_text_excerpt": "Desertification: Its causes and consequences",
+          "verdict": "not_supported",
+          "rationale": "该片段是一个文献标题，未展示其内容、方法或结论，因此无法与'未能提供具体信息'这一评估性主张形成矛盾或支持关系。"
+        }
+      ]
+    },
+    {
+      "case_id": "medium.zh.global-monitoring",
+      "question": "全球尺度的荒漠化监测主要采用哪些方法？数据源有哪些？",
+      "answer": "截至当前文献片段，仅 [3] 和 [4] 明确提供了全球尺度荒漠化监测的相关信息。  \n\n**主要方法**  \n- **趋势分析**：监测植被、地表反射率和初级生产力等关键指标的长期变化趋势，以评估荒漠化的动态。[3]  \n- **基线数据与参照区域比较法**：将监测数据与基线数据（如潜在植被覆盖）或未退化的参照区域进行比较，以量化退化程度。[4]  \n\n**数据源**  \n- **卫星遥感数据**：是进行全球尺度评估的核心数据来源。[3]  \n- **气候观测数据**：用于分析气候对荒漠化的影响。[3]  \n\n*注：文献片段中未提及更具体的方法（如模型名称）或更详细的数据源（如特定卫星传感器）。*",
+      "citation_valid": true,
+      "citations_count": 5,
+      "chunks_retrieved": 5,
+      "latency_seconds": 17.765243125031702,
+      "expected_coverage": "yes",
+      "error": null,
+      "judgments": [
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "截至当前文献片段，仅 [3] 和 [4] 明确提供了全球尺度荒漠化监测的相关信息。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk's title is highly relevant to the claim's topic of global desertification monitoring, but it does not confirm the specific assertion regarding which papers explicitly provide information."
+        },
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "截至当前文献片段，仅 [3] 和 [4] 明确提供了全球尺度荒漠化监测的相关信息。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "judge_error",
+          "rationale": "non-JSON response: {\"verdict\": \"not_supported\", \"rationale\": \"该标题仅提及全球荒漠化的驱动因素和反馈作用，并未提供任何实际的监测信息或限定信息源。”]"
+        },
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "[3]  \n- **基线数据与参照区域比较法**：将监测数据与基线数据（如潜在植被覆盖）或未退化的参照区域进行比较，以量化退化程度。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The chunk only provides a general topic title with no specific information about baseline data or comparative methods for quantifying degradation."
+        },
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "[4]  \n\n**数据源**  \n- **卫星遥感数据**：是进行全球尺度评估的核心数据来源。",
+          "chunk_number": 4,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk only states the title of a study about desertification drivers, which is on-topic for land degradation but does not specifically discuss using satellite data as the core source for global-scale assessment."
+        },
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "[3]  \n- **气候观测数据**：用于分析气候对荒漠化的影响。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "not_supported",
+          "rationale": "The chunk only mentions a general topic and does not contain any specific data, analysis, or statement about using observational data to analyze climate's impact on desertification."
+        },
+        {
+          "case_id": "medium.zh.global-monitoring",
+          "claim": "[3]  \n\n*注：文献片段中未提及更具体的方法（如模型名称）或更详细的数据源（如特定卫星传感器）。",
+          "chunk_number": 3,
+          "chunk_text_excerpt": "Global desertification: Drivers and feedbacks",
+          "verdict": "partial",
+          "rationale": "The chunk identifies the topic of global desertification and its drivers, which is related to the note's subject matter, but does not contain any specific information about methods or data sources being absent, which is the core of the claim."
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "n_cases": 41,
+    "n_errors": 0,
+    "citation_validity_rate": 1.0,
+    "answered_rate": 0.4634146341463415,
+    "expected_yes_answered_rate": 0.4827586206896552,
+    "expected_no_refused_rate": 0.8,
+    "avg_citations_per_answer": 5.0,
+    "avg_chunks_retrieved": 5.0,
+    "latency_p50": 14.581282416998874,
+    "latency_p95": 24.585500375018455,
+    "n_judgments": 157,
+    "citation_supported_rate": 0.3885350318471338,
+    "citation_partial_rate": 0.4267515923566879,
+    "citation_not_supported_rate": 0.18471337579617833
+  }
+}
