@@ -34,9 +34,11 @@ class SearchHit(BaseModel):
 
 
 # Sprint 1: full-text indexing produces 100s-1000s of chunks per doc;
-# a single upsert of 4096-d × N vectors will time out against Qdrant Cloud
-# above ~200 points. Batch internally so callers don't have to know.
-DEFAULT_UPSERT_BATCH_SIZE = 100
+# a single upsert of 4096-d × N vectors will time out against Qdrant Cloud.
+# Empirically 100 × 4096-d still hangs at the default qdrant-client timeout;
+# 50 fits comfortably even with 60s timeout. Tune via constructor arg if
+# Qdrant Cloud tier changes the throughput envelope.
+DEFAULT_UPSERT_BATCH_SIZE = 50
 
 
 class QdrantRepo:

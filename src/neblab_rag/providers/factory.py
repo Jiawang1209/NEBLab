@@ -52,6 +52,10 @@ def build_qdrant_repo(settings: Settings | None = None) -> QdrantRepo:
     client = QdrantClient(
         url=s.qdrant.url,
         api_key=s.qdrant.api_key or None,
+        # Default qdrant-client timeout is 5s — too short for upsert of
+        # 50+ × 4096-d vectors against Qdrant Cloud (~1.5MB payload).
+        # 60s gives plenty of headroom for indexing-time batches.
+        timeout=60,
     )
     return QdrantRepo(client=client, collection=s.qdrant.collection, dim=s.embedding.dim)
 
