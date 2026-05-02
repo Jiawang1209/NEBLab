@@ -36,6 +36,9 @@ class CaseResult(BaseModel):
     latency_seconds: float
     expected_coverage: str  # echoes EvalCase.corpus_coverage_expected
     error: str | None = None
+    # Optional — populated only when --judge ran. Keep on the case so the
+    # JSON report shows per-claim verdicts inline with the question.
+    judgments: list[dict[str, object]] = []
 
 
 class AggregateMetrics(BaseModel):
@@ -49,6 +52,11 @@ class AggregateMetrics(BaseModel):
     avg_chunks_retrieved: float
     latency_p50: float
     latency_p95: float
+    # Judge metrics: only populated when judge was run (else all 0.0)
+    n_judgments: int = 0
+    citation_supported_rate: float = 0.0
+    citation_partial_rate: float = 0.0
+    citation_not_supported_rate: float = 0.0
 
 
 def is_fallback_answer(answer: str) -> bool:
@@ -90,6 +98,11 @@ def aggregate(results: Sequence[CaseResult]) -> AggregateMetrics:
 
     latencies = sorted(r.latency_seconds for r in ok)
 
+    # Judge metrics — flatten all judgments across all cases
+    all_judgments = [j for r in ok for j in r.judgments]
+    judged = [j for j in all_judgments if j.get("verdict") != "judge_error"]
+    n_judged = len(judged)
+
     return AggregateMetrics(
         n_cases=n_total,
         n_errors=len(errors),
@@ -101,6 +114,16 @@ def aggregate(results: Sequence[CaseResult]) -> AggregateMetrics:
         avg_chunks_retrieved=_avg(r.chunks_retrieved for r in ok),
         latency_p50=_percentile(latencies, 0.50),
         latency_p95=_percentile(latencies, 0.95),
+        n_judgments=n_judged,
+        citation_supported_rate=_rate(
+            sum(1 for j in judged if j.get("verdict") == "supported"), n_judged
+        ),
+        citation_partial_rate=_rate(
+            sum(1 for j in judged if j.get("verdict") == "partial"), n_judged
+        ),
+        citation_not_supported_rate=_rate(
+            sum(1 for j in judged if j.get("verdict") == "not_supported"), n_judged
+        ),
     )
 
 

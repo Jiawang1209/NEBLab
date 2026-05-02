@@ -8,6 +8,9 @@ Sequential by design: real-API runs already saturate provider rate limits,
 and we want each question's latency measured without contention. Parallel
 runs would speed wall clock but distort latency_p95 — wrong tradeoff for
 an eval harness whose job is to produce trustworthy numbers.
+
+Optional ``judge`` (Sprint 4 v0.2) runs LLM-as-judge on each answer's
+citations after retrieval+generation. Adds ~5-15 LLM calls per case.
 """
 
 import time
@@ -16,6 +19,7 @@ from collections.abc import Sequence
 from pydantic import BaseModel
 
 from neblab_rag.eval.data import EvalCase
+from neblab_rag.eval.judge import CitationJudge
 from neblab_rag.eval.metrics import AggregateMetrics, CaseResult, aggregate
 from neblab_rag.logging_config import get_logger
 from neblab_rag.rag.pipeline import RAGPipeline
@@ -36,6 +40,7 @@ async def run_eval(
     pipeline: RAGPipeline,
     *,
     top_k: int = 5,
+    judge: CitationJudge | None = None,
 ) -> list[CaseResult]:
     """Run each case through the pipeline. Failures are caught per-case so
     one broken question doesn't abort the whole eval."""
@@ -46,6 +51,14 @@ async def run_eval(
         try:
             rag_result = await pipeline.answer(query=case.text, top_k=top_k)
             elapsed = time.perf_counter() - t0
+            judgments_raw: list[dict[str, object]] = []
+            if judge is not None:
+                judgments = await judge.judge_answer(
+                    case_id=case.id,
+                    answer=rag_result.answer.content,
+                    chunks=rag_result.chunks,
+                )
+                judgments_raw = [j.model_dump() for j in judgments]
             results.append(
                 CaseResult(
                     case_id=case.id,
@@ -56,6 +69,7 @@ async def run_eval(
                     chunks_retrieved=len(rag_result.chunks),
                     latency_seconds=elapsed,
                     expected_coverage=case.corpus_coverage_expected,
+                    judgments=judgments_raw,
                 )
             )
             log.info(
@@ -63,6 +77,7 @@ async def run_eval(
                 case_id=case.id,
                 latency=round(elapsed, 2),
                 citation_valid=rag_result.citation_validation.is_valid,
+                n_judgments=len(judgments_raw),
             )
         except Exception as exc:
             elapsed = time.perf_counter() - t0

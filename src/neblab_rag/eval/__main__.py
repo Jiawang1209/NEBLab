@@ -14,6 +14,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from neblab_rag.eval.data import load_eval_set
+from neblab_rag.eval.judge import CitationJudge
 from neblab_rag.eval.runner import build_report, run_eval
 from neblab_rag.providers.factory import (
     build_embedding_provider,
@@ -54,15 +55,24 @@ def _print_summary(report_path: Path, report: object) -> None:
     print(f"  avg_chunks_retrieved:     {m.avg_chunks_retrieved:.2f}")
     print(f"  latency_p50:              {m.latency_p50:.2f}s")
     print(f"  latency_p95:              {m.latency_p95:.2f}s")
+    if m.n_judgments:
+        print(f"\n  --- judge ({m.n_judgments} citations judged) ---")
+        print(f"  citation_supported_rate:  {m.citation_supported_rate:.1%}")
+        print(f"  citation_partial_rate:    {m.citation_partial_rate:.1%}")
+        print(f"  citation_not_supported:   {m.citation_not_supported_rate:.1%}")
     print(f"\nFull report → {report_path}\n")
 
 
 async def _run(args: argparse.Namespace) -> int:
     eval_set = load_eval_set(Path(args.questions))
     pipeline = _build_pipeline(with_rewriter=not args.no_rewriter)
+    judge = CitationJudge(llm=build_llm_provider()) if args.judge else None
 
-    print(f"Running {len(eval_set.cases)} cases from {eval_set.version} ...")
-    results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k)
+    print(
+        f"Running {len(eval_set.cases)} cases from {eval_set.version} "
+        f"(judge={'on' if judge else 'off'}, rewriter={'off' if args.no_rewriter else 'on'}) ..."
+    )
+    results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k, judge=judge)
 
     timestamp = datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
     report = build_report(
@@ -98,6 +108,11 @@ def main(argv: list[str] | None = None) -> int:
         "--no-rewriter",
         action="store_true",
         help="Disable query rewriter (zh→en) — for A/B comparison against rewriter-on baselines",
+    )
+    parser.add_argument(
+        "--judge",
+        action="store_true",
+        help="Enable LLM-as-judge for citation faithfulness (~5-15 extra LLM calls per case)",
     )
     args = parser.parse_args(argv)
     return asyncio.run(_run(args))
