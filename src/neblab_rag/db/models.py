@@ -1,0 +1,75 @@
+"""SQLAlchemy ORM models for documents + abstracts."""
+
+from datetime import datetime
+from enum import StrEnum
+
+from sqlalchemy import (
+    JSON,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    UniqueConstraint,
+    func,
+)
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class IndexStatus(StrEnum):
+    METADATA_ONLY = "metadata_only"
+    FULLTEXT_PENDING = "fulltext_pending"
+    FULLTEXT_INDEXED = "fulltext_indexed"
+    FAILED = "failed"
+
+
+class Document(Base):
+    """One row per unique document (paper)."""
+
+    __tablename__ = "documents"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    openalex_id: Mapped[str | None] = mapped_column(String(50), unique=True, nullable=True)
+    doi: Mapped[str | None] = mapped_column(String(200), unique=True, nullable=True)
+    title: Mapped[str] = mapped_column(Text, nullable=False)
+    authors: Mapped[list[str]] = mapped_column(JSON, default=list)
+    venue: Mapped[str | None] = mapped_column(String(500))
+    year: Mapped[int | None] = mapped_column(Integer, index=True)
+    primary_topic: Mapped[str] = mapped_column(String(100), index=True)
+    extra_topics: Mapped[list[str]] = mapped_column(JSON, default=list)
+    language: Mapped[str | None] = mapped_column(String(10))
+    is_oa: Mapped[bool] = mapped_column(default=False)
+    cited_by_count: Mapped[int] = mapped_column(default=0)
+    status: Mapped[IndexStatus] = mapped_column(
+        Enum(IndexStatus), default=IndexStatus.METADATA_ONLY
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(), onupdate=func.now()
+    )
+
+    abstract: Mapped["AbstractRecord | None"] = relationship(
+        back_populates="document", cascade="all, delete-orphan", uselist=False
+    )
+
+
+class AbstractRecord(Base):
+    """Abstract text per document. Stored separately to keep the documents row small."""
+
+    __tablename__ = "abstracts"
+    __table_args__ = (UniqueConstraint("document_id"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    document_id: Mapped[int] = mapped_column(
+        ForeignKey("documents.id", ondelete="CASCADE"), index=True
+    )
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    language: Mapped[str] = mapped_column(String(10))
+    qdrant_point_id: Mapped[str | None] = mapped_column(String(50))
+
+    document: Mapped[Document] = relationship(back_populates="abstract")
