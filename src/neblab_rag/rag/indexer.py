@@ -45,7 +45,7 @@ class AbstractIndexer:
 
             points = [
                 VectorPoint(
-                    id=str(d.id),
+                    id=d.id,
                     vector=v,
                     payload={
                         "doc_id": d.id,

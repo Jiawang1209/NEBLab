@@ -3,6 +3,12 @@
 Wraps qdrant-client with our DTOs (VectorPoint, SearchHit) so the rest of
 the codebase doesn't import qdrant types directly. Collection lifecycle
 (``ensure_collection``) is idempotent so callers can run it on every boot.
+
+Point IDs: Qdrant accepts either an unsigned integer or a UUID string.
+We use the document's Postgres primary key (sequential int) directly —
+``int`` here is the contract, not ``str``. Sending a stringified int like
+``"3"`` is rejected at runtime ("3 is not a valid point ID"); the strict
+type prevents that class of bug.
 """
 
 from typing import Any
@@ -13,13 +19,16 @@ from qdrant_client.models import Distance, PointStruct, VectorParams
 
 
 class VectorPoint(BaseModel):
-    id: str
+    id: int
     vector: list[float]
     payload: dict[str, Any]
 
 
 class SearchHit(BaseModel):
-    id: str
+    # Qdrant returns whatever was upserted: int for our docs, but we keep
+    # the union so a future caller upserting UUIDs (e.g. multi-chunk in
+    # Plan 2) doesn't have to widen this contract again.
+    id: int | str
     score: float
     payload: dict[str, Any]
 
@@ -50,6 +59,4 @@ class QdrantRepo:
             limit=top_k,
             with_payload=True,
         )
-        return [
-            SearchHit(id=str(h.id), score=h.score, payload=h.payload or {}) for h in response.points
-        ]
+        return [SearchHit(id=h.id, score=h.score, payload=h.payload or {}) for h in response.points]

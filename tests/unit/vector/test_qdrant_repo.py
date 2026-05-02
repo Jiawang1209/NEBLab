@@ -21,12 +21,13 @@ def test_upsert_points_passes_correct_payload(mock_client):
     repo = QdrantRepo(client=mock_client, collection="test", dim=4)
     repo.upsert_points(
         [
-            VectorPoint(id="1", vector=[0.1, 0.2, 0.3, 0.4], payload={"doc_id": 1}),
+            VectorPoint(id=1, vector=[0.1, 0.2, 0.3, 0.4], payload={"doc_id": 1}),
         ]
     )
     mock_client.upsert.assert_called_once()
     args = mock_client.upsert.call_args.kwargs
     assert args["collection_name"] == "test"
+    assert args["points"][0].id == 1  # must be int — Qdrant rejects strings like "1"
 
 
 def test_search_returns_top_hits(mock_client):
