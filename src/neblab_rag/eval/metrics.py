@@ -17,6 +17,7 @@ or doubles latency, the structural metrics will show it without a single
 LLM call.
 """
 
+import re
 from collections.abc import Sequence
 
 from pydantic import BaseModel
@@ -59,15 +60,24 @@ class AggregateMetrics(BaseModel):
     citation_not_supported_rate: float = 0.0
 
 
+_CHINESE_FALLBACK_PATTERN = re.compile(r"文献[一-鿿]{0,4}中暂未找到")
+
+
 def is_fallback_answer(answer: str) -> bool:
-    """Detect both English and Chinese 'no relevant findings' templates."""
+    """Detect both English and Chinese 'no relevant findings' templates.
+
+    Chinese uses a regex (not literal substring) because the LLM varies the
+    qualifier — '文献中' / '文献库中' / '文献片段中' all happen, and the n=41
+    baseline (2026-05-02) caught 1 honesty test as a false positive because
+    the detector was string-literal. Allow up to 4 CJK chars between '文献'
+    and '中暂未找到' to absorb variants without matching unrelated text.
+    """
     if answer == EMPTY_CONTEXT_REPLY:
         return True
-    # Generator's prompt nudges the LLM to use these phrases when chunks
-    # are insufficient — same in both languages.
-    fallback_markers = ("文献中暂未找到", "文献库中暂未找到", "literature insufficient")
     a = answer.strip()
-    return any(m in a for m in fallback_markers)
+    if "literature insufficient" in a:
+        return True
+    return _CHINESE_FALLBACK_PATTERN.search(a) is not None
 
 
 def aggregate(results: Sequence[CaseResult]) -> AggregateMetrics:
