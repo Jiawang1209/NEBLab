@@ -6,6 +6,7 @@ import pytest
 from neblab_rag.providers.factory import (
     build_embedding_provider,
     build_llm_provider,
+    build_qdrant_repo,
     build_reranker_provider,
 )
 
@@ -46,3 +47,9 @@ def test_build_reranker_provider(env: dict[str, str]):
     with patch.dict(os.environ, env, clear=True):
         provider = build_reranker_provider()
     assert provider is not None
+
+
+def test_build_qdrant_repo_uses_settings(env: dict[str, str]):
+    with patch.dict(os.environ, env, clear=True):
+        repo = build_qdrant_repo()
+    assert repo is not None
