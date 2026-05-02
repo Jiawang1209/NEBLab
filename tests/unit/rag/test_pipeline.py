@@ -69,3 +69,56 @@ async def test_answer_flags_invalid_citations() -> None:
 
     assert result.citation_validation.is_valid is False
     assert 5 in result.citation_validation.invalid_numbers
+
+
+async def test_rewriter_routes_translated_query_to_retriever_only() -> None:
+    """Sprint 4: rewritten query goes to retriever (better corpus match);
+    original query goes to generator (so the answer language matches)."""
+    from neblab_rag.rag.query_rewriter import RewrittenQuery
+
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
+    retriever = MagicMock()
+    retriever.retrieve = AsyncMock(return_value=chunks)
+    generator = MagicMock()
+    generator.generate = AsyncMock(return_value=GeneratedAnswer(content="Per [1].", citations=[]))
+    rewriter = MagicMock()
+    rewriter.rewrite = AsyncMock(
+        return_value=RewrittenQuery(
+            original="沙漠化的机制？",
+            rewritten="What are the mechanisms of desertification?",
+            was_rewritten=True,
+        )
+    )
+
+    pipeline = RAGPipeline(retriever=retriever, generator=generator, query_rewriter=rewriter)
+    result = await pipeline.answer(query="沙漠化的机制？")
+
+    retriever.retrieve.assert_awaited_once_with(
+        query="What are the mechanisms of desertification?", top_k=5
+    )
+    generator.generate.assert_awaited_once_with(query="沙漠化的机制？", chunks=chunks)
+    assert result.query == "沙漠化的机制？"
+    assert result.rewritten_query == "What are the mechanisms of desertification?"
+
+
+async def test_no_rewriter_means_original_query_used_throughout() -> None:
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
+    retriever = MagicMock()
+    retriever.retrieve = AsyncMock(return_value=chunks)
+    generator = MagicMock()
+    generator.generate = AsyncMock(return_value=GeneratedAnswer(content="Per [1].", citations=[]))
+
+    pipeline = RAGPipeline(retriever=retriever, generator=generator)  # no rewriter
+    result = await pipeline.answer(query="What is X?")
+
+    retriever.retrieve.assert_awaited_once_with(query="What is X?", top_k=5)
+    generator.generate.assert_awaited_once_with(query="What is X?", chunks=chunks)
+    assert result.rewritten_query is None

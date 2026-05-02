@@ -90,6 +90,27 @@ async def test_generate_passes_system_and_user_messages_to_llm() -> None:
 
 
 @pytest.mark.asyncio
+async def test_generate_uses_temperature_zero_for_reproducibility() -> None:
+    """Sprint 2.5: Sprint 4 baseline showed temperature=0.3 made eval runs
+    non-reproducible. Generator must explicitly request 0.0."""
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="t", text="x", score=0.9
+        )
+    ]
+    llm = MagicMock()
+    llm.chat = AsyncMock(
+        return_value=ChatResponse(content="Per [1].", model="m", finish_reason="stop")
+    )
+
+    gen = AnswerGenerator(llm=llm)
+    await gen.generate(query="Q?", chunks=chunks)
+
+    request = llm.chat.call_args.args[0]
+    assert request.temperature == 0.0
+
+
+@pytest.mark.asyncio
 async def test_stream_yields_deltas_from_llm() -> None:
     chunks = [
         RetrievedChunk(
