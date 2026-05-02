@@ -51,9 +51,7 @@ class AnswerGenerator:
     def __init__(self, llm: LLMProvider):
         self._llm = llm
 
-    def _build_messages(
-        self, query: str, chunks: list[RetrievedChunk]
-    ) -> list[ChatMessage]:
+    def _build_messages(self, query: str, chunks: list[RetrievedChunk]) -> list[ChatMessage]:
         return [
             ChatMessage(role="system", content=SYSTEM_PROMPT),
             ChatMessage(
@@ -73,19 +71,13 @@ class AnswerGenerator:
             for i, c in enumerate(chunks, 1)
         ]
 
-    async def generate(
-        self, *, query: str, chunks: list[RetrievedChunk]
-    ) -> GeneratedAnswer:
+    async def generate(self, *, query: str, chunks: list[RetrievedChunk]) -> GeneratedAnswer:
         if not chunks:
             return GeneratedAnswer(content=EMPTY_CONTEXT_REPLY, citations=[])
-        resp = await self._llm.chat(
-            ChatRequest(messages=self._build_messages(query, chunks))
-        )
+        resp = await self._llm.chat(ChatRequest(messages=self._build_messages(query, chunks)))
         return GeneratedAnswer(content=resp.content, citations=self._citations(chunks))
 
-    async def stream(
-        self, *, query: str, chunks: list[RetrievedChunk]
-    ) -> AsyncIterator[str]:
+    async def stream(self, *, query: str, chunks: list[RetrievedChunk]) -> AsyncIterator[str]:
         if not chunks:
             yield EMPTY_CONTEXT_REPLY
             return

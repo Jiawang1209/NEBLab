@@ -56,9 +56,7 @@ async def test_generate_passes_system_and_user_messages_to_llm() -> None:
     chunks = [RetrievedChunk(doc_id=1, openalex_id="W1", title="t", text="x", score=0.9)]
     llm = MagicMock()
     llm.chat = AsyncMock(
-        return_value=ChatResponse(
-            content="Per [1].", model="m", finish_reason="stop"
-        )
+        return_value=ChatResponse(content="Per [1].", model="m", finish_reason="stop")
     )
 
     gen = AnswerGenerator(llm=llm)

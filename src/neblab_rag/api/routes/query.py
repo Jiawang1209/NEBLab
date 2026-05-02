@@ -79,9 +79,7 @@ async def query(req: QueryRequest, pipeline: PipelineDep) -> QueryResponse:
 
 
 @router.get("/query/stream")
-async def stream(
-    query: str, pipeline: PipelineDep, top_k: int = 5
-) -> EventSourceResponse:
+async def stream(query: str, pipeline: PipelineDep, top_k: int = 5) -> EventSourceResponse:
     """SSE streaming endpoint.
 
     Emits in order:
