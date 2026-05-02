@@ -66,8 +66,6 @@ class AbstractIndexer:
 
             for d in batch:
                 d.status = IndexStatus.FULLTEXT_INDEXED
-                if d.abstract:
-                    d.abstract.qdrant_point_id = str(d.id)
 
             total += len(batch)
             self._session.flush()

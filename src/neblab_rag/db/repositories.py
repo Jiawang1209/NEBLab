@@ -95,9 +95,3 @@ class DocumentRepository:
         if limit:
             stmt = stmt.limit(limit)
         return self._session.execute(stmt).scalars().all()
-
-    def mark_qdrant_point(self, document_id: int, point_id: str) -> None:
-        """Record the Qdrant point id on the document's abstract after indexing."""
-        doc = self._session.get(Document, document_id)
-        if doc and doc.abstract:
-            doc.abstract.qdrant_point_id = point_id
