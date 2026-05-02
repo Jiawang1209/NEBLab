@@ -33,11 +33,25 @@ class SearchHit(BaseModel):
     payload: dict[str, Any]
 
 
+# Sprint 1: full-text indexing produces 100s-1000s of chunks per doc;
+# a single upsert of 4096-d × N vectors will time out against Qdrant Cloud
+# above ~200 points. Batch internally so callers don't have to know.
+DEFAULT_UPSERT_BATCH_SIZE = 100
+
+
 class QdrantRepo:
-    def __init__(self, client: QdrantClient, collection: str, dim: int):
+    def __init__(
+        self,
+        client: QdrantClient,
+        collection: str,
+        dim: int,
+        *,
+        upsert_batch_size: int = DEFAULT_UPSERT_BATCH_SIZE,
+    ):
         self._client = client
         self._collection = collection
         self._dim = dim
+        self._upsert_batch_size = upsert_batch_size
 
     def ensure_collection(self) -> None:
         if not self._client.collection_exists(self._collection):
@@ -47,10 +61,12 @@ class QdrantRepo:
             )
 
     def upsert_points(self, points: list[VectorPoint]) -> None:
-        self._client.upsert(
-            collection_name=self._collection,
-            points=[PointStruct(id=p.id, vector=p.vector, payload=p.payload) for p in points],
-        )
+        for i in range(0, len(points), self._upsert_batch_size):
+            batch = points[i : i + self._upsert_batch_size]
+            self._client.upsert(
+                collection_name=self._collection,
+                points=[PointStruct(id=p.id, vector=p.vector, payload=p.payload) for p in batch],
+            )
 
     def search(self, query_vector: list[float], top_k: int = 10) -> list[SearchHit]:
         response = self._client.query_points(

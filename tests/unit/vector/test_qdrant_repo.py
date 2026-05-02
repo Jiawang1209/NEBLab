@@ -30,6 +30,19 @@ def test_upsert_points_passes_correct_payload(mock_client):
     assert args["points"][0].id == 1  # must be int — Qdrant rejects strings like "1"
 
 
+def test_upsert_points_batches_above_limit(mock_client):
+    """Sprint 1: full-text indexing produces 100s+ chunks per doc; a single
+    upsert above ~200 points times out against Qdrant Cloud. Repo batches
+    internally with configurable size."""
+    repo = QdrantRepo(client=mock_client, collection="test", dim=4, upsert_batch_size=10)
+    points = [VectorPoint(id=i, vector=[0.0] * 4, payload={}) for i in range(25)]
+    repo.upsert_points(points)
+    # 25 points / 10 batch size → 3 calls (10 + 10 + 5)
+    assert mock_client.upsert.call_count == 3
+    batch_sizes = [len(call.kwargs["points"]) for call in mock_client.upsert.call_args_list]
+    assert batch_sizes == [10, 10, 5]
+
+
 def test_search_returns_top_hits(mock_client):
     mock_hit = MagicMock()
     mock_hit.id = "p1"
