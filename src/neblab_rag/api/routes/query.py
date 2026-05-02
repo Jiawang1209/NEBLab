@@ -27,6 +27,7 @@ from neblab_rag.providers.factory import (
 )
 from neblab_rag.rag.generator import AnswerGenerator
 from neblab_rag.rag.pipeline import RAGPipeline
+from neblab_rag.rag.query_rewriter import QueryRewriter
 from neblab_rag.rag.retriever import HybridRetriever
 
 router = APIRouter(tags=["rag"])
@@ -52,13 +53,18 @@ class QueryResponse(BaseModel):
 
 @lru_cache(maxsize=1)
 def _build_pipeline() -> RAGPipeline:
+    llm = build_llm_provider()
     retriever = HybridRetriever(
         embedder=build_embedding_provider(),
         qdrant=build_qdrant_repo(),
         reranker=build_reranker_provider(),
     )
-    generator = AnswerGenerator(llm=build_llm_provider())
-    return RAGPipeline(retriever=retriever, generator=generator)
+    return RAGPipeline(
+        retriever=retriever,
+        generator=AnswerGenerator(llm=llm),
+        # Same LLM instance for rewriting — translation is a cheap chat call
+        query_rewriter=QueryRewriter(llm=llm),
+    )
 
 
 def get_pipeline() -> RAGPipeline:

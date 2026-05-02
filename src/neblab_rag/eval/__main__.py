@@ -23,17 +23,22 @@ from neblab_rag.providers.factory import (
 )
 from neblab_rag.rag.generator import AnswerGenerator
 from neblab_rag.rag.pipeline import RAGPipeline
+from neblab_rag.rag.query_rewriter import QueryRewriter
 from neblab_rag.rag.retriever import HybridRetriever
 
 
-def _build_pipeline() -> RAGPipeline:
+def _build_pipeline(*, with_rewriter: bool) -> RAGPipeline:
+    llm = build_llm_provider()
     retriever = HybridRetriever(
         embedder=build_embedding_provider(),
         qdrant=build_qdrant_repo(),
         reranker=build_reranker_provider(),
     )
-    generator = AnswerGenerator(llm=build_llm_provider())
-    return RAGPipeline(retriever=retriever, generator=generator)
+    return RAGPipeline(
+        retriever=retriever,
+        generator=AnswerGenerator(llm=llm),
+        query_rewriter=QueryRewriter(llm=llm) if with_rewriter else None,
+    )
 
 
 def _print_summary(report_path: Path, report: object) -> None:
@@ -54,7 +59,7 @@ def _print_summary(report_path: Path, report: object) -> None:
 
 async def _run(args: argparse.Namespace) -> int:
     eval_set = load_eval_set(Path(args.questions))
-    pipeline = _build_pipeline()
+    pipeline = _build_pipeline(with_rewriter=not args.no_rewriter)
 
     print(f"Running {len(eval_set.cases)} cases from {eval_set.version} ...")
     results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k)
@@ -89,6 +94,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--out-dir", default="evals/runs", help="Where to write the JSON report")
     parser.add_argument("--top-k", type=int, default=5)
+    parser.add_argument(
+        "--no-rewriter",
+        action="store_true",
+        help="Disable query rewriter (zh→en) — for A/B comparison against rewriter-on baselines",
+    )
     args = parser.parse_args(argv)
     return asyncio.run(_run(args))
 
