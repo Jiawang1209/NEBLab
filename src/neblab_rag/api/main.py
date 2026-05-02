@@ -9,6 +9,7 @@ side effects. Run with::
 from fastapi import FastAPI
 
 from neblab_rag.api.routes import health
+from neblab_rag.api.routes import query as query_routes
 from neblab_rag.config import get_settings
 from neblab_rag.logging_config import configure_logging
 
@@ -24,4 +25,5 @@ def create_app() -> FastAPI:
         description="北方生态屏障数字实验室 RAG 知识库",
     )
     app.include_router(health.router)
+    app.include_router(query_routes.router)
     return app
