@@ -72,3 +72,6 @@ reportMissingTypeStubs = false
 asyncio_mode = "auto"
 testpaths = ["tests"]
 addopts = "-v --tb=short"
+markers = [
+  "integration: tests requiring local Postgres + Qdrant Cloud + real API keys (skipped in CI)",
+]
