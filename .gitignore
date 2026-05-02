@@ -36,3 +36,7 @@ data/
 logs/
 *.log
 .claude/settings.local.json
+
+# oh-my-claudecode runtime state (per-session, per-machine)
+.omc/
+

@@ -1,7 +1,0 @@
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"update-config"}
-{"t":0,"agent":"a338931","agent_type":"unknown","event":"agent_stop","success":true}
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"superpowers:brainstorming"}
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"superpowers:writing-plans"}
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"superpowers:subagent-driven-development"}
-{"t":0,"agent":"a03ca9a","agent_type":"general-purpose","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a03ca9a","agent_type":"general-purpose","event":"agent_stop","success":true,"duration_ms":67048}
