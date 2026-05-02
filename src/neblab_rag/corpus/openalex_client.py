@@ -61,20 +61,27 @@ class OpenAlexClient:
             for w in page:
                 if count >= max_results:
                     return
+                # OpenAlex returns nested objects that may be null even when
+                # the key is present, so we cannot rely on dict.get default.
+                # Use `or {}` to coerce null → empty-dict at every hop.
+                loc = w.get("primary_location") or {}
+                src = loc.get("source") or {}
+                oa = w.get("open_access") or {}
+                authorships = w.get("authorships") or []
                 yield OpenAlexRecord(
                     openalex_id=w["id"].rsplit("/", 1)[-1],
                     doi=(w.get("doi") or "").removeprefix("https://doi.org/") or None,
                     title=w.get("title") or "",
                     authors=[
-                        a["author"]["display_name"]
-                        for a in w.get("authorships", [])
-                        if a.get("author", {}).get("display_name")
+                        name
+                        for a in authorships
+                        if (name := (a.get("author") or {}).get("display_name"))
                     ],
-                    venue=(w.get("primary_location") or {}).get("source", {}).get("display_name"),
+                    venue=src.get("display_name"),
                     year=w.get("publication_year"),
                     language=w.get("language"),
-                    is_oa=(w.get("open_access") or {}).get("is_oa", False),
-                    cited_by_count=w.get("cited_by_count", 0),
+                    is_oa=bool(oa.get("is_oa") or False),
+                    cited_by_count=w.get("cited_by_count") or 0,
                     abstract=_restore_abstract(w.get("abstract_inverted_index")),
                 )
                 count += 1
