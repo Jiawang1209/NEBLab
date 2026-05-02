@@ -6,6 +6,7 @@ run anywhere the dependency installs.
 
 import pymupdf
 import pytest
+from pymupdf import FileDataError
 
 from neblab_rag.providers.parser import PyMuPDFParser
 
@@ -41,5 +42,5 @@ def test_concatenates_pages_with_separator() -> None:
 
 def test_raises_on_corrupt_pdf() -> None:
     """Caller should mark the doc as parse-failed; we don't silently emit empty text."""
-    with pytest.raises(Exception):
+    with pytest.raises(FileDataError):
         PyMuPDFParser().parse(b"this is not a pdf, just bytes")
