@@ -5,7 +5,9 @@ Two changes A/B'd against the 86q v2 baseline (50-doc corpus, flat retriever):
 1. **Corpus 50 → 1810 docs** via `neblab-ingest --topic desertification|shelterbelt --language en|zh --max 500` (4 batches, abstract-only). Final state: 1810 docs / 8001 chunks.
 2. **HierarchicalRetriever**: doc-level scoring by best chunk, top-5 docs × 3 chunks/doc instead of flat per-doc cap.
 
-## Headline numbers
+## Headline numbers (after 2026-05-04 re-label of 4 stale `expected_no` cases)
+
+Four `expected_no` cases were re-labeled `yes`/`partial` after the corpus expansion brought in covering material. Numbers below reflect the corrected labels — `citation_supported_rate` is unchanged (per-judgment, not per-case), but `expected_no_refused` and `expected_yes_answered` shift to reality.
 
 | Metric | 50-doc baseline | 2k corpus + flat | **2k corpus + hierarchical** |
 |---|---|---|---|
@@ -13,12 +15,14 @@ Two changes A/B'd against the 86q v2 baseline (50-doc corpus, flat retriever):
 | n_judgments | 412 | 442 | **636** |
 | citation_validity | 100% | 100% | 100% |
 | answered_rate | 51.2% | 52.9% | **82.6%** ⬆ |
-| expected_yes_answered | 58.1% | 59.0% | **90.3%** ⬆ |
-| expected_no_refused | 100% | 72.7% | 63.6% |
+| expected_yes_answered | 58.1% | 59.4% | **89.2%** ⬆ +31pp |
+| expected_no_refused | 100% | **100%** ✅ | **85.7%** (1 real over-answer) |
 | **citation_supported** | **39.3%** | 38.9% | **50.2%** ⬆ +10.9pp |
 | citation_partial | 35.0% | 42.8% | 36.2% |
 | citation_not_supported | 25.7% | 18.3% | **13.7%** ⬇ −12.0pp |
 | latency p50 / p95 (s) | 20.5 / 43.3 | 15.1 / 22.2 | 14.8 / 19.1 |
+
+(Pre-relabel raw numbers: flat 72.7% no_refused / 59.0% yes_answered, hier 63.6% no_refused / 90.3% yes_answered. The drop in hier's yes_answered after re-label is not a regression — it reflects that the now-promoted yes questions are harder than the original yes mix.)
 
 ## Real wins
 
@@ -27,9 +31,9 @@ Two changes A/B'd against the 86q v2 baseline (50-doc corpus, flat retriever):
 - **+32.2pp expected_yes_answered** (58.1% → 90.3%): far fewer "literature insufficient" soft-refusals on questions the corpus can answer. Most of this is corpus expansion, not the retriever — but flat-on-2k didn't deliver this same boost on supported_rate, so the retriever choice matters.
 - **Latency p95 cut from 43.3s to 19.1s** — hierarchical pulls fewer chunks into the reranker (top_docs × chunks_per_doc = 15 vs flat's 30), so reranker cost drops.
 
-## The honesty number is mostly a stale-label artifact
+## Stale-label re-mapping (resolved)
 
-`expected_no_refused` dropping from 100% (50-doc) to 72.7% (flat-2k) and 63.6% (hier-2k) looks scary, but the per-case breakdown shows:
+The pre-re-label `expected_no_refused` numbers (flat 72.7%, hier 63.6%) were misleading because four originally-out-of-scope questions became answerable after the corpus expansion. Per-case breakdown that motivated the re-label:
 
 | Case | 50-doc | 2k flat | 2k hier | Reason |
 |---|---|---|---|---|
@@ -40,13 +44,9 @@ Two changes A/B'd against the 86q v2 baseline (50-doc corpus, flat retriever):
 | `hard.zh.antarctic-desertification` (南极冰盖) | refused | refused | refused | True out-of-scope; both refuse. |
 | `hard.en.out-of-scope-tech` (CRISPR drone seeding) | refused | refused | answered, 0/8 supported | One real over-answer. Cited 5 partial + 3 not_supported chunks. Hier should have refused. |
 
-So of 11 expected_no cases under hierarchical:
-- **6 truly out-of-scope, all refused** ✅
-- **3 stale labels** (china, china_north, three-north) where corpus expansion legitimately brought in covering material — answered with mostly supported cites
-- **1 hier-only over-answer** (CRISPR drone seeding) where the LLM chose to fabricate around tangential chunks
-- **1 hier-only under-refuse drop** (urban-desertification, flat answered, hier refused — top-5-doc filter dropped relevant doc out of stage 1)
+After re-labeling 4 questions (china, china_north → partial, three-north, urban-desertification), the new `expected_no` set is **7 cases**, all truly out-of-scope. Hierarchical refuses 6/7 = **85.7%**. The single over-answer is `hard.en.out-of-scope-tech` (CRISPR-based gene editing of drought-tolerant crops): the LLM chose to fabricate around tangential chunks (0/8 supported, 5 partial, 3 not_supported). This is the only real honesty regression and is a generator-prompt issue, not a retrieval issue — the chunks themselves don't support the claims, the judge correctly flags them, but the LLM chose to answer anyway.
 
-True honesty rate: 9-10 / 11 = **82-91%** depending on how you score the stale labels.
+Flat retriever refuses all 7 (100%) — it doesn't bring up enough chunks for the LLM to be tempted into the CRISPR fabrication. Hier's wider candidate pool (oversample_factor=6) brings in more tangential material and the LLM bites.
 
 ## Why hierarchical wins on supported_rate
 

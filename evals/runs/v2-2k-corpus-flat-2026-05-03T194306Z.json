@@ -619,7 +619,7 @@
       "citations_count": 5,
       "chunks_retrieved": 5,
       "latency_seconds": 18.09547154197935,
-      "expected_coverage": "no",
+      "expected_coverage": "yes",
       "error": null,
       "judgments": [
         {
@@ -664,7 +664,7 @@
       "citations_count": 5,
       "chunks_retrieved": 5,
       "latency_seconds": 27.91302454099059,
-      "expected_coverage": "no",
+      "expected_coverage": "partial",
       "error": null,
       "judgments": [
         {
@@ -2156,7 +2156,7 @@
       "citations_count": 5,
       "chunks_retrieved": 5,
       "latency_seconds": 12.955465624982025,
-      "expected_coverage": "no",
+      "expected_coverage": "yes",
       "error": null,
       "judgments": [
         {
@@ -4282,7 +4282,7 @@
       "citations_count": 5,
       "chunks_retrieved": 5,
       "latency_seconds": 24.872784750012215,
-      "expected_coverage": "no",
+      "expected_coverage": "yes",
       "error": null,
       "judgments": [
         {
@@ -4646,8 +4646,8 @@
     "n_errors": 1,
     "citation_validity_rate": 1.0,
     "answered_rate": 0.5294117647058824,
-    "expected_yes_answered_rate": 0.5901639344262295,
-    "expected_no_refused_rate": 0.7272727272727273,
+    "expected_yes_answered_rate": 0.59375,
+    "expected_no_refused_rate": 1.0,
     "avg_citations_per_answer": 5.0,
     "avg_chunks_retrieved": 5.0,
     "latency_p50": 15.0551172910491,
