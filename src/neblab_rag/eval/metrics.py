@@ -72,7 +72,10 @@ _CHINESE_REFUSAL_PATTERNS = [
     # alternative '[一-鿿]' class missed real refusals with intervening
     # commas/spaces (Sprint 1 v0.1).
     re.compile(r"文献[^。\n]{0,25}(?:未提及|未涉及|未讨论|不包含|不涉及)"),
-    re.compile(r"无法回答[^。\n]{0,20}(?:问题|您的)"),
+    # "无法回答" with possible adverb between (e.g. "无法直接回答") and longer
+    # noun-phrase before "问题|您的" (Sprint-1 86q baseline added "无法回答关于
+    # 使用...这一问题" where the topic phrase exceeds the 20-char window).
+    re.compile(r"无法[^。\n]{0,8}回答[^。\n]{0,60}(?:问题|您的)"),
     re.compile(r"根据[^。\n]{0,30}文献[^。\n]{0,15}(?:无法|不能)"),
 ]
 
