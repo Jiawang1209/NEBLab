@@ -48,6 +48,29 @@ def _rerank_doc(payload: dict[str, object]) -> str:
 
 RRF_K = 60  # reciprocal-rank-fusion constant from the original paper
 
+# Sprint 1 v0.2: a single fulltext doc can produce 100s-1000s of chunks
+# and dominate the candidate pool against abstract-only docs (which produce
+# 1-5 chunks each). Cap how many chunks any one doc contributes to the
+# pre-rerank pool so retrieval stays diverse across docs.
+DEFAULT_MAX_CHUNKS_PER_DOC = 3
+
+
+def _cap_per_doc(candidates: list[SearchHit], max_per_doc: int) -> list[SearchHit]:
+    """Drop chunks beyond ``max_per_doc`` for each doc_id, preserving rank order.
+
+    Operates on the post-RRF candidate list so the cap respects whichever
+    chunks scored highest under the combined dense+sparse ranking.
+    """
+    counts: dict[int, int] = {}
+    out: list[SearchHit] = []
+    for c in candidates:
+        doc_id = int(c.payload.get("doc_id", -1))
+        if counts.get(doc_id, 0) >= max_per_doc:
+            continue
+        out.append(c)
+        counts[doc_id] = counts.get(doc_id, 0) + 1
+    return out
+
 
 def _merge_rrf(
     dense: list[SearchHit],
@@ -86,27 +109,35 @@ class HybridRetriever:
         reranker: RerankerProvider,
         *,
         bm25: BM25Index | None = None,
+        max_chunks_per_doc: int = DEFAULT_MAX_CHUNKS_PER_DOC,
     ):
         self._embedder = embedder
         self._qdrant = qdrant
         self._reranker = reranker
         self._bm25 = bm25
+        self._max_chunks_per_doc = max_chunks_per_doc
 
     async def retrieve(
         self, *, query: str, top_k: int = 5, candidate_k: int = 30
     ) -> list[RetrievedChunk]:
         [query_vec] = await self._embedder.embed([query])
-        dense_hits = self._qdrant.search(query_vec, top_k=candidate_k)
+        # Pull more dense candidates than we'll keep — the per-doc cap will
+        # prune them down. Without the inflate, after capping 30→~12, we'd
+        # starve the reranker of diverse-doc options.
+        oversample = candidate_k * self._max_chunks_per_doc
+        dense_hits = self._qdrant.search(query_vec, top_k=oversample)
 
         if self._bm25 is None:
             candidates = dense_hits
         else:
-            sparse_hits = self._bm25.search(query, top_k=candidate_k)
+            sparse_hits = self._bm25.search(query, top_k=oversample)
             sparse_ids = [h.chunk_id for h in sparse_hits]
             payloads_by_id: dict[int, dict[str, object]] = {
                 int(h.id): h.payload for h in dense_hits if isinstance(h.id, int)
             }
             candidates = _merge_rrf(dense_hits, sparse_ids, payloads_by_id=payloads_by_id)
+
+        candidates = _cap_per_doc(candidates, self._max_chunks_per_doc)[:candidate_k]
 
         if not candidates:
             return []
