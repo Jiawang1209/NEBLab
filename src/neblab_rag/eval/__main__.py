@@ -26,17 +26,24 @@ from neblab_rag.providers.factory import (
 from neblab_rag.rag.generator import AnswerGenerator
 from neblab_rag.rag.pipeline import RAGPipeline
 from neblab_rag.rag.query_rewriter import QueryRewriter
-from neblab_rag.rag.retriever import HybridRetriever
+from neblab_rag.rag.retriever import HierarchicalRetriever, HybridRetriever
 
 
-def _build_pipeline(*, with_rewriter: bool, with_bm25: bool) -> RAGPipeline:
+def _build_pipeline(
+    *, with_rewriter: bool, with_bm25: bool, with_hierarchical: bool
+) -> RAGPipeline:
     llm = build_llm_provider()
-    retriever = HybridRetriever(
-        embedder=build_embedding_provider(),
-        qdrant=build_qdrant_repo(),
-        reranker=build_reranker_provider(),
-        bm25=build_bm25_index() if with_bm25 else None,
-    )
+    bm25 = build_bm25_index() if with_bm25 else None
+    embedder = build_embedding_provider()
+    qdrant = build_qdrant_repo()
+    reranker = build_reranker_provider()
+    retriever: HybridRetriever | HierarchicalRetriever
+    if with_hierarchical:
+        retriever = HierarchicalRetriever(
+            embedder=embedder, qdrant=qdrant, reranker=reranker, bm25=bm25
+        )
+    else:
+        retriever = HybridRetriever(embedder=embedder, qdrant=qdrant, reranker=reranker, bm25=bm25)
     return RAGPipeline(
         retriever=retriever,
         generator=AnswerGenerator(llm=llm),
@@ -67,14 +74,19 @@ def _print_summary(report_path: Path, report: EvalReport) -> None:
 
 async def _run(args: argparse.Namespace) -> int:
     eval_set = load_eval_set(Path(args.questions))
-    pipeline = _build_pipeline(with_rewriter=not args.no_rewriter, with_bm25=not args.no_bm25)
+    pipeline = _build_pipeline(
+        with_rewriter=not args.no_rewriter,
+        with_bm25=not args.no_bm25,
+        with_hierarchical=args.hierarchical,
+    )
     judge = CitationJudge(llm=build_llm_provider()) if args.judge else None
 
     print(
         f"Running {len(eval_set.cases)} cases from {eval_set.version} "
         f"(judge={'on' if judge else 'off'}, "
         f"rewriter={'off' if args.no_rewriter else 'on'}, "
-        f"bm25={'off' if args.no_bm25 else 'on'}) ..."
+        f"bm25={'off' if args.no_bm25 else 'on'}, "
+        f"retriever={'hierarchical' if args.hierarchical else 'flat'}) ..."
     )
     results = await run_eval(eval_set.cases, pipeline=pipeline, top_k=args.top_k, judge=judge)
 
@@ -122,6 +134,11 @@ def main(argv: list[str] | None = None) -> int:
         "--judge",
         action="store_true",
         help="Enable LLM-as-judge for citation faithfulness (~5-15 extra LLM calls per case)",
+    )
+    parser.add_argument(
+        "--hierarchical",
+        action="store_true",
+        help="Use HierarchicalRetriever (doc-then-chunk) instead of flat HybridRetriever",
     )
     args = parser.parse_args(argv)
     return asyncio.run(_run(args))
