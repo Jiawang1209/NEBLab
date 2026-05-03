@@ -16,7 +16,7 @@ from pydantic import BaseModel
 from neblab_rag.rag.citation import CitationValidation, validate_citations
 from neblab_rag.rag.generator import AnswerGenerator, GeneratedAnswer
 from neblab_rag.rag.query_rewriter import QueryRewriter, RewrittenQuery
-from neblab_rag.rag.retriever import HybridRetriever, RetrievedChunk
+from neblab_rag.rag.retriever import RetrievedChunk, Retriever
 
 
 class RAGResult(BaseModel):
@@ -31,7 +31,7 @@ class RAGResult(BaseModel):
 class RAGPipeline:
     def __init__(
         self,
-        retriever: HybridRetriever,
+        retriever: Retriever,
         generator: AnswerGenerator,
         *,
         query_rewriter: QueryRewriter | None = None,
@@ -41,7 +41,7 @@ class RAGPipeline:
         self._rewriter = query_rewriter
 
     @property
-    def retriever(self) -> HybridRetriever:
+    def retriever(self) -> Retriever:
         return self._retriever
 
     @property
