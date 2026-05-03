@@ -51,7 +51,14 @@ class ChunkIndexer:
 
         total = 0
         for doc in pending:
-            source_text = doc.abstract.text if doc.abstract else doc.title
+            # Sprint 1: prefer fulltext over abstract when we successfully
+            # fetched + parsed a PDF. Falls back to abstract, then title.
+            if doc.fulltext and doc.fulltext.text.strip():
+                source_text = doc.fulltext.text
+            elif doc.abstract:
+                source_text = doc.abstract.text
+            else:
+                source_text = doc.title
             chunks_text = chunk_text(
                 source_text, chunk_size=self._chunk_size, overlap=self._overlap
             )

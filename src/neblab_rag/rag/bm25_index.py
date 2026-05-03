@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false, reportUnknownLambdaType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false
 """In-memory BM25 sparse index over chunk text.
 
 Sprint 2.5 fix for the 'specific-term blindness' Sprint-4 baseline showed:

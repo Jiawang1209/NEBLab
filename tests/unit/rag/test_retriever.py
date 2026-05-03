@@ -127,11 +127,53 @@ async def test_retrieve_with_bm25_promotes_keyword_match_to_reranker():
     retriever = HybridRetriever(embedder=embed, qdrant=qdrant, reranker=rr, bm25=bm25)
     chunks = await retriever.retrieve(query="connectivity hypothesis", top_k=1, candidate_k=3)
 
-    bm25.search.assert_called_once_with("connectivity hypothesis", top_k=3)
+    # Sprint 1 v0.2: retriever oversamples (candidate_k × max_chunks_per_doc)
+    # so per-doc cap doesn't starve the candidate pool. Default cap=3 → 3×3=9.
+    bm25.search.assert_called_once_with("connectivity hypothesis", top_k=9)
     # RRF: 10 gets 1/61, 20 gets 1/62, 30 gets 1/63 + 1/61 ≈ 0.0323 (highest)
     candidate_texts = rr.rerank.call_args.kwargs["documents"]
     assert "C" in candidate_texts[0] and "abs C" in candidate_texts[0]
     assert chunks[0].chunk_id == 30
+
+
+@pytest.mark.asyncio
+async def test_retrieve_caps_chunks_per_doc_in_candidate_pool():
+    """Sprint 1 v0.2: a single fulltext doc that produces 100s of chunks
+    must not crowd out smaller docs. Cap = 2 → reranker sees max 2 chunks
+    from any single doc_id."""
+    # Dense returns 5 chunks all from doc_id=1 (mimics dominant fulltext doc),
+    # plus 1 chunk each from docs 2, 3, 4
+    dense = [
+        _hit(chunk_id=10, doc_id=1, title="A1", text="x", oa_id="W1", score=0.9),
+        _hit(chunk_id=11, doc_id=1, title="A2", text="x", oa_id="W1", score=0.85),
+        _hit(chunk_id=12, doc_id=1, title="A3", text="x", oa_id="W1", score=0.8),
+        _hit(chunk_id=13, doc_id=1, title="A4", text="x", oa_id="W1", score=0.75),
+        _hit(chunk_id=14, doc_id=1, title="A5", text="x", oa_id="W1", score=0.7),
+        _hit(chunk_id=20, doc_id=2, title="B", text="y", oa_id="W2", score=0.65),
+        _hit(chunk_id=30, doc_id=3, title="C", text="z", oa_id="W3", score=0.6),
+        _hit(chunk_id=40, doc_id=4, title="D", text="w", oa_id="W4", score=0.55),
+    ]
+    embed = MagicMock()
+    embed.embed = AsyncMock(return_value=[[0.1, 0.2, 0.3, 0.4]])
+    qdrant = MagicMock()
+    qdrant.search.return_value = dense
+    rr = MagicMock()
+    rr.rerank = AsyncMock(return_value=[RerankResult(index=0, score=0.99)])
+
+    retriever = HybridRetriever(embedder=embed, qdrant=qdrant, reranker=rr, max_chunks_per_doc=2)
+    await retriever.retrieve(query="q", top_k=1, candidate_k=8)
+
+    candidate_texts = rr.rerank.call_args.kwargs["documents"]
+    # After cap=2: doc 1 contributes A1+A2 (top 2 by score), then 2/3/4 each get 1
+    # = 5 candidates total instead of 8
+    assert len(candidate_texts) == 5
+    # docs 2, 3, 4 must all appear (no longer crowded out)
+    joined = "\n".join(candidate_texts)
+    assert "B" in joined and "C" in joined and "D" in joined
+    # Doc 1 must contribute exactly 2 chunks (A1 + A2, NOT A3/A4/A5)
+    assert joined.count("A1") == 1
+    assert joined.count("A2") == 1
+    assert "A3" not in joined and "A4" not in joined and "A5" not in joined
 
 
 @pytest.mark.asyncio

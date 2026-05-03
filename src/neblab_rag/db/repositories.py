@@ -10,7 +10,7 @@ from collections.abc import Sequence
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
-from neblab_rag.db.models import AbstractRecord, Chunk, Document, IndexStatus
+from neblab_rag.db.models import AbstractRecord, Chunk, Document, FullText, IndexStatus
 from neblab_rag.rag.chunker import Chunk as ChunkText
 
 
@@ -96,6 +96,58 @@ class DocumentRepository:
         if limit:
             stmt = stmt.limit(limit)
         return self._session.execute(stmt).scalars().all()
+
+    def list_oa_without_fulltext(self, *, limit: int | None = None) -> Sequence[Document]:
+        """Sprint-1 input: docs we COULD fetch a PDF for but haven't yet."""
+        from neblab_rag.db.models import FullText  # local import avoids cycle
+
+        stmt = (
+            select(Document)
+            .outerjoin(FullText, Document.id == FullText.document_id)
+            .where(Document.is_oa.is_(True))
+            .where(FullText.id.is_(None))
+        )
+        if limit:
+            stmt = stmt.limit(limit)
+        return self._session.execute(stmt).scalars().all()
+
+
+class FullTextRepository:
+    """Persists parsed full-text rows. Upsert by document_id (1:1 with doc)."""
+
+    def __init__(self, session: Session):
+        self._session = session
+
+    def upsert(
+        self,
+        *,
+        document_id: int,
+        text: str,
+        page_count: int,
+        parser_name: str,
+        source_url: str | None,
+    ) -> FullText:
+        existing = (
+            self._session.execute(select(FullText).where(FullText.document_id == document_id))
+            .scalars()
+            .one_or_none()
+        )
+        if existing is None:
+            row = FullText(
+                document_id=document_id,
+                text=text,
+                page_count=page_count,
+                parser_name=parser_name,
+                source_url=source_url,
+            )
+            self._session.add(row)
+            self._session.flush()
+            return row
+        existing.text = text
+        existing.page_count = page_count
+        existing.parser_name = parser_name
+        existing.source_url = source_url
+        return existing
 
 
 class ChunkRepository:

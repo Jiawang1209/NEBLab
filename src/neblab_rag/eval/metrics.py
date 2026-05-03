@@ -1,3 +1,4 @@
+# pyright: reportUnknownArgumentType=false
 """Structural metrics computed from RAGResult — no extra LLM calls.
 
 These are the cheap-to-compute baseline metrics. The expensive metric
@@ -60,24 +61,37 @@ class AggregateMetrics(BaseModel):
     citation_not_supported_rate: float = 0.0
 
 
-_CHINESE_FALLBACK_PATTERN = re.compile(r"文献[一-鿿]{0,4}中暂未找到")
+# The LLM phrases refusals many ways; we match the structural pattern of
+# "[literature noun] [optional qualifier] [negation] [topic verb]". The
+# Sprint-1 v0.1 baseline (n=41) added 2 false positives over the simpler
+# "暂未找到" matcher: "文献中未提及" and "文献片段仅讨论了... 未涉及".
+_CHINESE_REFUSAL_PATTERNS = [
+    re.compile(r"文献[一-鿿]{0,4}中暂未找到"),
+    # Match "文献…未提及/未涉及/etc" within ~25 chars (one clause). Use [^。\n]
+    # so any non-sentence-ending char counts (CJK, ASCII, punct) — the
+    # alternative '[一-鿿]' class missed real refusals with intervening
+    # commas/spaces (Sprint 1 v0.1).
+    re.compile(r"文献[^。\n]{0,25}(?:未提及|未涉及|未讨论|不包含|不涉及)"),
+    re.compile(r"无法回答[^。\n]{0,20}(?:问题|您的)"),
+    re.compile(r"根据[^。\n]{0,30}文献[^。\n]{0,15}(?:无法|不能)"),
+]
 
 
 def is_fallback_answer(answer: str) -> bool:
     """Detect both English and Chinese 'no relevant findings' templates.
 
-    Chinese uses a regex (not literal substring) because the LLM varies the
-    qualifier — '文献中' / '文献库中' / '文献片段中' all happen, and the n=41
-    baseline (2026-05-02) caught 1 honesty test as a false positive because
-    the detector was string-literal. Allow up to 4 CJK chars between '文献'
-    and '中暂未找到' to absorb variants without matching unrelated text.
+    Chinese uses a set of regexes (not literal substring) because the LLM
+    varies the phrasing freely. We match the structural pattern of
+    'literature-noun + (qualifier) + negation' rather than fixed strings,
+    based on real refusal phrasings observed across Sprint-0 → Sprint-1
+    eval baselines (see git log on this file).
     """
     if answer == EMPTY_CONTEXT_REPLY:
         return True
     a = answer.strip()
     if "literature insufficient" in a:
         return True
-    return _CHINESE_FALLBACK_PATTERN.search(a) is not None
+    return any(p.search(a) for p in _CHINESE_REFUSAL_PATTERNS)
 
 
 def aggregate(results: Sequence[CaseResult]) -> AggregateMetrics:

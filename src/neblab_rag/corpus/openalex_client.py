@@ -1,4 +1,4 @@
-# pyright: reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false
+# pyright: reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false, reportAttributeAccessIssue=false
 """Thin wrapper over pyalex with our DTO.
 
 OpenAlex returns abstracts as an inverted index (``{word: [positions]}``)
@@ -42,6 +42,28 @@ def _restore_abstract(inverted: dict[str, list[int]] | None) -> str | None:
 class OpenAlexClient:
     def __init__(self, email: str):
         pyalex.config.email = email
+
+    def get_pdf_url(self, openalex_id: str) -> str | None:
+        """Look up the OA PDF URL for a single work by OpenAlex id.
+
+        Returns None if the work isn't OA, has no resolvable PDF location,
+        or the OpenAlex API doesn't know about the id. Callers should
+        treat None as 'no PDF available' and skip that document.
+
+        OpenAlex puts PDF URLs in two possible places: best_oa_location and
+        primary_location. Some records have one but not the other; we
+        check both.
+        """
+        try:
+            work = Works()[openalex_id]
+        except Exception:
+            return None
+        for key in ("best_oa_location", "primary_location"):
+            loc = work.get(key) or {}
+            url = loc.get("pdf_url")
+            if url:
+                return str(url)
+        return None
 
     def search_by_keywords(
         self,
