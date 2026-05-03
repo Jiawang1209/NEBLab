@@ -69,9 +69,36 @@ Two cases (`urban-desertification`, `antarctic-desertification`) flat
 answers but hier refuses: the relevant content is at doc rank 6-10,
 filtered out by `top_docs=5`. Tradeoff is real but small (2/86 = 2.3%).
 
-Tunable: bumping `top_docs=5 → 8` would catch these without much loss
-on the headline supported_rate. Worth re-running the eval if we want
-to push past 50.2%.
+## Tunable: top_docs=5 → 8 (re-run 2026-05-04)
+
+Re-ran hier eval with `--hier-top-docs 8` (run JSON
+`evals/runs/v2-2k-hier-top8-2026-05-03T232153Z.json`):
+
+| | top_docs=5 | top_docs=8 | Δ |
+|---|---|---|---|
+| answered_rate | 82.6% | 74.1% | −8.5pp (more soft-refusals) |
+| expected_yes_answered | 89.2% | 84.4% | −4.8pp |
+| expected_no_refused | 85.7% | **100%** ✅ | +14.3pp |
+| **citation_supported** | **50.2%** | 47.6% | −2.6pp |
+| citation_partial | 36.2% | 38.7% | +2.5pp |
+| citation_not_supported | 13.7% | 13.7% | 0 |
+| n_judgments | 636 | 540 | −96 |
+
+**Counter-intuitive direction**: a wider stage-1 doc pool makes the
+LLM *more cautious*, not less. top_docs=8 correctly refuses the
+`hard.en.out-of-scope-tech` (CRISPR drone seeding) hallucination that
+top_docs=5 fell into — driving expected_no_refused to a perfect 100%.
+
+Cost: top_docs=8 supported drops 2.6pp because the reranker now picks
+its top-5 chunks from a wider 24-chunk pool (vs 15 at top_docs=5),
+sometimes choosing similar-looking-but-less-grounding chunks over the
+correct ones that top_docs=5 surfaced.
+
+**Decision**: keep `top_docs=5` as default. The 50.2% supported
+headline matters more than the 14pp honesty bump for getting toward
+the 95% spec target. `top_docs=8` is exposed via `--hier-top-docs`
+for environments that prioritize zero hallucination over coverage
+(e.g. compliance review of generated answers).
 
 ## Comparing absolute numbers
 
