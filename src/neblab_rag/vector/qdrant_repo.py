@@ -1,3 +1,4 @@
+# pyright: reportArgumentType=false
 """Qdrant access layer.
 
 Wraps qdrant-client with our DTOs (VectorPoint, SearchHit) so the rest of

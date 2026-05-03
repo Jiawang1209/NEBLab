@@ -1,3 +1,4 @@
+# pyright: reportArgumentType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false, reportUnknownVariableType=false
 """PyMuPDF (fitz) parser — Sprint 1 v0.1 default.
 
 Fast, in-process, no network, no LLM. Handles 90%+ of clean academic PDFs

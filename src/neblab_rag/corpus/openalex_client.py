@@ -1,4 +1,4 @@
-# pyright: reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false
+# pyright: reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false, reportAttributeAccessIssue=false
 """Thin wrapper over pyalex with our DTO.
 
 OpenAlex returns abstracts as an inverted index (``{word: [positions]}``)

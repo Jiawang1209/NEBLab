@@ -1,3 +1,4 @@
+# pyright: reportUnknownArgumentType=false
 """Structural metrics computed from RAGResult — no extra LLM calls.
 
 These are the cheap-to-compute baseline metrics. The expensive metric

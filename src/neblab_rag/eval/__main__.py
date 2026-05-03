@@ -15,7 +15,7 @@ from pathlib import Path
 
 from neblab_rag.eval.data import load_eval_set
 from neblab_rag.eval.judge import CitationJudge
-from neblab_rag.eval.runner import build_report, run_eval
+from neblab_rag.eval.runner import EvalReport, build_report, run_eval
 from neblab_rag.providers.factory import (
     build_bm25_index,
     build_embedding_provider,
@@ -44,9 +44,9 @@ def _build_pipeline(*, with_rewriter: bool, with_bm25: bool) -> RAGPipeline:
     )
 
 
-def _print_summary(report_path: Path, report: object) -> None:
-    m = report.metrics  # type: ignore[attr-defined]
-    print(f"\n=== Eval summary ({report.sprint_label}) ===")  # type: ignore[attr-defined]
+def _print_summary(report_path: Path, report: EvalReport) -> None:
+    m = report.metrics
+    print(f"\n=== Eval summary ({report.sprint_label}) ===")
     print(f"  cases:                    {m.n_cases}")
     print(f"  errors:                   {m.n_errors}")
     print(f"  citation_validity_rate:   {m.citation_validity_rate:.1%}")

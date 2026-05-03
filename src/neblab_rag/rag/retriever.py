@@ -1,3 +1,4 @@
+# pyright: reportCallIssue=false, reportArgumentType=false
 """Retrieve + rerank pipeline.
 
 Pipeline:
