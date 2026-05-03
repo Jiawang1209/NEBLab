@@ -18,7 +18,7 @@ from neblab_rag.db.engine import get_session
 from neblab_rag.providers.factory import build_embedding_provider, build_qdrant_repo
 from neblab_rag.rag.indexer import ChunkIndexer
 
-MAX_RETRIES = 5
+MAX_RETRIES = 30
 BACKOFF_SECONDS = 30
 
 
