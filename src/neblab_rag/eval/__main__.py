@@ -30,7 +30,12 @@ from neblab_rag.rag.retriever import HierarchicalRetriever, HybridRetriever
 
 
 def _build_pipeline(
-    *, with_rewriter: bool, with_bm25: bool, with_hierarchical: bool
+    *,
+    with_rewriter: bool,
+    with_bm25: bool,
+    with_hierarchical: bool,
+    hier_top_docs: int,
+    hier_chunks_per_doc: int,
 ) -> RAGPipeline:
     llm = build_llm_provider()
     bm25 = build_bm25_index() if with_bm25 else None
@@ -40,7 +45,12 @@ def _build_pipeline(
     retriever: HybridRetriever | HierarchicalRetriever
     if with_hierarchical:
         retriever = HierarchicalRetriever(
-            embedder=embedder, qdrant=qdrant, reranker=reranker, bm25=bm25
+            embedder=embedder,
+            qdrant=qdrant,
+            reranker=reranker,
+            bm25=bm25,
+            top_docs=hier_top_docs,
+            chunks_per_doc=hier_chunks_per_doc,
         )
     else:
         retriever = HybridRetriever(embedder=embedder, qdrant=qdrant, reranker=reranker, bm25=bm25)
@@ -78,6 +88,8 @@ async def _run(args: argparse.Namespace) -> int:
         with_rewriter=not args.no_rewriter,
         with_bm25=not args.no_bm25,
         with_hierarchical=args.hierarchical,
+        hier_top_docs=args.hier_top_docs,
+        hier_chunks_per_doc=args.hier_chunks_per_doc,
     )
     judge = CitationJudge(llm=build_llm_provider()) if args.judge else None
 
@@ -139,6 +151,18 @@ def main(argv: list[str] | None = None) -> int:
         "--hierarchical",
         action="store_true",
         help="Use HierarchicalRetriever (doc-then-chunk) instead of flat HybridRetriever",
+    )
+    parser.add_argument(
+        "--hier-top-docs",
+        type=int,
+        default=5,
+        help="When --hierarchical: number of docs to keep at stage 1 (default 5)",
+    )
+    parser.add_argument(
+        "--hier-chunks-per-doc",
+        type=int,
+        default=3,
+        help="When --hierarchical: chunks per kept doc at stage 2 (default 3)",
     )
     args = parser.parse_args(argv)
     return asyncio.run(_run(args))
