@@ -1,0 +1,722 @@
+[
+  {
+    "id": "easy.en.feedback-loop",
+    "text": "What is one proposed feedback loop involving desert dust and precipitation?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly tests recall of a specific mechanism from a titled paper in the corpus."
+  },
+  {
+    "id": "easy.zh.causes",
+    "text": "荒漠化的主要原因有哪些？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Broad question directly addressed by multiple papers on causes and drivers."
+  },
+  {
+    "id": "easy.en.ldn-framework",
+    "text": "What is the scientific conceptual framework for Land Degradation Neutrality called?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Tests straightforward recall of a specific concept title from the corpus list."
+  },
+  {
+    "id": "easy.en.remote-sensing-tool",
+    "text": "Name one technological tool mentioned for monitoring land degradation and desertification.",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Simple recall question based on papers mentioning GIS and remote sensing."
+  },
+  {
+    "id": "easy.zh.regional-case",
+    "text": "中国西南部哪种类型的荒漠化问题被广泛研究？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly references a specific regional case study (karst rocky desertification) present in the corpus."
+  },
+  {
+    "id": "medium.en.integrated-approaches",
+    "text": "What are the key components of an integrated approach to monitoring land degradation and desertification as suggested by recent literature?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires synthesis of concepts from multiple monitoring and assessment papers; answer is implied but not explicit."
+  },
+  {
+    "id": "medium.en.economics-restoration",
+    "text": "Compare the economic considerations of land degradation caused by salinization versus the economics of restoration efforts for such land.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Synthesizes information from two specific economics-focused papers in the corpus."
+  },
+  {
+    "id": "medium.zh.indicators-selection",
+    "text": "在选取土地退化和荒漠化监测指标时，应考虑哪些方法论原则？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Draws directly from a paper on indicator selection, requiring comprehension of its methodological approach."
+  },
+  {
+    "id": "medium.en.slm-synergies",
+    "text": "According to the corpus, which land management practices are identified as having synergies for climate change adaptation, mitigation, and combating land degradation?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Relates to a specific titled question in the corpus; answer may be listed but requires extraction and summarization."
+  },
+  {
+    "id": "medium.en.vegetation-patterns",
+    "text": "How can spatial vegetation patterns serve as an indicator of imminent desertification in arid ecosystems?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires connecting concepts from papers on vegetation patterns and monitoring/assessment."
+  },
+  {
+    "id": "medium.zh.hydrology-vegetation",
+    "text": "在干旱区，水文过程、风蚀和植被动态之间如何相互作用导致土地退化？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Synthesizes mechanisms from a specific paper on interactions in drylands."
+  },
+  {
+    "id": "medium.en.sdgs-soil",
+    "text": "How do the soil-related Sustainable Development Goals (SDGs) conceptualize the implementation of Land Degradation Neutrality and restoration?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Draws directly from a titled paper, requiring explanation of its core concepts."
+  },
+  {
+    "id": "medium.en.poverty-link",
+    "text": "Summarize the hypothesized bidirectional relationship between land degradation and poverty as discussed in the literature.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires synthesizing arguments from papers explicitly linking degradation and society/poverty."
+  },
+  {
+    "id": "medium.zh.long-term-drivers",
+    "text": "根据黄土沉积物的证据，亚洲荒漠化最早可追溯到何时？其主要驱动因素是什么？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Tests recall and synthesis of a specific paleo-climatology finding from the corpus."
+  },
+  {
+    "id": "hard.en.biochar-efficacy-regions",
+    "text": "Evaluate the potential efficacy of biochar application for combating land degradation in hyper-arid versus semi-arid regions, based on principles discussed in the corpus.",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Extrapolates from a paper on biochar's potential; requires reasoning about regional applicability not explicitly detailed."
+  },
+  {
+    "id": "hard.en.connectivity-models",
+    "text": "Critically assess the proposition that changes in hydrological or ecological connectivity are a primary explanatory factor for desertification, rather than a symptom.",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Engages with a titled question in the corpus, requiring critical synthesis and possibly conflicting perspectives."
+  },
+  {
+    "id": "hard.zh.future-directions",
+    "text": "基于文献计量学分析，当前土地退化研究在方法论上有哪些主要空白或未来发展方向？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires extracting and interpreting trends and future directions from a specific bibliometric analysis paper."
+  },
+  {
+    "id": "hard.en.land-use-planning-dilemma",
+    "text": "What is the central 'quandary' identified in land-use planning for combating land degradation and desertification, and what are its implied trade-offs?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Interprets the theme of a titled paper, requiring inference about conflicts between objectives like development and conservation."
+  },
+  {
+    "id": "hard.en.out-of-scope-tech",
+    "text": "What is the potential of CRISPR-based gene editing of deep-rooted perennial plants for reversing soil erosion in degraded drylands?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Tests honest refusal; the corpus focuses on broader management, monitoring, and social aspects, not cutting-edge specific biotech."
+  },
+  {
+    "id": "hard.zh.out-of-scope-policy",
+    "text": "欧盟共同农业政策(CAP)中的“生态计划”(Eco-schemes)在防止地中海地区荒漠化方面的具体成效如何？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Tests honest refusal; the corpus discusses Mediterranean desertification generally but not specific, contemporary EU policy evaluations."
+  },
+  {
+    "id": "easy.en.feedback-loop",
+    "text": "What is one example of a biological feedback loop that can accelerate desertification?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly asks about a core concept from the paper 'Biological Feedbacks in Global Desertification'."
+  },
+  {
+    "id": "easy.zh.china-desertification",
+    "text": "中国西南地区的石漠化问题主要分布在哪里？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Direct answer is in the specific case study paper 'Karst rocky desertification in southwestern China'."
+  },
+  {
+    "id": "easy.en.land-degradation-neutrality",
+    "text": "What does the concept of 'Land Degradation Neutrality' aim to achieve?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Core definition from the paper 'Land in balance: The scientific conceptual framework for Land Degradation Neutrality'."
+  },
+  {
+    "id": "medium.en.indicators-selection",
+    "text": "What methodological considerations are important when selecting indicators for monitoring land degradation and desertification?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires synthesizing key points from the specific methodology paper 'Evaluation and Selection of Indicators...'."
+  },
+  {
+    "id": "medium.zh.dust-precipitation",
+    "text": "沙漠尘埃是如何可能抑制降水，从而形成一个荒漠化反馈回路的？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Tests understanding of a specific mechanism from 'Desert dust suppressing precipitation: A possible desertification feedback loop'."
+  },
+  {
+    "id": "medium.en.climate-desertification-interaction",
+    "text": "How do climate change and desertification interact, according to the literature?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires synthesizing concepts from multiple papers on interactions, but may not have a single consolidated answer."
+  },
+  {
+    "id": "medium.en.zero-net-degradation",
+    "text": "What are the main challenges identified in achieving 'Zero Net Land Degradation'?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Direct answer can be synthesized from the paper 'Achieving Zero Net Land Degradation: Challenges and opportunities'."
+  },
+  {
+    "id": "hard.en.sdg-soil-concepts",
+    "text": "How do the four soil-related concepts proposed to achieve Land Degradation Neutrality and the Sustainable Development Goals address the limitations of previous policy frameworks?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires deep synthesis of the 'Soil-Related SDGs' paper and implicit comparison to other frameworks, which may be partially covered."
+  },
+  {
+    "id": "hard.en.co-delivery-practices",
+    "text": "Based on the corpus, which agricultural or land management practices are most likely to co-deliver food security, climate change mitigation, and combat land degradation simultaneously?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly asks for the synthesis from the specific paper 'Which practices co‐deliver food security, climate change mitigation and adaptation, and combat land degradation and desertification?'."
+  },
+  {
+    "id": "easy.zh.definition",
+    "text": "根据文献，土地退化和荒漠化的主要区别是什么？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Straightforward definitional question addressed in overview papers like 'Land Degradation and Desertification: Assessment, Mitigation and Remediation'."
+  },
+  {
+    "id": "medium.en.economics-salt",
+    "text": "What are the economic arguments for and against investing in restoration of salt-induced degraded land?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires extracting and summarizing economic rationale from the paper 'Economics of salt‐induced land degradation and restoration'."
+  },
+  {
+    "id": "hard.en.future-bibliometric",
+    "text": "What future research directions for land degradation studies were identified in the bibliometric analysis, and how do they relate to the gaps in 'Global Desertification: Building a Science for Dryland Development'?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires cross-referencing two specific papers and making a synthesized comparison, which may not be explicitly covered."
+  },
+  {
+    "id": "easy.en.main-cause",
+    "text": "What is often cited as the primary anthropogenic driver of desertification?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Simple, fundamental question answered in many overview papers like 'Desertification: Its causes and consequences'."
+  },
+  {
+    "id": "medium.zh.loess-deposits",
+    "text": "中国黄土沉积的研究如何揭示了亚洲荒漠化的起始时间？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Specific question about findings from the paper 'Onset of Asian desertification by 22 Myr ago inferred from loess deposits in China'."
+  },
+  {
+    "id": "hard.en.out-of-coverage-policy",
+    "text": "What is the current status of the 'United Nations Convention to Combat Desertification' funding mechanism for small island developing states?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Focuses on a specific, current policy financial mechanism not covered by the listed scientific literature corpus."
+  },
+  {
+    "id": "medium.en.biochar-potential",
+    "text": "What are the proposed mechanisms through which biochar could counteract land degradation and improve agriculture?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly asks for mechanisms described in the paper 'Biochar: Potential for countering land degradation and for improving agriculture'."
+  },
+  {
+    "id": "hard.en.out-of-coverage-tech",
+    "text": "What is the efficacy and cost-benefit analysis of using drone-swarm seeding with mycorrhizal fungi for large-scale desert restoration in the Sahara?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Asks about a specific, emerging technology not discussed in the provided corpus of foundational and review papers."
+  },
+  {
+    "id": "easy.zh.monitoring-tools",
+    "text": "遥感和GIS在监测土地退化中的主要作用是什么？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Simple question addressed in the overview paper 'An overview of land degradation... using GIS and remote sensing applications'."
+  },
+  {
+    "id": "medium.en.vegetation-patterns",
+    "text": "How can spatial patterns of vegetation serve as an early warning signal for imminent desertification in arid ecosystems?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires explaining a concept from the specific paper 'Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems'."
+  },
+  {
+    "id": "medium.en.land-use-planning",
+    "text": "What is the central quandary or challenge highlighted in land-use planning for combating land degradation and desertification?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly addresses the core question of the paper 'Combating Land Degradation and Desertification: The Land-Use Planning Quandary'."
+  },
+  {
+    "id": "easy.en.feedback-loop",
+    "text": "What is the proposed desertification feedback loop involving desert dust and precipitation?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly asks about a specific feedback mechanism from a paper title in the corpus."
+  },
+  {
+    "id": "easy.zh.lnd-neutrality",
+    "text": "什么是土地退化零增长（Land Degradation Neutrality）的科学概念框架？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly asks for the definition of a framework from a specific paper title in the corpus."
+  },
+  {
+    "id": "easy.en.monitoring-indicators",
+    "text": "What is the methodological approach for selecting indicators to monitor land degradation and desertification?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Direct question that matches the focus of a specific paper in the corpus."
+  },
+  {
+    "id": "easy.zh.karst-rehab",
+    "text": "中国西南部的喀斯特石漠化地区如何进行生态恢复？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Asks about restoration for a specific regional case study covered in the corpus."
+  },
+  {
+    "id": "easy.en.salt-economics",
+    "text": "What are the economic aspects of land degradation caused by soil salinity?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly references the topic of a specific paper on salt-induced degradation economics."
+  },
+  {
+    "id": "medium.en.ipcc-synergies",
+    "text": "According to the IPCC special report, which agricultural or land management practices can simultaneously address food security, climate change mitigation, and combat land degradation?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires synthesizing the core theme of an IPCC report and a separate paper on co-delivery of benefits."
+  },
+  {
+    "id": "medium.en.drivers-feedbacks",
+    "text": "Synthesize the main drivers and biological or climatic feedback mechanisms discussed in the literature that accelerate global desertification.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires integrating concepts from multiple papers on drivers, feedbacks, and biological/climate interactions."
+  },
+  {
+    "id": "medium.zh.monitoring-integration",
+    "text": "综合近期文献，监测和评估土地退化与荒漠化的新概念性、综合性方法主要包括哪些方面？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Asks for a synthesis of 'new approaches', which may be discussed broadly but not consolidated into a single answer."
+  },
+  {
+    "id": "medium.en.sdg-linkages",
+    "text": "How do the four soil-related concepts proposed for Land Degradation Neutrality link to achieving specific UN Sustainable Development Goals?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires extrapolating from the paper's four concepts to broader SDGs, which may not be explicitly detailed."
+  },
+  {
+    "id": "medium.en.regional-synthesis",
+    "text": "Compare the primary causes and assessment approaches for desertification in the Mediterranean region versus sub-Saharan Africa as presented in the corpus.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires comparing and contrasting information from two distinct regional studies in the corpus."
+  },
+  {
+    "id": "medium.en.economics-poverty",
+    "text": "What causal relationships between land degradation and poverty are discussed in the literature, and what economic assessment tools are suggested to address them?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires connecting themes from papers on economics of degradation and the poverty link."
+  },
+  {
+    "id": "medium.zh.remote-sensing-trends",
+    "text": "基于文献，利用GIS和遥感技术监测土地退化的当前主要框架是什么？未来的发展方向有哪些？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Asks for current status and future directions, requiring synthesis from overview and assessment papers."
+  },
+  {
+    "id": "medium.en.hydro-aeolian-veg",
+    "text": "Explain the interactions among hydrologic erosion, aeolian (wind) erosion, and vegetation dynamics that lead to land degradation in drylands.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly addresses the mechanistic focus of a specific paper, requiring explanation of interactions."
+  },
+  {
+    "id": "medium.en.biochar-potential",
+    "text": "What is the proposed potential for biochar to counter land degradation and improve agriculture, and what are the likely limitations or knowledge gaps?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Focuses on a specific mitigation technology; the corpus has one paper on it but may lack depth on limitations."
+  },
+  {
+    "id": "hard.en.prehistoric-onset",
+    "text": "What paleoenvironmental evidence from Asian loess deposits suggests an onset of desertification processes 22 million years ago, and how does this inform our understanding of natural vs. anthropogenic drivers?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Asks for detailed evidence from a specific study and its modern interpretation, which may be beyond the paper's abstract-level coverage in the corpus."
+  },
+  {
+    "id": "hard.en.connectivity-theory",
+    "text": "Critically evaluate the hypothesis that changes in hydrological or ecological connectivity are a fundamental explanatory factor for desertification, as suggested in the corpus. What counter-arguments or nuances exist?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires deep critical analysis of a specific concept ('connectivity') and likely needs information not fully contained in the titles/abstracts."
+  },
+  {
+    "id": "hard.zh.planning-quandary",
+    "text": "在应对土地退化和荒漠化时，土地利用规划面临的主要困境和悖论是什么？文献中提出了哪些解决路径？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Addresses a complex, policy-focused 'quandary' directly mentioned in a paper title, requiring synthesis of challenges and solutions."
+  },
+  {
+    "id": "hard.en.future-bibliometric",
+    "text": "Based on the bibliometric analysis, what are the three most emerging sub-fields in land degradation research predicted for the next decade, and which countries are leading this research frontier?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Asks for specific predictions and leadership from a bibliometric paper; such detailed future projections are unlikely to be explicitly stated in the corpus."
+  },
+  {
+    "id": "hard.en.ocean-acidification",
+    "text": "What is the potential impact of progressive desertification on coastal ocean acidification rates, and is this feedback mechanism discussed in the provided literature?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Introduces a novel, out-of-scope connection to ocean acidification not addressed by the land-based desertification corpus."
+  },
+  {
+    "id": "hard.zh.urban-desertification",
+    "text": "超大型城市扩张对周边旱地荒漠化的具体驱动机制是什么？现有文献中是否有针对城市-荒漠过渡带的研究模型？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "Focuses on a very specific anthropogenic driver (megacity expansion) and asks for models, which is a niche topic not covered in the given titles."
+  },
+  {
+    "id": "easy.en.feedback-loop",
+    "text": "What is a potential desertification feedback loop involving desert dust and precipitation?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Direct answer from the paper title 'Desert dust suppressing precipitation: A possible desertification feedback loop'."
+  },
+  {
+    "id": "easy.en.ldn-concepts",
+    "text": "What is the scientific conceptual framework for Land Degradation Neutrality?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly addressed by the paper 'Land in balance: The scientific conceptual framework for Land Degradation Neutrality'."
+  },
+  {
+    "id": "easy.en.ipcc-report",
+    "text": "What major topics are covered in the IPCC special report on climate change and land?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "The question asks for a list of topics from the title 'Climate Change and Land: an IPCC special report on climate change, desertification, land degradation, sustainable land management, food security, and greenhouse gas fluxes in terrestrial ecosystems'."
+  },
+  {
+    "id": "easy.en.china-desertification-status",
+    "text": "What is the status of desertification in China according to an assessment?",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly answered by the paper 'Desertification in China: An assessment'."
+  },
+  {
+    "id": "easy.zh.karst-china",
+    "text": "中国西南地区的喀斯特石漠化与哪些因素有关？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly addressed by the paper 'Karst rocky desertification in southwestern China: geomorphology, landuse, impact and rehabilitation'."
+  },
+  {
+    "id": "easy.zh.india-mapping",
+    "text": "印度土地退化和荒漠化状况图是如何绘制的？",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly addressed by the paper 'Desertification/land degradation status mapping of India.'"
+  },
+  {
+    "id": "medium.en.indicators-selection",
+    "text": "What methodological approaches are used for the evaluation and selection of indicators for monitoring land degradation and desertification?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires understanding of the specific paper 'Evaluation and Selection of Indicators for Land Degradation and Desertification Monitoring: Methodological Approach', synthesizing the approach."
+  },
+  {
+    "id": "medium.en.climate-desertification-interaction",
+    "text": "How do interactions between climate change and desertification processes affect dryland ecosystems?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires synthesizing information from multiple titles, such as 'Interactions between climate and desertification' and 'Climate change, drought and desertification'."
+  },
+  {
+    "id": "medium.en.economics-degradation",
+    "text": "What are the economic implications of land degradation and improvement for sustainable development, according to a global assessment?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Synthesizes the core topic from 'Economics of Land Degradation and Improvement – A Global Assessment for Sustainable Development'."
+  },
+  {
+    "id": "medium.en.zero-net-degradation",
+    "text": "What are the main challenges and opportunities in achieving Zero Net Land Degradation?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly from the paper 'Achieving Zero Net Land Degradation: Challenges and opportunities', requiring synthesis of the challenges and opportunities."
+  },
+  {
+    "id": "medium.en.vegetation-patterns",
+    "text": "How does the diversity of vegetation patterns relate to desertification risk?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires interpreting the connection suggested in the title 'Diversity of Vegetation Patterns and Desertification'."
+  },
+  {
+    "id": "medium.en.hydrologic-aeolian",
+    "text": "Explain the interactions among hydrologic–aeolian erosion and vegetation dynamics in driving land degradation in drylands.",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly from the paper 'Land degradation in drylands: Interactions among hydrologic–aeolian erosion and vegetation dynamics', requiring explanation of interactions."
+  },
+  {
+    "id": "medium.en.monitoring-integrated-approaches",
+    "text": "What are the key elements of new conceptual and integrated approaches for monitoring and assessing land degradation and desertification?",
+    "language": "en",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires synthesis from the paper 'Monitoring and assessment of land degradation and desertification: Towards new conceptual and integrated approaches'."
+  },
+  {
+    "id": "medium.zh.bibliometric-trends",
+    "text": "根据文献计量分析，土地退化领域当前的研究现状和未来发展方向是什么？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Requires summarizing findings from 'A Bibliometric Analysis on Land Degradation: Current Status, Development, and Future Directions'."
+  },
+  {
+    "id": "medium.zh.salt-induced-economics",
+    "text": "盐渍化导致的土地退化及其修复的经济学原理是什么？",
+    "language": "zh",
+    "difficulty": "medium",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "yes",
+    "notes": "Directly from the paper 'Economics of salt‐induced land degradation and restoration', requiring explanation of economic principles."
+  },
+  {
+    "id": "hard.en.future-tech-monitoring",
+    "text": "How might emerging technologies like AI-driven image analysis or micro-satellite constellations revolutionize desertification monitoring beyond current GIS and remote sensing frameworks?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Corpus covers current GIS/remote sensing frameworks but likely does not discuss specific emerging tech like AI or micro-satellites in detail; tests extrapolation."
+  },
+  {
+    "id": "hard.en.social-dimensions-nepal",
+    "text": "Contrast the social dimensions and drivers of land degradation in the contexts of Nepal and Ethiopia, as presented in the literature.",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "Requires cross-referencing and synthesizing two regional studies ('Land Degradation by Soil Erosion in Nepal' and 'Land Degradation: A Challenge to Ethiopia') which may not directly compare them."
+  },
+  {
+    "id": "hard.en.land-use-quandary-solutions",
+    "text": "What specific, actionable policy solutions are proposed to resolve the 'land-use planning quandary' identified in combating land degradation and desertification?",
+    "language": "en",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "partial",
+    "notes": "The paper title identifies a 'quandary' but the corpus may not contain detailed, specific policy solutions; tests depth of coverage on policy."
+  },
+  {
+    "id": "hard.zh.degradation-ocean-acidification",
+    "text": "土地退化和荒漠化过程对海洋酸化有直接的驱动作用吗？如果有，机制是什么？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "The corpus focuses on terrestrial systems and climate change, but a direct link to ocean acidification is a boundary/out-of-coverage concept, testing honest refusal."
+  },
+  {
+    "id": "hard.zh.antarctic-desertification",
+    "text": "南极洲的冰盖消退是否可以被视为一种特殊形式的'寒漠化'或土地退化？现有荒漠化理论框架如何解释这种现象？",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "ai_generated",
+    "corpus_coverage_expected": "no",
+    "notes": "The corpus deals with dryland and karst desertification, not polar ice loss; this is an out-of-coverage, conceptual stretch testing the system's boundaries."
+  }
+]
