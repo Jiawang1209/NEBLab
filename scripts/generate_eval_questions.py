@@ -100,6 +100,12 @@ async def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", type=int, default=25, help="how many questions to draft")
     parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=20,
+        help="LLM call size; loops until target met. Smaller = safer vs read timeout on big targets.",
+    )
+    parser.add_argument(
         "--out",
         type=Path,
         default=Path("evals/v1/draft-questions.json"),
@@ -108,14 +114,24 @@ async def main() -> int:
     args = parser.parse_args()
 
     titles = fetch_titles()
-    print(f"Pulled {len(titles)} titles from Postgres; asking LLM for {args.target} questions...")
+    print(f"Pulled {len(titles)} titles from Postgres; asking LLM for {args.target} questions ...")
 
-    questions = await generate_questions(args.target, titles)
+    questions: list[dict[str, object]] = []
+    while len(questions) < args.target:
+        remaining = args.target - len(questions)
+        batch_n = min(args.batch_size, remaining)
+        print(f"  batch: requesting {batch_n} (have {len(questions)}/{args.target})")
+        batch = await generate_questions(batch_n, titles)
+        if not batch:
+            print("Batch returned empty — stopping.", file=sys.stderr)
+            break
+        questions.extend(batch)
+
     if not questions:
         print("No questions generated.", file=sys.stderr)
         return 1
 
-    print(f"LLM returned {len(questions)} questions.")
+    print(f"LLM returned {len(questions)} questions total.")
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
