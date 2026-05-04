@@ -35,7 +35,7 @@ uv.lock
 data/
 logs/
 *.log
-.claude/settings.local.json
+.claude/
 
 # oh-my-claudecode runtime state (per-session, per-machine)
 .omc/
