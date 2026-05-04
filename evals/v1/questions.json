@@ -1,6 +1,6 @@
 {
   "version": "v2",
-  "description": "Eval set v1 — 41 questions covering the 50-doc desertification corpus. Mix: 12 hand-written from Sprint 4 baseline + 25 LLM-generated (deepseek-v3.2 via scripts/generate_eval_questions.py, 2026-05-02) + 4 hand-written honesty/synthesis additions. Distribution targets ~30%/50%/20% easy/medium/hard, ~70%/30% en/zh, with explicit out-of-coverage tests for honesty. The expected fields drive metric semantics (see eval/metrics.py): expected_yes_answered tracks recall, expected_no_refused tracks honest refusal vs hallucination.\n\nv2 (2026-05-03): grew 41 → 86 via LLM auto-generation against the live 50-paper corpus + human dedup (14 of 59 picks dropped for topical overlap with existing cases).",
+  "description": "Eval set v1 — 41 questions covering the 50-doc desertification corpus. Mix: 12 hand-written from Sprint 4 baseline + 25 LLM-generated (deepseek-v3.2 via scripts/generate_eval_questions.py, 2026-05-02) + 4 hand-written honesty/synthesis additions. Distribution targets ~30%/50%/20% easy/medium/hard, ~70%/30% en/zh, with explicit out-of-coverage tests for honesty. The expected fields drive metric semantics (see eval/metrics.py): expected_yes_answered tracks recall, expected_no_refused tracks honest refusal vs hallucination.\n\nv2 (2026-05-03): grew 41 → 86 via LLM auto-generation against the live 50-paper corpus + human dedup (14 of 59 picks dropped for topical overlap with existing cases).\n\nv2.1 (2026-05-04): re-labeled 4 expected_no cases as yes/partial after Sprint-5 corpus expansion (50→1810 docs) brought in covering material. Affected: hard.en.china, hard.zh.china_north, hard.en.three-north-shelterbelt, hard.zh.urban-desertification.",
   "cases": [
     {
       "id": "easy.en.feedback",
@@ -98,8 +98,8 @@
       "language": "en",
       "difficulty": "hard",
       "source": "handwritten",
-      "corpus_coverage_expected": "no",
-      "notes": "OUT OF COVERAGE — corpus is global, no China-specific policy paper. Correct response is to refuse rather than hallucinate. Tests honesty."
+      "corpus_coverage_expected": "yes",
+      "notes": "Re-labeled 2026-05-04: corpus expansion (1810 docs incl. desertification + shelterbelt × en/zh) brought in real Chinese sand-control content. Hier 3/4 supported; flat 3/4 supported. No longer an honesty test."
     },
     {
       "id": "hard.zh.china_north",
@@ -107,8 +107,8 @@
       "language": "zh",
       "difficulty": "hard",
       "source": "handwritten",
-      "corpus_coverage_expected": "no",
-      "notes": "OUT OF COVERAGE in Chinese — same honesty test as hard.en.china. Plus tests Chinese 'no answer' template."
+      "corpus_coverage_expected": "partial",
+      "notes": "Re-labeled 2026-05-04: corpus has many adjacent papers (蒙古沙漠 / 三北防护林 / 北方草原退化) but no single paper on driver decomposition for northern China specifically. Mostly partial verdicts when answered."
     },
     {
       "id": "easy.en.definition-desertification",
@@ -341,8 +341,8 @@
       "language": "en",
       "difficulty": "hard",
       "source": "handwritten",
-      "corpus_coverage_expected": "no",
-      "notes": "Honesty test: corpus has Chinese desertification papers but no specific paper on the Three-North program; tests whether system invents details."
+      "corpus_coverage_expected": "yes",
+      "notes": "Re-labeled 2026-05-04: 'shelterbelt' is now a directly-ingested topic (500 en + 326 zh papers). Hier retrieves 3 directly relevant chunks → 3/4 supported."
     },
     {
       "id": "hard.zh.crispr-drought",
@@ -728,8 +728,8 @@
       "language": "zh",
       "difficulty": "hard",
       "source": "ai_generated",
-      "corpus_coverage_expected": "no",
-      "notes": "Focuses on a very specific anthropogenic driver (megacity expansion) and asks for models, which is a niche topic not covered in the given titles."
+      "corpus_coverage_expected": "yes",
+      "notes": "Re-labeled 2026-05-04: flat retriever finds 8/11 supported chunks; hier misses because relevant content is at doc rank 6+. The corpus does cover urban-desert mechanisms; question is answerable."
     },
     {
       "id": "hard.en.biochar-efficacy-regions",

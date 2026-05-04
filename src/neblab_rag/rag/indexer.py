@@ -33,8 +33,8 @@ class ChunkIndexer:
         embedder: EmbeddingProvider,
         qdrant: QdrantRepo,
         *,
-        chunk_size: int = 500,
-        overlap: int = 100,
+        chunk_size: int = 1000,
+        overlap: int = 200,
     ):
         self._session = session
         self._docs = DocumentRepository(session)
@@ -44,8 +44,15 @@ class ChunkIndexer:
         self._chunk_size = chunk_size
         self._overlap = overlap
 
-    async def index_pending(self) -> int:
-        """Index every doc in METADATA_ONLY state. Returns docs processed."""
+    async def index_pending(self, *, commit_every: int | None = None) -> int:
+        """Index every doc in METADATA_ONLY state. Returns docs processed.
+
+        ``commit_every``: if set, commit the SQLAlchemy session after every N
+        successfully indexed docs so that long-running reindex jobs don't lose
+        all progress when a transient Qdrant SSL/timeout error rolls back the
+        single enclosing transaction. None (default) preserves the original
+        single-transaction behavior used by tests + API path.
+        """
         self._qdrant.ensure_collection()
         pending = list(self._docs.list_documents_with_status(IndexStatus.METADATA_ONLY))
 
@@ -97,6 +104,10 @@ class ChunkIndexer:
             self._session.flush()
             total += 1
             log.info("index_doc_done", doc_id=doc.id, chunks=len(chunk_rows))
+
+            if commit_every is not None and total % commit_every == 0:
+                self._session.commit()
+                log.info("index_commit_checkpoint", docs_committed=total)
 
         log.info("index_pending_done", total_docs=total)
         return total

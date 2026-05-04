@@ -36,7 +36,7 @@ router = APIRouter(tags=["rag"])
 
 class QueryRequest(BaseModel):
     query: str
-    top_k: int = 5
+    top_k: int = 7
 
 
 class CitationOut(BaseModel):
@@ -89,7 +89,7 @@ async def query(req: QueryRequest, pipeline: PipelineDep) -> QueryResponse:
 
 
 @router.get("/query/stream")
-async def stream(query: str, pipeline: PipelineDep, top_k: int = 5) -> EventSourceResponse:
+async def stream(query: str, pipeline: PipelineDep, top_k: int = 7) -> EventSourceResponse:
     """SSE streaming endpoint.
 
     Emits in order:
