@@ -39,7 +39,7 @@ async def run_eval(
     cases: Sequence[EvalCase],
     pipeline: RAGPipeline,
     *,
-    top_k: int = 5,
+    top_k: int = 7,
     judge: CitationJudge | None = None,
 ) -> list[CaseResult]:
     """Run each case through the pipeline. Failures are caught per-case so

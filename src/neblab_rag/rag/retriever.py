@@ -208,7 +208,7 @@ class Retriever(Protocol):
     """
 
     async def retrieve(
-        self, *, query: str, top_k: int = 5, candidate_k: int = 30
+        self, *, query: str, top_k: int = 7, candidate_k: int = 30
     ) -> list[RetrievedChunk]: ...
 
 
@@ -229,7 +229,7 @@ class HybridRetriever:
         self._max_chunks_per_doc = max_chunks_per_doc
 
     async def retrieve(
-        self, *, query: str, top_k: int = 5, candidate_k: int = 30
+        self, *, query: str, top_k: int = 7, candidate_k: int = 30
     ) -> list[RetrievedChunk]:
         # Pull more dense/sparse candidates than we'll keep — the per-doc cap
         # will prune them down. Without the inflate, after capping 30→~12,
@@ -291,7 +291,7 @@ class HierarchicalRetriever:
         self._oversample_factor = oversample_factor
 
     async def retrieve(
-        self, *, query: str, top_k: int = 5, candidate_k: int = 30
+        self, *, query: str, top_k: int = 7, candidate_k: int = 30
     ) -> list[RetrievedChunk]:
         # candidate_k is interpreted as "chunks the reranker should see".
         # Hierarchical pulls top_docs × chunks_per_doc into rerank, but

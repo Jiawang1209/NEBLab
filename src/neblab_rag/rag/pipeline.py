@@ -48,7 +48,7 @@ class RAGPipeline:
     def generator(self) -> AnswerGenerator:
         return self._generator
 
-    async def answer(self, *, query: str, top_k: int = 5) -> RAGResult:
+    async def answer(self, *, query: str, top_k: int = 7) -> RAGResult:
         rewritten = await self._maybe_rewrite(query)
         chunks = await self._retriever.retrieve(query=rewritten.rewritten, top_k=top_k)
         answer = await self._generator.generate(query=rewritten.original, chunks=chunks)

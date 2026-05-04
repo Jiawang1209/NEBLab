@@ -30,7 +30,7 @@ async def test_answer_orchestrates_retriever_and_generator() -> None:
     assert result.chunks == chunks
     assert result.answer.content == "Per [1]."
     assert result.citation_validation.is_valid is True
-    retriever.retrieve.assert_awaited_once_with(query="x", top_k=5)
+    retriever.retrieve.assert_awaited_once_with(query="x", top_k=7)
     generator.generate.assert_awaited_once_with(query="x", chunks=chunks)
 
 
@@ -98,7 +98,7 @@ async def test_rewriter_routes_translated_query_to_retriever_only() -> None:
     result = await pipeline.answer(query="沙漠化的机制？")
 
     retriever.retrieve.assert_awaited_once_with(
-        query="What are the mechanisms of desertification?", top_k=5
+        query="What are the mechanisms of desertification?", top_k=7
     )
     generator.generate.assert_awaited_once_with(query="沙漠化的机制？", chunks=chunks)
     assert result.query == "沙漠化的机制？"
@@ -119,6 +119,6 @@ async def test_no_rewriter_means_original_query_used_throughout() -> None:
     pipeline = RAGPipeline(retriever=retriever, generator=generator)  # no rewriter
     result = await pipeline.answer(query="What is X?")
 
-    retriever.retrieve.assert_awaited_once_with(query="What is X?", top_k=5)
+    retriever.retrieve.assert_awaited_once_with(query="What is X?", top_k=7)
     generator.generate.assert_awaited_once_with(query="What is X?", chunks=chunks)
     assert result.rewritten_query is None

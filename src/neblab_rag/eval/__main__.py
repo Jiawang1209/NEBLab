@@ -131,7 +131,7 @@ def main(argv: list[str] | None = None) -> int:
         help="Sprint label for the report filename, e.g. 'sprint-2-baseline'",
     )
     parser.add_argument("--out-dir", default="evals/runs", help="Where to write the JSON report")
-    parser.add_argument("--top-k", type=int, default=5)
+    parser.add_argument("--top-k", type=int, default=7)
     parser.add_argument(
         "--no-rewriter",
         action="store_true",
