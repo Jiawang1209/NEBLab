@@ -20,7 +20,7 @@ class Chunk(BaseModel):
     end: int  # exclusive
 
 
-def chunk_text(text: str, *, chunk_size: int = 500, overlap: int = 100) -> list[Chunk]:
+def chunk_text(text: str, *, chunk_size: int = 1000, overlap: int = 200) -> list[Chunk]:
     if chunk_size <= 0:
         raise ValueError(f"chunk_size must be > 0, got {chunk_size}")
     if overlap >= chunk_size:

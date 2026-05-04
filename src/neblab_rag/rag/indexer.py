@@ -33,8 +33,8 @@ class ChunkIndexer:
         embedder: EmbeddingProvider,
         qdrant: QdrantRepo,
         *,
-        chunk_size: int = 500,
-        overlap: int = 100,
+        chunk_size: int = 1000,
+        overlap: int = 200,
     ):
         self._session = session
         self._docs = DocumentRepository(session)
