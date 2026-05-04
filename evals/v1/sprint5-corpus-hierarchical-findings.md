@@ -69,6 +69,38 @@ Two cases (`urban-desertification`, `antarctic-desertification`) flat
 answers but hier refuses: the relevant content is at doc rank 6-10,
 filtered out by `top_docs=5`. Tradeoff is real but small (2/86 = 2.3%).
 
+## Tunable: reranker top_k=5 → 7 (re-run 2026-05-04)
+
+Re-ran hier eval with `--top-k 7` (run JSON
+`evals/runs/v2-2k-hier-topk7-2026-05-04T003246Z.json`):
+
+| | top_k=5 | top_k=7 | Δ |
+|---|---|---|---|
+| answered_rate | 82.6% | 79.1% | −3.5pp |
+| expected_yes_answered | 89.2% | 89.2% | 0 |
+| expected_no_refused | 85.7% | **100%** ✅ | +14.3pp |
+| **citation_supported** | 50.2% | **51.3%** | **+1.1pp** ⬆ |
+| citation_partial | 36.2% | 32.1% | **−4.1pp** ⬆ |
+| citation_not_supported | 13.7% | 16.6% | +2.9pp |
+| avg_citations/answer | 5.00 | 6.75 | +1.75 |
+| n_judgments | 636 | 608 | −28 |
+
+**Net win on the two metrics that matter most**: supported up 1.1pp,
+honesty up to 100% (CRISPR drone seeding hallucination eliminated by
+the same "wider context = more cautious" effect we saw with
+`top_docs=8`). Partial verdict rate drops 4.1pp — claims that with 5
+chunks would land in "sort of supported" now decisively land in
+either supported or not_supported.
+
+**Cost**: `not_supported` rate up 2.9pp (LLM cites weaker chunks as
+secondary evidence when it has more material to choose from), and
+~3pp fewer answered cases (LLM finds no good chunk among 7 either).
+
+**Recommendation**: switch default to `top_k=7`. The 1.1pp supported
+gain is marginal but the 100% honesty + 4.1pp partial-rate drop is a
+clear win. Keep `top_k=5` as a more "concise" mode (5 cites per
+answer vs 6.75) for UI surfaces where citation count matters.
+
 ## Tunable: top_docs=5 → 8 (re-run 2026-05-04)
 
 Re-ran hier eval with `--hier-top-docs 8` (run JSON
