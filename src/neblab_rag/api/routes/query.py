@@ -10,7 +10,6 @@ exposes ``get_pipeline`` as a module-level function instead of a closure.
 file level (same pattern used in ``corpus/openalex_client.py``).
 """
 
-import json
 from collections.abc import AsyncIterator
 from functools import lru_cache
 from typing import Annotated
@@ -30,6 +29,8 @@ from neblab_rag.rag.generator import AnswerGenerator
 from neblab_rag.rag.pipeline import RAGPipeline
 from neblab_rag.rag.query_rewriter import QueryRewriter
 from neblab_rag.rag.retriever import HybridRetriever
+from neblab_rag.rag.system_info import PostgresSystemInfoProvider
+from neblab_rag.rag.task_classifier import TaskType
 
 router = APIRouter(tags=["rag"])
 
@@ -50,6 +51,7 @@ class QueryResponse(BaseModel):
     answer: str
     citations: list[CitationOut]
     citation_valid: bool
+    task_type: TaskType
 
 
 @lru_cache(maxsize=1)
@@ -68,6 +70,9 @@ def _build_pipeline() -> RAGPipeline:
         generator=AnswerGenerator(llm=llm),
         # Same LLM instance for rewriting — translation is a cheap chat call
         query_rewriter=QueryRewriter(llm=llm),
+        # Sprint 5d: meta handler answers "how many docs?" from Postgres
+        # instead of fabricating from arbitrary retrieved chunks.
+        system_info_provider=PostgresSystemInfoProvider(),
     )
 
 
@@ -85,6 +90,7 @@ async def query(req: QueryRequest, pipeline: PipelineDep) -> QueryResponse:
         answer=result.answer.content,
         citations=[CitationOut(**c.model_dump()) for c in result.answer.citations],
         citation_valid=result.citation_validation.is_valid,
+        task_type=result.task_type,
     )
 
 
@@ -93,27 +99,17 @@ async def stream(query: str, pipeline: PipelineDep, top_k: int = 7) -> EventSour
     """SSE streaming endpoint.
 
     Emits in order:
-      - one ``citations`` event with the JSON-encoded citation ledger
-      - many ``delta`` events, each carrying a fragment of the answer
+      - one ``task_type`` event ("qa" / "planning" / "meta")
+      - one ``citations`` event (empty array for meta)
+      - many ``delta`` events with answer fragments
       - a single ``done`` event when streaming completes
+
+    The actual sequence is owned by the dispatched TaskHandler; this
+    endpoint just relays the events the pipeline yields.
     """
-    chunks = await pipeline.retriever.retrieve(query=query, top_k=top_k)
 
     async def event_generator() -> AsyncIterator[dict[str, str]]:
-        citations_payload = [
-            {
-                "number": i + 1,
-                "doc_id": c.doc_id,
-                "openalex_id": c.openalex_id,
-                "title": c.title,
-            }
-            for i, c in enumerate(chunks)
-        ]
-        yield {"event": "citations", "data": json.dumps(citations_payload)}
-
-        async for delta in pipeline.generator.stream(query=query, chunks=chunks):
-            yield {"event": "delta", "data": delta}
-
-        yield {"event": "done", "data": ""}
+        async for ev in pipeline.stream(query=query, top_k=top_k):
+            yield {"event": ev.event, "data": ev.data}
 
     return EventSourceResponse(event_generator())

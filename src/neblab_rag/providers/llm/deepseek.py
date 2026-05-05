@@ -89,8 +89,16 @@ class DeepSeekProvider(LLMProvider):
                 if payload == "[DONE]":
                     break
                 obj = json.loads(payload)
-                choice = obj["choices"][0]
-                delta = choice.get("delta", {}).get("content", "")
+                choices = obj.get("choices") or []
+                if not choices:
+                    # DeepSeek occasionally emits keepalive frames with no
+                    # choices (e.g. usage-only payloads). Skip those.
+                    continue
+                choice = choices[0]
+                # DeepSeek's terminal chunk ships {"delta": {"content": null},
+                # "finish_reason": "stop"}. The dict-default trick doesn't help
+                # because the key exists and is JSON null — coerce explicitly.
+                delta = choice.get("delta", {}).get("content") or ""
                 yield StreamChunk(
                     delta=delta,
                     finish_reason=choice.get("finish_reason"),
