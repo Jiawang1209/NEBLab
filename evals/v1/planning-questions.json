@@ -1,0 +1,78 @@
+{
+  "version": "v1-planning-2026-05-05",
+  "description": "Sprint 5d planning eval — 8 design/strategy/proposal queries that would have been refused under the QA strict prompt. Tests whether the PlanRAG.md-based PLANNING_SYSTEM_PROMPT delivers structured, evidence-bounded plans.",
+  "cases": [
+    {
+      "id": "plan.zh.korqin",
+      "text": "帮我设计一个针对科尔沁沙地的防沙治沙方案，要求有设计布局、技术方案与实施路径。",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "用户原始失败 case。语料库有 Tengger / Kubuqi / Mu Us / 民勤 等邻近沙地案例，应能迁移。"
+    },
+    {
+      "id": "plan.zh.shelterbelt-revision",
+      "text": "请基于现有研究，提出三北防护林二期工程的设计原则和优化方向（5 条），每条标注证据基础。",
+      "language": "zh",
+      "difficulty": "easy",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "中文 shelterbelt 文献极丰富，应给出证据密度高的结构化建议。"
+    },
+    {
+      "id": "plan.zh.water-allocation",
+      "text": "在水资源紧张的旱区造林项目中，如何制定造林密度与节水措施的权衡策略？请给出可量化的指导框架。",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "机制充分（水分约束 × 造林密度），但量化指南可能需要从邻近研究外推。"
+    },
+    {
+      "id": "plan.en.semiarid-strategy",
+      "text": "Recommend a 10-year ecological restoration strategy for semi-arid northern China that balances afforestation, grazing management, and economic development.",
+      "language": "en",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "英文综合规划题，测试跨子主题（造林+牧业+经济）的综合能力。"
+    },
+    {
+      "id": "plan.zh.monitoring-design",
+      "text": "请设计一套针对北方沙地的遥感+地面综合监测体系，包含监测指标、采样频率、数据流以及异常预警机制。",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "partial",
+      "notes": "Platform 风格设计题。语料库的监测论文偏机制，对完整数据流体系的覆盖较薄，应触发标注 ※ 的推理。"
+    },
+    {
+      "id": "plan.zh.transfer-mu-us-to-korqin",
+      "text": "毛乌素沙地的「治沙与产业」模式如何迁移到科尔沁沙地？请提出适应性调整方案，指出关键差异和迁移风险。",
+      "language": "zh",
+      "difficulty": "medium",
+      "source": "handwritten",
+      "corpus_coverage_expected": "yes",
+      "notes": "测试邻近案例迁移推理 — 这是 PlanRAG.md prompt 的核心场景。"
+    },
+    {
+      "id": "plan.zh.policy-3north",
+      "text": "结合现有研究，提出一份针对三北防护林后续建设的政策建议（5-7 条），每条说明依据。",
+      "language": "zh",
+      "difficulty": "hard",
+      "source": "handwritten",
+      "corpus_coverage_expected": "partial",
+      "notes": "Policy 类输出。语料以技术 / 机制研究为主，政策类文献较薄；测试结构化输出 + 边界承认。"
+    },
+    {
+      "id": "plan.zh.crispr-out-of-scope",
+      "text": "为基因编辑抗旱作物在毛乌素沙地的大规模田间应用设计治理与监测方案。",
+      "language": "zh",
+      "difficulty": "hard",
+      "source": "handwritten",
+      "corpus_coverage_expected": "no",
+      "notes": "Out-of-scope。语料无 CRISPR / 基因编辑论文。预期理想行为：明确说明证据缺失 → 给出有边界的初步框架（基于一般沙地治理 + 田间试验设计原则）+ 列出补充数据。最差行为：自信地编出方案。"
+    }
+  ]
+}
