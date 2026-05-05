@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Citation } from "@/lib/types";
+import type { Citation, TaskType } from "@/lib/types";
 
 interface StreamState {
   question: string;
   answer: string;
   citations: readonly Citation[];
+  taskType: TaskType;
   isStreaming: boolean;
   error: string | null;
 }
@@ -15,6 +16,7 @@ const initialState: StreamState = {
   question: "",
   answer: "",
   citations: [],
+  taskType: "qa",
   isStreaming: false,
   error: null,
 };
@@ -39,6 +41,14 @@ function parseCitations(raw: string): readonly Citation[] {
 export function useStreamQuery() {
   const [state, setState] = useState<StreamState>(initialState);
   const sourceRef = useRef<EventSource | null>(null);
+  // Tracks whether the server signalled normal completion. EventSource fires
+  // an `error` event on every disconnect — including the normal close after
+  // `done` — so we use this flag to distinguish benign close from real failure.
+  const completedRef = useRef<boolean>(false);
+  // Set when the consumer aborts the stream voluntarily (reset / new chat).
+  // The follow-on `error` event from the manual close should not surface as
+  // a connection-failed message.
+  const abortedRef = useRef<boolean>(false);
 
   // Close the connection if the consumer unmounts mid-stream.
   useEffect(() => {
@@ -50,14 +60,25 @@ export function useStreamQuery() {
     if (!trimmed) return;
 
     sourceRef.current?.close();
+    completedRef.current = false;
+    abortedRef.current = false;
     setState({ ...initialState, question: trimmed, isStreaming: true });
 
     const params = new URLSearchParams({
       query: trimmed,
       top_k: String(topK),
     });
-    const es = new EventSource(`/api/query/stream?${params.toString()}`);
+    // Next.js dev's rewrite proxy buffers SSE chunks, so we hit FastAPI
+    // directly. Backend has CORS allowlist for localhost:3000.
+    const apiBase =
+      process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+    const es = new EventSource(`${apiBase}/query/stream?${params.toString()}`);
     sourceRef.current = es;
+
+    es.addEventListener("task_type", (event: MessageEvent<string>) => {
+      const value = event.data === "planning" ? "planning" : "qa";
+      setState((s) => ({ ...s, taskType: value }));
+    });
 
     es.addEventListener("citations", (event: MessageEvent<string>) => {
       const next = parseCitations(event.data);
@@ -69,26 +90,27 @@ export function useStreamQuery() {
     });
 
     es.addEventListener("done", () => {
+      completedRef.current = true;
       es.close();
       setState((s) => ({ ...s, isStreaming: false }));
     });
 
-    // EventSource fires 'error' both on transport failures and on normal
-    // server close. We treat any error AFTER 'done' as benign (already closed
-    // above); otherwise surface it.
     es.addEventListener("error", () => {
-      const wasStreaming = es.readyState !== EventSource.CLOSED;
+      // benign closes: server signalled `done`, or consumer aborted via reset()
+      if (completedRef.current || abortedRef.current) return;
       es.close();
       setState((s) => ({
         ...s,
         isStreaming: false,
-        error: wasStreaming && s.isStreaming ? "连接中断，请重试" : s.error,
+        error: s.error ?? "连接后端失败：请确认 FastAPI (`make dev`) 是否在 :8000 运行",
       }));
     });
   }, []);
 
   const reset = useCallback((): void => {
+    abortedRef.current = true;
     sourceRef.current?.close();
+    completedRef.current = false;
     setState(initialState);
   }, []);
 
