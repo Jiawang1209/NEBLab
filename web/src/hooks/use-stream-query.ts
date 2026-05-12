@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Citation, TaskType } from "@/lib/types";
+import type { ApiMessage, Citation, TaskType } from "@/lib/types";
 
 interface StreamState {
-  question: string;
   answer: string;
   citations: readonly Citation[];
   taskType: TaskType;
@@ -13,13 +12,14 @@ interface StreamState {
 }
 
 const initialState: StreamState = {
-  question: "",
   answer: "",
   citations: [],
   taskType: "qa",
   isStreaming: false,
   error: null,
 };
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
 function parseCitations(raw: string): readonly Citation[] {
   try {
@@ -38,79 +38,143 @@ function parseCitations(raw: string): readonly Citation[] {
   }
 }
 
+interface SSEEvent {
+  event: string;
+  data: string;
+}
+
+/**
+ * SSE frames are separated by blank lines. Within a frame, ``event:``
+ * and ``data:`` lines describe the event. We need a manual parser
+ * because EventSource doesn't support POST — and Sprint 5e's multi-turn
+ * payload is too large for a query string.
+ */
+async function* parseSSE(body: ReadableStream<Uint8Array>): AsyncGenerator<SSEEvent> {
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        if (buffer.trim()) yield* drainFrame(buffer);
+        return;
+      }
+      buffer += decoder.decode(value, { stream: true });
+      let cut = findFrameEnd(buffer);
+      while (cut !== -1) {
+        const frame = buffer.slice(0, cut);
+        buffer = buffer.slice(cut + 2);
+        yield* drainFrame(frame);
+        cut = findFrameEnd(buffer);
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+function findFrameEnd(buffer: string): number {
+  // SSE allows \n\n or \r\n\r\n; check both.
+  const a = buffer.indexOf("\n\n");
+  const b = buffer.indexOf("\r\n\r\n");
+  if (a === -1) return b;
+  if (b === -1) return a;
+  return Math.min(a, b);
+}
+
+function* drainFrame(frame: string): Generator<SSEEvent> {
+  let event = "message";
+  const dataLines: string[] = [];
+  for (const rawLine of frame.split(/\r?\n/)) {
+    if (!rawLine || rawLine.startsWith(":")) continue; // comment
+    const colon = rawLine.indexOf(":");
+    if (colon === -1) continue;
+    const field = rawLine.slice(0, colon);
+    const valStart = rawLine[colon + 1] === " " ? colon + 2 : colon + 1;
+    const value = rawLine.slice(valStart);
+    if (field === "event") event = value;
+    else if (field === "data") dataLines.push(value);
+  }
+  if (dataLines.length || event !== "message") {
+    yield { event, data: dataLines.join("\n") };
+  }
+}
+
 export function useStreamQuery() {
   const [state, setState] = useState<StreamState>(initialState);
-  const sourceRef = useRef<EventSource | null>(null);
-  // Tracks whether the server signalled normal completion. EventSource fires
-  // an `error` event on every disconnect — including the normal close after
-  // `done` — so we use this flag to distinguish benign close from real failure.
-  const completedRef = useRef<boolean>(false);
-  // Set when the consumer aborts the stream voluntarily (reset / new chat).
-  // The follow-on `error` event from the manual close should not surface as
-  // a connection-failed message.
-  const abortedRef = useRef<boolean>(false);
+  const abortRef = useRef<AbortController | null>(null);
 
-  // Close the connection if the consumer unmounts mid-stream.
+  // Abort an in-flight stream when the component unmounts.
   useEffect(() => {
-    return () => sourceRef.current?.close();
+    return () => abortRef.current?.abort();
   }, []);
 
-  const ask = useCallback((query: string, topK: number = 7): void => {
-    const trimmed = query.trim();
-    if (!trimmed) return;
+  const ask = useCallback(async (messages: ApiMessage[]): Promise<void> => {
+    if (!messages.length) return;
 
-    sourceRef.current?.close();
-    completedRef.current = false;
-    abortedRef.current = false;
-    setState({ ...initialState, question: trimmed, isStreaming: true });
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
 
-    const params = new URLSearchParams({
-      query: trimmed,
-      top_k: String(topK),
-    });
-    // Next.js dev's rewrite proxy buffers SSE chunks, so we hit FastAPI
-    // directly. Backend has CORS allowlist for localhost:3000.
-    const apiBase =
-      process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
-    const es = new EventSource(`${apiBase}/query/stream?${params.toString()}`);
-    sourceRef.current = es;
+    setState({ ...initialState, isStreaming: true });
 
-    es.addEventListener("task_type", (event: MessageEvent<string>) => {
-      const value = event.data === "planning" ? "planning" : "qa";
-      setState((s) => ({ ...s, taskType: value }));
-    });
+    try {
+      const resp = await fetch(`${API_BASE}/query/stream`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "text/event-stream",
+        },
+        body: JSON.stringify({ messages, top_k: 7 }),
+        signal: controller.signal,
+      });
+      if (!resp.ok || !resp.body) {
+        setState((s) => ({
+          ...s,
+          isStreaming: false,
+          error: `后端返回 ${resp.status}`,
+        }));
+        return;
+      }
 
-    es.addEventListener("citations", (event: MessageEvent<string>) => {
-      const next = parseCitations(event.data);
-      setState((s) => ({ ...s, citations: next }));
-    });
-
-    es.addEventListener("delta", (event: MessageEvent<string>) => {
-      setState((s) => ({ ...s, answer: s.answer + event.data }));
-    });
-
-    es.addEventListener("done", () => {
-      completedRef.current = true;
-      es.close();
-      setState((s) => ({ ...s, isStreaming: false }));
-    });
-
-    es.addEventListener("error", () => {
-      // benign closes: server signalled `done`, or consumer aborted via reset()
-      if (completedRef.current || abortedRef.current) return;
-      es.close();
+      for await (const ev of parseSSE(resp.body)) {
+        if (controller.signal.aborted) return;
+        if (ev.event === "task_type") {
+          const value: TaskType =
+            ev.data === "planning"
+              ? "planning"
+              : ev.data === "meta"
+                ? "meta"
+                : "qa";
+          setState((s) => ({ ...s, taskType: value }));
+        } else if (ev.event === "citations") {
+          const next = parseCitations(ev.data);
+          setState((s) => ({ ...s, citations: next }));
+        } else if (ev.event === "delta") {
+          setState((s) => ({ ...s, answer: s.answer + ev.data }));
+        } else if (ev.event === "done") {
+          setState((s) => ({ ...s, isStreaming: false }));
+        }
+      }
+    } catch (err: unknown) {
+      // AbortError is expected when reset() / new chat fires mid-stream.
+      const name = (err as { name?: string }).name;
+      if (name === "AbortError") return;
       setState((s) => ({
         ...s,
         isStreaming: false,
-        error: s.error ?? "连接后端失败：请确认 FastAPI (`make dev`) 是否在 :8000 运行",
+        error:
+          s.error ??
+          "连接后端失败：请确认 FastAPI (`make dev`) 是否在 :8000 运行",
       }));
-    });
+    }
   }, []);
 
   const reset = useCallback((): void => {
-    abortedRef.current = true;
-    sourceRef.current?.close();
-    completedRef.current = false;
+    abortRef.current?.abort();
+    abortRef.current = null;
     setState(initialState);
   }, []);
 

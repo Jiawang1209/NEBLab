@@ -14,6 +14,7 @@ from collections.abc import AsyncIterator
 from pydantic import BaseModel
 
 from neblab_rag.providers.llm.base import ChatMessage, ChatRequest, LLMProvider
+from neblab_rag.rag.conversation import ConvMessage
 from neblab_rag.rag.retriever import RetrievedChunk
 from neblab_rag.rag.task_classifier import TaskType
 
@@ -142,6 +143,7 @@ def _system_prompt_for(task_type: TaskType) -> str:
         return PLANNING_SYSTEM_PROMPT
     return QA_SYSTEM_PROMPT
 
+
 # Generator runs deterministic — same query + same chunks → same answer.
 # Sprint 4 baseline showed temperature=0.3 (the LLM library default) made
 # eval runs non-reproducible and likely contributed to the 16% not_supported
@@ -162,14 +164,33 @@ class AnswerGenerator:
         query: str,
         chunks: list[RetrievedChunk],
         task_type: TaskType,
+        history: list[ConvMessage] | None = None,
     ) -> list[ChatMessage]:
-        return [
+        """Assemble the chat messages for the LLM call.
+
+        Sprint 5e: when ``history`` is supplied, prior user/assistant
+        turns slot in between the system prompt and the chunks-bearing
+        user message. The chunks are always attached to the LATEST
+        user turn so the model knows which prior turn they belong to.
+        Single-turn callers can pass history=None — the behaviour is
+        identical to the pre-5e generator.
+        """
+        out: list[ChatMessage] = [
             ChatMessage(role="system", content=_system_prompt_for(task_type)),
+        ]
+        if history:
+            # Replay everything except the last user turn — that gets
+            # rebuilt below to embed the retrieved chunks.
+            replay = history[:-1] if history and history[-1].role == "user" else history
+            for m in replay:
+                out.append(ChatMessage(role=m.role, content=m.content))
+        out.append(
             ChatMessage(
                 role="user",
                 content=f"文献片段：\n\n{_format_chunks(chunks)}\n\n问题：{query}",
-            ),
-        ]
+            )
+        )
+        return out
 
     def _citations(self, chunks: list[RetrievedChunk]) -> list[Citation]:
         return [
@@ -188,12 +209,13 @@ class AnswerGenerator:
         query: str,
         chunks: list[RetrievedChunk],
         task_type: TaskType = TaskType.QA,
+        history: list[ConvMessage] | None = None,
     ) -> GeneratedAnswer:
         if not chunks:
             return GeneratedAnswer(content=EMPTY_CONTEXT_REPLY, citations=[])
         resp = await self._llm.chat(
             ChatRequest(
-                messages=self._build_messages(query, chunks, task_type),
+                messages=self._build_messages(query, chunks, task_type, history),
                 temperature=GENERATOR_TEMPERATURE,
             )
         )
@@ -205,13 +227,14 @@ class AnswerGenerator:
         query: str,
         chunks: list[RetrievedChunk],
         task_type: TaskType = TaskType.QA,
+        history: list[ConvMessage] | None = None,
     ) -> AsyncIterator[str]:
         if not chunks:
             yield EMPTY_CONTEXT_REPLY
             return
         async for chunk in self._llm.stream(
             ChatRequest(
-                messages=self._build_messages(query, chunks, task_type),
+                messages=self._build_messages(query, chunks, task_type, history),
                 temperature=GENERATOR_TEMPERATURE,
             )
         ):

@@ -14,9 +14,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sidebar } from "@/components/sidebar";
 import { AnswerMarkdown } from "@/components/answer-markdown";
 import { CitationsPanel } from "@/components/citations-panel";
-import type { ChatTurn, Citation } from "@/lib/types";
+import type { ApiMessage, ChatSession, ChatTurn, Citation } from "@/lib/types";
 import { useStreamQuery } from "@/hooks/use-stream-query";
-import { loadHistory, saveHistory, newTurnId } from "@/lib/history";
+import {
+  loadSessions,
+  newSessionId,
+  newTurnId,
+  saveSessions,
+} from "@/lib/history";
 
 const SAMPLE_QUESTIONS: readonly string[] = [
   "中国三北防护林对当地气温有什么影响？",
@@ -118,6 +123,9 @@ function EmptyState({ onPick }: EmptyStateProps) {
         基于 1810 篇 desertification / shelterbelt 中英文文献，
         每条回答都带 footnote 引用，可追溯到原文。
       </p>
+      <p className="mt-2 text-[0.8rem] text-muted-foreground">
+        现已支持多轮对话 — 可以追问、展开、对比。
+      </p>
       <div className="mt-10 grid w-full max-w-2xl grid-cols-1 gap-2 sm:grid-cols-2">
         {SAMPLE_QUESTIONS.map((q) => (
           <button
@@ -163,16 +171,15 @@ function TurnView({
 }
 
 export default function Home() {
-  const [history, setHistory] = useState<ChatTurn[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [pendingId, setPendingId] = useState<string | null>(null);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+  const [pendingTurnId, setPendingTurnId] = useState<string | null>(null);
   const [input, setInput] = useState("");
   const [citationsOpen, setCitationsOpen] = useState<boolean>(true);
   const persistedRef = useRef<boolean>(false);
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
 
   const {
-    question,
     answer,
     citations,
     taskType,
@@ -182,68 +189,134 @@ export default function Home() {
     reset,
   } = useStreamQuery();
 
-  // Hydrate history once on mount.
+  // Hydrate sessions once on mount.
   useEffect(() => {
-    setHistory(loadHistory());
+    setSessions(loadSessions());
   }, []);
 
-  // Persist a completed turn exactly once per stream.
+  // Persist a completed turn back into its session. Fires once when
+  // the stream ends with content; the persistedRef prevents a re-fire
+  // when the page re-renders for any other reason.
   useEffect(() => {
-    if (isStreaming || answer.length === 0 || persistedRef.current) return;
+    if (isStreaming || answer.length === 0) return;
+    if (!pendingTurnId || !activeSessionId) return;
+    if (persistedRef.current) return;
     persistedRef.current = true;
-    const turn: ChatTurn = {
-      id: pendingId ?? newTurnId(),
-      question,
-      answer,
-      citations: [...citations],
-      taskType,
-      createdAt: Date.now(),
-    };
-    setHistory((prev) => {
-      const next = [turn, ...prev];
-      saveHistory(next);
+
+    setSessions((prev) => {
+      const next = prev.map((s) => {
+        if (s.id !== activeSessionId) return s;
+        const turns = s.turns.map((t) =>
+          t.id === pendingTurnId
+            ? {
+                ...t,
+                answer,
+                citations: [...citations],
+                taskType,
+              }
+            : t,
+        );
+        return { ...s, turns, updatedAt: Date.now() };
+      });
+      saveSessions(next);
       return next;
     });
-    setActiveId(turn.id);
-  }, [isStreaming, answer, citations, taskType, question, pendingId]);
+    setPendingTurnId(null);
+  }, [isStreaming, answer, citations, taskType, pendingTurnId, activeSessionId]);
 
-  // Keep the latest assistant content in view while streaming.
+  // Auto-scroll while streaming.
   useEffect(() => {
     if (!isStreaming) return;
-    scrollAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    scrollAnchorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
   }, [answer, isStreaming]);
 
-  const activeTurn = useMemo<ChatTurn | null>(() => {
-    if (pendingId !== null && question) {
+  const activeSession = useMemo<ChatSession | null>(
+    () => sessions.find((s) => s.id === activeSessionId) ?? null,
+    [sessions, activeSessionId],
+  );
+
+  /**
+   * The "effective" last turn — what the citations panel binds to.
+   * If the last turn is the one being streamed, overlay live state
+   * (answer / citations / taskType) so the panel stays in sync.
+   */
+  const effectiveLastTurn = useMemo<ChatTurn | null>(() => {
+    if (!activeSession || activeSession.turns.length === 0) return null;
+    const last = activeSession.turns[activeSession.turns.length - 1];
+    if (last.id === pendingTurnId) {
       return {
-        id: pendingId,
-        question,
+        ...last,
         answer,
         citations: [...citations],
         taskType,
-        createdAt: Date.now(),
       };
     }
-    if (activeId) {
-      return history.find((t) => t.id === activeId) ?? null;
-    }
-    return null;
-  }, [pendingId, activeId, question, answer, citations, taskType, history]);
+    return last;
+  }, [activeSession, pendingTurnId, answer, citations, taskType]);
 
-  function startNewQuery(q: string): void {
+  function startNewQuery(question: string): void {
+    const trimmed = question.trim();
+    if (!trimmed || isStreaming) return;
+
     persistedRef.current = false;
-    setActiveId(null);
-    setPendingId(newTurnId());
-    ask(q);
+    const turnId = newTurnId();
+    setPendingTurnId(turnId);
+
+    const newTurn: ChatTurn = {
+      id: turnId,
+      question: trimmed,
+      answer: "",
+      citations: [],
+      taskType: "qa",
+      createdAt: Date.now(),
+    };
+
+    let messages: ApiMessage[] = [];
+
+    if (activeSession === null) {
+      // First turn of a brand-new session.
+      const session: ChatSession = {
+        id: newSessionId(),
+        turns: [newTurn],
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+      setSessions((prev) => {
+        const next = [session, ...prev];
+        saveSessions(next);
+        return next;
+      });
+      setActiveSessionId(session.id);
+      messages = [{ role: "user", content: trimmed }];
+    } else {
+      // Follow-up — fold the prior turns into the message list.
+      messages = activeSession.turns.flatMap((t) => [
+        { role: "user", content: t.question } satisfies ApiMessage,
+        { role: "assistant", content: t.answer } satisfies ApiMessage,
+      ]);
+      messages.push({ role: "user", content: trimmed });
+
+      setSessions((prev) => {
+        const next = prev.map((s) =>
+          s.id === activeSession.id
+            ? { ...s, turns: [...s.turns, newTurn], updatedAt: Date.now() }
+            : s,
+        );
+        saveSessions(next);
+        return next;
+      });
+    }
+
+    void ask(messages);
     setInput("");
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    if (isStreaming) return;
-    const trimmed = input.trim();
-    if (!trimmed) return;
-    startNewQuery(trimmed);
+    startNewQuery(input);
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>): void {
@@ -254,51 +327,50 @@ export default function Home() {
   }
 
   function handleNewChat(): void {
-    // Don't gate on isStreaming — clicking "新对话" mid-stream should
-    // abort and reset (reset() closes the EventSource).
+    // Aborts any in-flight stream + clears pending state.
     persistedRef.current = false;
-    setActiveId(null);
-    setPendingId(null);
+    setPendingTurnId(null);
+    setActiveSessionId(null);
     reset();
     setInput("");
   }
 
-  function handleSelect(id: string): void {
-    // Same: switching to a history item mid-stream aborts the stream.
+  function handleSelectSession(id: string): void {
     persistedRef.current = false;
-    setActiveId(id);
-    setPendingId(null);
+    setPendingTurnId(null);
+    setActiveSessionId(id);
     reset();
   }
 
-  function handleDelete(id: string): void {
-    setHistory((prev) => {
-      const next = prev.filter((t) => t.id !== id);
-      saveHistory(next);
+  function handleDeleteSession(id: string): void {
+    setSessions((prev) => {
+      const next = prev.filter((s) => s.id !== id);
+      saveSessions(next);
       return next;
     });
-    if (activeId === id) {
-      setActiveId(null);
+    if (activeSessionId === id) {
+      setActiveSessionId(null);
+      setPendingTurnId(null);
       reset();
     }
   }
-
-  const showEmpty = activeTurn === null;
-  const sendDisabled = isStreaming || input.trim().length === 0;
-  const activeCitations: readonly Citation[] = activeTurn?.citations ?? [];
 
   function handleCitationClick(_n: number): void {
     if (!citationsOpen) setCitationsOpen(true);
   }
 
+  const showEmpty = activeSession === null || activeSession.turns.length === 0;
+  const sendDisabled = isStreaming || input.trim().length === 0;
+  const activeCitations: readonly Citation[] = effectiveLastTurn?.citations ?? [];
+
   return (
     <div className="flex h-screen w-full">
       <Sidebar
-        turns={history}
-        activeId={activeId}
-        onSelect={handleSelect}
+        sessions={sessions}
+        activeSessionId={activeSessionId}
+        onSelect={handleSelectSession}
         onNewChat={handleNewChat}
-        onDelete={handleDelete}
+        onDelete={handleDeleteSession}
       />
 
       <main className="relative flex flex-1 flex-col overflow-hidden">
@@ -306,15 +378,27 @@ export default function Home() {
           {showEmpty ? (
             <EmptyState onPick={startNewQuery} />
           ) : (
-            <div className="mx-auto w-full max-w-3xl px-6 pt-10 pb-48 sm:px-10">
-              {activeTurn && (
-                <TurnView
-                  turn={activeTurn}
-                  isStreaming={isStreaming && pendingId !== null}
-                  error={error}
-                  onCitationClick={handleCitationClick}
-                />
-              )}
+            <div className="mx-auto w-full max-w-3xl space-y-12 px-6 pt-10 pb-48 sm:px-10">
+              {activeSession?.turns.map((turn) => {
+                const isPending = pendingTurnId === turn.id;
+                const renderTurn: ChatTurn = isPending
+                  ? {
+                      ...turn,
+                      answer,
+                      citations: [...citations],
+                      taskType,
+                    }
+                  : turn;
+                return (
+                  <TurnView
+                    key={turn.id}
+                    turn={renderTurn}
+                    isStreaming={isPending && isStreaming}
+                    error={isPending ? error : null}
+                    onCitationClick={handleCitationClick}
+                  />
+                );
+              })}
               <div ref={scrollAnchorRef} />
             </div>
           )}
@@ -330,7 +414,11 @@ export default function Home() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="问点什么…  Enter 发送, Shift+Enter 换行"
+                placeholder={
+                  activeSession
+                    ? "继续追问…  Enter 发送, Shift+Enter 换行"
+                    : "问点什么…  Enter 发送, Shift+Enter 换行"
+                }
                 rows={1}
                 className="min-h-[56px] resize-none border-0 bg-transparent px-5 py-4 pr-14 text-[0.95rem] leading-6 shadow-none focus-visible:ring-0"
                 disabled={isStreaming}

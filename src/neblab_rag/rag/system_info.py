@@ -86,9 +86,7 @@ class PostgresSystemInfoProvider:
                 .group_by(Document.language)
                 .all()
             )
-        by_language = tuple(
-            (lang or "unknown", count) for (lang, count) in sorted(lang_rows)
-        )
+        by_language = tuple((lang or "unknown", count) for (lang, count) in sorted(lang_rows))
         return SystemInfo(
             total_docs=total,
             indexed_docs=indexed,
@@ -149,9 +147,7 @@ def format_meta_answer(info: SystemInfo) -> str:
     deterministic, costs no API tokens, and the answer surface is small
     enough that a single template covers all observed meta queries.
     """
-    lang_lines = "\n".join(
-        f"- **{lang}**：{count} 篇" for lang, count in info.by_language
-    )
+    lang_lines = "\n".join(f"- **{lang}**：{count} 篇" for lang, count in info.by_language)
     topics = " / ".join(info.topics)
     supp = f"{info.citation_supported_rate * 100:.1f}%"
     ans = f"{info.answered_rate * 100:.1f}%"

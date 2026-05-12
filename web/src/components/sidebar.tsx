@@ -3,11 +3,12 @@
 import { Plus, MessageSquare, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { ChatTurn } from "@/lib/types";
+import type { ChatSession } from "@/lib/types";
+import { sessionLabel } from "@/lib/history";
 
 interface SidebarProps {
-  turns: readonly ChatTurn[];
-  activeId: string | null;
+  sessions: readonly ChatSession[];
+  activeSessionId: string | null;
   onSelect: (id: string) => void;
   onNewChat: () => void;
   onDelete: (id: string) => void;
@@ -15,43 +16,45 @@ interface SidebarProps {
 
 interface Group {
   label: string;
-  turns: readonly ChatTurn[];
+  sessions: readonly ChatSession[];
 }
 
-function groupByDay(turns: readonly ChatTurn[]): Group[] {
+function groupByDay(sessions: readonly ChatSession[]): Group[] {
   const now = Date.now();
   const startOfToday = new Date(now).setHours(0, 0, 0, 0);
   const startOfYesterday = startOfToday - 24 * 60 * 60 * 1000;
   const startOfWeek = startOfToday - 7 * 24 * 60 * 60 * 1000;
 
-  const today: ChatTurn[] = [];
-  const yesterday: ChatTurn[] = [];
-  const earlierWeek: ChatTurn[] = [];
-  const older: ChatTurn[] = [];
+  const today: ChatSession[] = [];
+  const yesterday: ChatSession[] = [];
+  const earlierWeek: ChatSession[] = [];
+  const older: ChatSession[] = [];
 
-  for (const turn of turns) {
-    if (turn.createdAt >= startOfToday) today.push(turn);
-    else if (turn.createdAt >= startOfYesterday) yesterday.push(turn);
-    else if (turn.createdAt >= startOfWeek) earlierWeek.push(turn);
-    else older.push(turn);
+  // Sort by updatedAt desc so newest first within each bucket.
+  const sorted = [...sessions].sort((a, b) => b.updatedAt - a.updatedAt);
+  for (const s of sorted) {
+    if (s.updatedAt >= startOfToday) today.push(s);
+    else if (s.updatedAt >= startOfYesterday) yesterday.push(s);
+    else if (s.updatedAt >= startOfWeek) earlierWeek.push(s);
+    else older.push(s);
   }
 
   return [
-    { label: "今天", turns: today },
-    { label: "昨天", turns: yesterday },
-    { label: "本周", turns: earlierWeek },
-    { label: "更早", turns: older },
-  ].filter((g) => g.turns.length > 0);
+    { label: "今天", sessions: today },
+    { label: "昨天", sessions: yesterday },
+    { label: "本周", sessions: earlierWeek },
+    { label: "更早", sessions: older },
+  ].filter((g) => g.sessions.length > 0);
 }
 
 export function Sidebar({
-  turns,
-  activeId,
+  sessions,
+  activeSessionId,
   onSelect,
   onNewChat,
   onDelete,
 }: SidebarProps) {
-  const groups = groupByDay(turns);
+  const groups = groupByDay(sessions);
 
   return (
     <aside className="flex h-screen w-[260px] shrink-0 flex-col border-r border-border bg-sidebar">
@@ -84,7 +87,7 @@ export function Sidebar({
       <nav className="flex-1 overflow-y-auto px-2 pb-4">
         {groups.length === 0 ? (
           <p className="px-3 py-6 text-center text-[0.75rem] text-muted-foreground">
-            没有历史记录
+            没有历史对话
           </p>
         ) : (
           groups.map((g) => (
@@ -93,42 +96,52 @@ export function Sidebar({
                 {g.label}
               </p>
               <ul className="space-y-0.5">
-                {g.turns.map((t) => (
-                  <li key={t.id}>
-                    <button
-                      type="button"
-                      onClick={() => onSelect(t.id)}
-                      className={cn(
-                        "group/turn flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-[0.85rem] leading-5 transition-colors",
-                        activeId === t.id
-                          ? "bg-accent text-foreground"
-                          : "text-foreground/80 hover:bg-accent/60",
-                      )}
-                    >
-                      <MessageSquare className="size-3.5 shrink-0 text-muted-foreground" />
-                      <span className="flex-1 truncate">{t.question}</span>
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDelete(t.id);
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            onDelete(t.id);
-                          }
-                        }}
-                        className="hidden size-5 shrink-0 items-center justify-center rounded text-muted-foreground hover:bg-destructive/10 hover:text-destructive group-hover/turn:flex"
-                        aria-label="删除"
+                {g.sessions.map((s) => {
+                  const turnCount = s.turns.length;
+                  return (
+                    <li key={s.id}>
+                      <button
+                        type="button"
+                        onClick={() => onSelect(s.id)}
+                        className={cn(
+                          "group/turn flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-[0.85rem] leading-5 transition-colors",
+                          activeSessionId === s.id
+                            ? "bg-accent text-foreground"
+                            : "text-foreground/80 hover:bg-accent/60",
+                        )}
                       >
-                        <Trash2 className="size-3" />
-                      </span>
-                    </button>
-                  </li>
-                ))}
+                        <MessageSquare className="size-3.5 shrink-0 text-muted-foreground" />
+                        <span className="flex-1 truncate">
+                          {sessionLabel(s)}
+                        </span>
+                        {turnCount > 1 && (
+                          <span className="shrink-0 rounded bg-foreground/10 px-1.5 py-0.5 text-[0.65rem] font-medium tabular-nums text-muted-foreground">
+                            {turnCount}
+                          </span>
+                        )}
+                        <span
+                          role="button"
+                          tabIndex={0}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(s.id);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              onDelete(s.id);
+                            }
+                          }}
+                          className="hidden size-5 shrink-0 items-center justify-center rounded text-muted-foreground hover:bg-destructive/10 hover:text-destructive group-hover/turn:flex"
+                          aria-label="删除"
+                        >
+                          <Trash2 className="size-3" />
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))

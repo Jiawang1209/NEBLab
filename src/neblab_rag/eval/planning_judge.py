@@ -115,9 +115,7 @@ class PlanningJudge:
             resp = await self._llm.chat(
                 ChatRequest(
                     messages=[
-                        ChatMessage(
-                            role="system", content=PLANNING_JUDGE_SYSTEM_PROMPT
-                        ),
+                        ChatMessage(role="system", content=PLANNING_JUDGE_SYSTEM_PROMPT),
                         ChatMessage(
                             role="user",
                             content=(
@@ -154,9 +152,7 @@ class PlanningJudge:
 def _parse_planning_verdict(case_id: str, content: str) -> PlanningJudgment:
     cleaned = content.strip()
     if cleaned.startswith("```"):
-        cleaned = re.sub(
-            r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.MULTILINE
-        ).strip()
+        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.MULTILINE).strip()
     try:
         data = json.loads(cleaned)
     except json.JSONDecodeError:

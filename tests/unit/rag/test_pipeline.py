@@ -2,10 +2,18 @@
 
 from unittest.mock import AsyncMock, MagicMock
 
+from neblab_rag.rag.conversation import ConvMessage
 from neblab_rag.rag.generator import Citation, GeneratedAnswer
 from neblab_rag.rag.pipeline import RAGPipeline
 from neblab_rag.rag.retriever import RetrievedChunk
 from neblab_rag.rag.task_classifier import TaskType
+
+
+def _msg(text: str) -> list[ConvMessage]:
+    """Sprint 5e: pipeline now takes a list of conversation messages.
+    Single-query tests still pass query=... but the generator sees the
+    wrapped one-message history; expectation helpers use this."""
+    return [ConvMessage(role="user", content=text)]
 
 
 async def test_answer_orchestrates_retriever_and_generator() -> None:
@@ -33,7 +41,7 @@ async def test_answer_orchestrates_retriever_and_generator() -> None:
     assert result.citation_validation.is_valid is True
     retriever.retrieve.assert_awaited_once_with(query="x", top_k=7)
     generator.generate.assert_awaited_once_with(
-        query="x", chunks=chunks, task_type=TaskType.QA
+        query="x", chunks=chunks, task_type=TaskType.QA, history=_msg("x")
     )
     assert result.task_type == TaskType.QA
 
@@ -90,7 +98,10 @@ async def test_rewriter_routes_translated_query_to_retriever_only() -> None:
     generator = MagicMock()
     generator.generate = AsyncMock(return_value=GeneratedAnswer(content="Per [1].", citations=[]))
     rewriter = MagicMock()
-    rewriter.rewrite = AsyncMock(
+    # Sprint 5e: pipeline calls rewrite_with_context(messages) — single
+    # turn still goes through this method (which internally falls back
+    # to translate-only when there's just one user message).
+    rewriter.rewrite_with_context = AsyncMock(
         return_value=RewrittenQuery(
             original="沙漠化的机制？",
             rewritten="What are the mechanisms of desertification?",
@@ -105,7 +116,10 @@ async def test_rewriter_routes_translated_query_to_retriever_only() -> None:
         query="What are the mechanisms of desertification?", top_k=7
     )
     generator.generate.assert_awaited_once_with(
-        query="沙漠化的机制？", chunks=chunks, task_type=TaskType.QA
+        query="沙漠化的机制？",
+        chunks=chunks,
+        task_type=TaskType.QA,
+        history=_msg("沙漠化的机制？"),
     )
     assert result.query == "沙漠化的机制？"
     assert result.rewritten_query == "What are the mechanisms of desertification?"
@@ -127,6 +141,9 @@ async def test_no_rewriter_means_original_query_used_throughout() -> None:
 
     retriever.retrieve.assert_awaited_once_with(query="What is X?", top_k=7)
     generator.generate.assert_awaited_once_with(
-        query="What is X?", chunks=chunks, task_type=TaskType.QA
+        query="What is X?",
+        chunks=chunks,
+        task_type=TaskType.QA,
+        history=_msg("What is X?"),
     )
     assert result.rewritten_query is None

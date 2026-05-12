@@ -1,10 +1,9 @@
 """End-to-end RAG pipeline: classify → dispatch → handler.
 
-Sprint 5d: this used to be a single retrieve-then-generate flow tuned
-for QA. It's now a thin router that picks a TaskHandler by classified
-TaskType and delegates the full request to it. Each handler owns its
-own pipeline (some skip retrieval entirely, e.g. META). Adding a new
-task type is a new handler — no edits here.
+Sprint 5d introduced the router architecture; Sprint 5e extends the
+public surface to a list of conversation messages so multi-turn
+follow-ups can flow through. Single-query callers (eval runner)
+construct a one-message list — there's no separate single-query path.
 """
 
 from collections.abc import AsyncIterator
@@ -12,6 +11,7 @@ from collections.abc import AsyncIterator
 from pydantic import BaseModel
 
 from neblab_rag.rag.citation import CitationValidation
+from neblab_rag.rag.conversation import ConvMessage, latest_user_message
 from neblab_rag.rag.generator import AnswerGenerator, GeneratedAnswer
 from neblab_rag.rag.handlers import (
     HandlerResult,
@@ -47,11 +47,13 @@ def _to_rag_result(handler_result: HandlerResult) -> RAGResult:
     )
 
 
-class RAGPipeline:
-    """Thin router: classify(query) → handler.stream(query). Holds the
-    handler registry; the retriever / generator / rewriter / system_info
-    providers are owned by individual handlers, not the pipeline."""
+def _wrap_query(query: str) -> list[ConvMessage]:
+    """Single-turn callers (eval) pass a query string; turn it into a
+    one-message list so the rest of the pipeline doesn't branch."""
+    return [ConvMessage(role="user", content=query)]
 
+
+class RAGPipeline:
     def __init__(
         self,
         retriever: Retriever,
@@ -79,26 +81,42 @@ class RAGPipeline:
     def generator(self) -> AnswerGenerator:
         return self._generator
 
-    def _route(self, query: str) -> tuple[TaskType, TaskHandler]:
-        task_type = classify(query)
+    def _route(self, messages: list[ConvMessage]) -> tuple[TaskType, TaskHandler]:
+        task_type = classify(latest_user_message(messages))
         handler = self._handlers.get(task_type)
         if handler is None:
-            # No handler registered for this type (e.g. META without a
-            # SystemInfoProvider configured). Fall back to QA — the
-            # strict prompt is the safe default.
             return TaskType.QA, self._handlers[TaskType.QA]
         return task_type, handler
 
-    async def answer(self, *, query: str, top_k: int = 7) -> RAGResult:
-        _, handler = self._route(query)
-        result = await handler.handle(query=query, top_k=top_k)
+    async def answer(
+        self,
+        *,
+        messages: list[ConvMessage] | None = None,
+        query: str | None = None,
+        top_k: int = 7,
+    ) -> RAGResult:
+        """Either ``messages`` (multi-turn) or ``query`` (single-turn) must
+        be provided. Single-turn callers — primarily the eval runner —
+        keep their old call shape; new clients should pass messages."""
+        if messages is None and query is None:
+            raise ValueError("either messages or query is required")
+        msgs = messages if messages is not None else _wrap_query(query or "")
+        _, handler = self._route(msgs)
+        result = await handler.handle(messages=msgs, top_k=top_k)
         return _to_rag_result(result)
 
     async def stream(
-        self, *, query: str, top_k: int = 7
+        self,
+        *,
+        messages: list[ConvMessage] | None = None,
+        query: str | None = None,
+        top_k: int = 7,
     ) -> AsyncIterator[StreamEvent]:
-        _, handler = self._route(query)
-        async for event in handler.stream(query=query, top_k=top_k):
+        if messages is None and query is None:
+            raise ValueError("either messages or query is required")
+        msgs = messages if messages is not None else _wrap_query(query or "")
+        _, handler = self._route(msgs)
+        async for event in handler.stream(messages=msgs, top_k=top_k):
             yield event
 
     @staticmethod

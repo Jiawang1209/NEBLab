@@ -155,10 +155,7 @@ def _aggregate(results: list[PlanningCaseResult]) -> dict[str, float]:
 def _print_summary(report_path: Path, report: PlanningReport) -> None:
     print(f"\n=== Planning eval summary ({report.sprint_label}) ===")
     print(f"  cases:                    {len(report.cases)}")
-    print(
-        f"  routed to PLANNING:       {report.n_planning_routed} / "
-        f"{len(report.cases)}"
-    )
+    print(f"  routed to PLANNING:       {report.n_planning_routed} / {len(report.cases)}")
     print(f"  routed to QA (mismatch):  {report.n_qa_routed}")
     print()
     print("  --- Avg dimension scores (1-5) ---")
@@ -201,9 +198,7 @@ async def _run(args: argparse.Namespace) -> int:
         results.append(result)
 
     aggregates = _aggregate(results)
-    timestamp = (
-        datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
-    )
+    timestamp = datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
     report = PlanningReport(
         eval_set_version=eval_set.version,
         sprint_label=args.label,

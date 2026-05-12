@@ -1,20 +1,22 @@
 # pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportMissingTypeStubs=false
-"""POST /query and GET /query/stream endpoints.
+"""POST /query and POST /query/stream endpoints.
+
+Sprint 5e: both endpoints accept a list of conversation messages
+instead of a single query, so the frontend can carry follow-ups. The
+SSE response shape is unchanged (task_type → citations → delta * N
+→ done) so the streaming consumer doesn't need to care that the
+request is now multi-turn.
 
 The pipeline holds long-lived clients (qdrant, httpx) so we build it
 once and cache it. Tests override ``get_pipeline`` via FastAPI's
-``app.dependency_overrides`` to inject mocks — that's why this module
-exposes ``get_pipeline`` as a module-level function instead of a closure.
-
-``sse_starlette`` ships without stubs; pyright noise is silenced at the
-file level (same pattern used in ``corpus/openalex_client.py``).
+``app.dependency_overrides``.
 """
 
 from collections.abc import AsyncIterator
 from functools import lru_cache
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
@@ -25,6 +27,7 @@ from neblab_rag.providers.factory import (
     build_qdrant_repo,
     build_reranker_provider,
 )
+from neblab_rag.rag.conversation import ConvMessage
 from neblab_rag.rag.generator import AnswerGenerator
 from neblab_rag.rag.pipeline import RAGPipeline
 from neblab_rag.rag.query_rewriter import QueryRewriter
@@ -36,7 +39,12 @@ router = APIRouter(tags=["rag"])
 
 
 class QueryRequest(BaseModel):
-    query: str
+    """Multi-turn request shape: full conversation in ``messages``. The
+    backend treats the latest user message as the active query and
+    folds prior turns into a standalone retrieval query via the
+    context-aware rewriter."""
+
+    messages: list[ConvMessage]
     top_k: int = 7
 
 
@@ -61,17 +69,12 @@ def _build_pipeline() -> RAGPipeline:
         embedder=build_embedding_provider(),
         qdrant=build_qdrant_repo(),
         reranker=build_reranker_provider(),
-        # Sprint 2.5: BM25 hybrid. Index built once at startup from current
-        # Postgres state — restart the API after re-indexing the corpus.
         bm25=build_bm25_index(),
     )
     return RAGPipeline(
         retriever=retriever,
         generator=AnswerGenerator(llm=llm),
-        # Same LLM instance for rewriting — translation is a cheap chat call
         query_rewriter=QueryRewriter(llm=llm),
-        # Sprint 5d: meta handler answers "how many docs?" from Postgres
-        # instead of fabricating from arbitrary retrieved chunks.
         system_info_provider=PostgresSystemInfoProvider(),
     )
 
@@ -85,7 +88,7 @@ PipelineDep = Annotated[RAGPipeline, Depends(get_pipeline)]
 
 @router.post("/query", response_model=QueryResponse)
 async def query(req: QueryRequest, pipeline: PipelineDep) -> QueryResponse:
-    result = await pipeline.answer(query=req.query, top_k=req.top_k)
+    result = await pipeline.answer(messages=req.messages, top_k=req.top_k)
     return QueryResponse(
         answer=result.answer.content,
         citations=[CitationOut(**c.model_dump()) for c in result.answer.citations],
@@ -94,19 +97,27 @@ async def query(req: QueryRequest, pipeline: PipelineDep) -> QueryResponse:
     )
 
 
+@router.post("/query/stream")
+async def stream_post(req: QueryRequest, pipeline: PipelineDep) -> EventSourceResponse:
+    """Multi-turn SSE streaming endpoint. Frontend sends the full
+    conversation; we relay handler events as SSE."""
+
+    async def event_generator() -> AsyncIterator[dict[str, str]]:
+        async for ev in pipeline.stream(messages=req.messages, top_k=req.top_k):
+            yield {"event": ev.event, "data": ev.data}
+
+    return EventSourceResponse(event_generator())
+
+
 @router.get("/query/stream")
-async def stream(query: str, pipeline: PipelineDep, top_k: int = 7) -> EventSourceResponse:
-    """SSE streaming endpoint.
-
-    Emits in order:
-      - one ``task_type`` event ("qa" / "planning" / "meta")
-      - one ``citations`` event (empty array for meta)
-      - many ``delta`` events with answer fragments
-      - a single ``done`` event when streaming completes
-
-    The actual sequence is owned by the dispatched TaskHandler; this
-    endpoint just relays the events the pipeline yields.
-    """
+async def stream_get(
+    pipeline: PipelineDep,
+    query: Annotated[str, Query(description="Single-turn query")] = "",
+    top_k: int = 7,
+) -> EventSourceResponse:
+    """Single-turn SSE streaming endpoint kept for backward compat with
+    smoke-test scripts and curl. New clients should POST to
+    ``/query/stream`` with the full conversation."""
 
     async def event_generator() -> AsyncIterator[dict[str, str]]:
         async for ev in pipeline.stream(query=query, top_k=top_k):
