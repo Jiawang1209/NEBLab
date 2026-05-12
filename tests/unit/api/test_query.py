@@ -14,8 +14,10 @@ from neblab_rag.api.main import create_app
 from neblab_rag.api.routes.query import get_pipeline
 from neblab_rag.rag.citation import CitationValidation
 from neblab_rag.rag.generator import Citation, GeneratedAnswer
+from neblab_rag.rag.handlers import StreamEvent
 from neblab_rag.rag.pipeline import RAGResult
 from neblab_rag.rag.retriever import RetrievedChunk
+from neblab_rag.rag.task_classifier import TaskType
 
 
 def _make_result(query: str = "What is sand control?") -> RAGResult:
@@ -39,10 +41,13 @@ def _make_result(query: str = "What is sand control?") -> RAGResult:
         citation_validation=CitationValidation(
             is_valid=True, referenced_numbers={1}, invalid_numbers=set()
         ),
+        task_type=TaskType.QA,
     )
 
 
 def test_query_returns_answer_and_citations() -> None:
+    """Sprint 5e: API now takes a `messages` array. Single-turn requests
+    wrap the question in a one-element list."""
     fake_pipeline = MagicMock()
     fake_pipeline.answer = AsyncMock(return_value=_make_result())
 
@@ -50,7 +55,10 @@ def test_query_returns_answer_and_citations() -> None:
     app.dependency_overrides[get_pipeline] = lambda: fake_pipeline
 
     client = TestClient(app)
-    response = client.post("/query", json={"query": "What is sand control?"})
+    response = client.post(
+        "/query",
+        json={"messages": [{"role": "user", "content": "What is sand control?"}]},
+    )
 
     assert response.status_code == 200
     data = response.json()
@@ -68,30 +76,35 @@ def test_query_passes_top_k_to_pipeline() -> None:
     app.dependency_overrides[get_pipeline] = lambda: fake_pipeline
 
     client = TestClient(app)
-    client.post("/query", json={"query": "q", "top_k": 8})
+    client.post(
+        "/query",
+        json={"messages": [{"role": "user", "content": "q"}], "top_k": 8},
+    )
 
-    fake_pipeline.answer.assert_awaited_once_with(query="q", top_k=8)
+    fake_pipeline.answer.assert_awaited_once()
+    kwargs = fake_pipeline.answer.await_args.kwargs
+    assert kwargs["top_k"] == 8
+    assert [m.content for m in kwargs["messages"]] == ["q"]
 
 
 def test_query_stream_emits_citations_then_deltas_then_done() -> None:
-    chunks = [
-        RetrievedChunk(
-            chunk_id=1, doc_id=1, chunk_index=0, openalex_id="W1", title="A", text="x", score=0.9
+    """Sprint 5d: the API route now relays StreamEvents from
+    ``pipeline.stream()`` directly. Mock the pipeline's stream method
+    instead of stitching the retriever+generator path inline."""
+
+    async def fake_stream(*, query: str, top_k: int) -> AsyncIterator[StreamEvent]:
+        del query, top_k
+        yield StreamEvent("task_type", "qa")
+        yield StreamEvent(
+            "citations",
+            json.dumps([{"number": 1, "doc_id": 1, "openalex_id": "W1", "title": "A"}]),
         )
-    ]
-
-    async def fake_stream(*, query: str, chunks: list[RetrievedChunk]) -> AsyncIterator[str]:
-        yield "Per "
-        yield "[1]."
-
-    fake_retriever = MagicMock()
-    fake_retriever.retrieve = AsyncMock(return_value=chunks)
-    fake_generator = MagicMock()
-    fake_generator.stream = fake_stream
+        yield StreamEvent("delta", "Per ")
+        yield StreamEvent("delta", "[1].")
+        yield StreamEvent("done", "")
 
     fake_pipeline = MagicMock()
-    fake_pipeline.retriever = fake_retriever
-    fake_pipeline.generator = fake_generator
+    fake_pipeline.stream = fake_stream
 
     app = create_app()
     app.dependency_overrides[get_pipeline] = lambda: fake_pipeline
@@ -101,6 +114,7 @@ def test_query_stream_emits_citations_then_deltas_then_done() -> None:
         assert response.status_code == 200
         body = "".join(response.iter_text())
 
+    assert "event: task_type" in body
     assert "event: citations" in body
     citations_line = next(
         line for line in body.splitlines() if line.startswith("data: ") and '"title": "A"' in line

@@ -8,6 +8,7 @@ from neblab_rag.rag.citation import CitationValidation
 from neblab_rag.rag.generator import Citation, GeneratedAnswer
 from neblab_rag.rag.pipeline import RAGResult
 from neblab_rag.rag.retriever import RetrievedChunk
+from neblab_rag.rag.task_classifier import TaskType
 
 
 def _ok_rag_result(query: str = "Q?") -> RAGResult:
@@ -31,6 +32,7 @@ def _ok_rag_result(query: str = "Q?") -> RAGResult:
         citation_validation=CitationValidation(
             is_valid=True, referenced_numbers={1}, invalid_numbers=set()
         ),
+        task_type=TaskType.QA,
     )
 
 
