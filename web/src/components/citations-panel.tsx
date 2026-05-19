@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, BookOpen } from "lucide-react";
+import { ChevronRight, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Citation } from "@/lib/types";
 
@@ -8,12 +8,19 @@ interface CitationsPanelProps {
   citations: readonly Citation[];
   open: boolean;
   onToggle: () => void;
+  /** Sprint 3 v0.3: set of citation numbers whose chunk_text is
+   * currently expanded in-card. Owned by the page so the [N] click
+   * handler in the answer can also toggle entries here. */
+  expandedCites: ReadonlySet<number>;
+  onToggleExpand: (n: number) => void;
 }
 
 export function CitationsPanel({
   citations,
   open,
   onToggle,
+  expandedCites,
+  onToggleExpand,
 }: CitationsPanelProps) {
   if (!open) {
     return (
@@ -67,6 +74,8 @@ export function CitationsPanel({
               const href = c.openalex_id
                 ? `https://openalex.org/${c.openalex_id}`
                 : null;
+              const hasChunkText = !!c.chunk_text;
+              const isExpanded = expandedCites.has(c.number);
               return (
                 <li
                   key={c.number}
@@ -94,6 +103,32 @@ export function CitationsPanel({
                         <span className="mt-1 block font-mono text-[0.7rem] tracking-tight text-muted-foreground">
                           {c.openalex_id}
                         </span>
+                      )}
+                      {hasChunkText && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => onToggleExpand(c.number)}
+                            className="mt-2 flex items-center gap-1 text-[0.7rem] text-muted-foreground hover:text-foreground"
+                            aria-expanded={isExpanded}
+                            aria-controls={`cite-${c.number}-chunk`}
+                          >
+                            {isExpanded ? (
+                              <ChevronUp className="size-3" />
+                            ) : (
+                              <ChevronDown className="size-3" />
+                            )}
+                            {isExpanded ? "隐藏 chunk 正文" : "显示 chunk 正文"}
+                          </button>
+                          {isExpanded && (
+                            <div
+                              id={`cite-${c.number}-chunk`}
+                              className="mt-2 whitespace-pre-wrap border-t border-border/40 pt-2 text-[0.8rem] leading-6 text-muted-foreground"
+                            >
+                              {c.chunk_text}
+                            </div>
+                          )}
+                        </>
                       )}
                     </span>
                   </div>
