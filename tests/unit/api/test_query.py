@@ -36,7 +36,7 @@ def _make_result(query: str = "What is sand control?") -> RAGResult:
         ],
         answer=GeneratedAnswer(
             content="Per [1].",
-            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="A")],
+            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="A", chunk_text="x")],
         ),
         citation_validation=CitationValidation(
             is_valid=True, referenced_numbers={1}, invalid_numbers=set()
