@@ -87,6 +87,27 @@ def test_query_passes_top_k_to_pipeline() -> None:
     assert [m.content for m in kwargs["messages"]] == ["q"]
 
 
+def test_query_endpoint_returns_chunk_text() -> None:
+    """Sprint 3 v0.3: POST /query must include chunk_text per citation
+    so non-streaming clients also see the preview text."""
+    fake_pipeline = MagicMock()
+    fake_pipeline.answer = AsyncMock(return_value=_make_result())
+
+    app = create_app()
+    app.dependency_overrides[get_pipeline] = lambda: fake_pipeline
+
+    client = TestClient(app)
+    resp = client.post(
+        "/query",
+        json={"messages": [{"role": "user", "content": "test"}], "top_k": 3},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert len(data["citations"]) >= 1
+    assert "chunk_text" in data["citations"][0]
+    assert data["citations"][0]["chunk_text"]
+
+
 def test_query_stream_emits_citations_then_deltas_then_done() -> None:
     """Sprint 5d: the API route now relays StreamEvents from
     ``pipeline.stream()`` directly. Mock the pipeline's stream method
