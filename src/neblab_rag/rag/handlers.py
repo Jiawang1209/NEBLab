@@ -68,6 +68,7 @@ def _citations_payload(chunks: list[RetrievedChunk]) -> str:
                 "doc_id": c.doc_id,
                 "openalex_id": c.openalex_id,
                 "title": c.title,
+                "chunk_text": c.text,
             }
             for i, c in enumerate(chunks)
         ]

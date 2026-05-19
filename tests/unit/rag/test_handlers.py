@@ -89,3 +89,31 @@ async def test_meta_handle_uses_latest_user_message():
 
     assert result.query == "语料规模是多少？"
     assert "1810" in result.answer.content
+
+
+def test_citations_payload_includes_chunk_text():
+    """Sprint 3 v0.3: SSE 'citations' event must include chunk_text
+    so the UI can render chunk previews from the streaming path."""
+    import json
+
+    from neblab_rag.rag.handlers import _citations_payload
+    from neblab_rag.rag.retriever import RetrievedChunk
+
+    chunks = [
+        RetrievedChunk(
+            chunk_id=11,
+            doc_id=42,
+            chunk_index=0,
+            openalex_id="W123",
+            title="Sand Storm Atlas",
+            text="We observed that shelterbelt mass transport reduced by 40-60%.",
+            score=0.9,
+        ),
+    ]
+    payload = json.loads(_citations_payload(chunks))
+    assert payload[0]["chunk_text"] == (
+        "We observed that shelterbelt mass transport reduced by 40-60%."
+    )
+    assert payload[0]["number"] == 1
+    assert payload[0]["doc_id"] == 42
+    assert payload[0]["title"] == "Sand Storm Atlas"
