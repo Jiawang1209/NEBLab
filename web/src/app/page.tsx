@@ -391,8 +391,6 @@ export default function Home() {
 
   function handleCitationClick(num: number): void {
     if (!citationsOpen) setCitationsOpen(true);
-    const el = document.getElementById(`cite-${num}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
     expandCite(num);
   }
 
