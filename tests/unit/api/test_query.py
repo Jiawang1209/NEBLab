@@ -36,7 +36,7 @@ def _make_result(query: str = "What is sand control?") -> RAGResult:
         ],
         answer=GeneratedAnswer(
             content="Per [1].",
-            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="A")],
+            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="A", chunk_text="x")],
         ),
         citation_validation=CitationValidation(
             is_valid=True, referenced_numbers={1}, invalid_numbers=set()
@@ -85,6 +85,27 @@ def test_query_passes_top_k_to_pipeline() -> None:
     kwargs = fake_pipeline.answer.await_args.kwargs
     assert kwargs["top_k"] == 8
     assert [m.content for m in kwargs["messages"]] == ["q"]
+
+
+def test_query_endpoint_returns_chunk_text() -> None:
+    """Sprint 3 v0.3: POST /query must include chunk_text per citation
+    so non-streaming clients also see the preview text."""
+    fake_pipeline = MagicMock()
+    fake_pipeline.answer = AsyncMock(return_value=_make_result())
+
+    app = create_app()
+    app.dependency_overrides[get_pipeline] = lambda: fake_pipeline
+
+    client = TestClient(app)
+    resp = client.post(
+        "/query",
+        json={"messages": [{"role": "user", "content": "test"}], "top_k": 3},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert len(data["citations"]) >= 1
+    assert "chunk_text" in data["citations"][0]
+    assert data["citations"][0]["chunk_text"]
 
 
 def test_query_stream_emits_citations_then_deltas_then_done() -> None:

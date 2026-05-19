@@ -31,7 +31,9 @@ function parseCitations(raw: string): readonly Citation[] {
         c !== null &&
         typeof (c as { number?: unknown }).number === "number" &&
         typeof (c as { doc_id?: unknown }).doc_id === "number" &&
-        typeof (c as { title?: unknown }).title === "string",
+        typeof (c as { title?: unknown }).title === "string" &&
+        ((c as { chunk_text?: unknown }).chunk_text === undefined ||
+          typeof (c as { chunk_text?: unknown }).chunk_text === "string"),
     );
   } catch {
     return [];

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -176,7 +177,30 @@ export default function Home() {
   const [pendingTurnId, setPendingTurnId] = useState<string | null>(null);
   const [input, setInput] = useState("");
   const [citationsOpen, setCitationsOpen] = useState<boolean>(true);
+  const [expandedCites, setExpandedCites] = useState<Set<number>>(new Set());
   const persistedRef = useRef<boolean>(false);
+
+  const toggleExpandedCite = useCallback((n: number) => {
+    setExpandedCites((prev) => {
+      const next = new Set(prev);
+      if (next.has(n)) next.delete(n);
+      else next.add(n);
+      return next;
+    });
+  }, []);
+
+  const expandCite = useCallback((n: number) => {
+    setExpandedCites((prev) => {
+      if (prev.has(n)) return prev;
+      const next = new Set(prev);
+      next.add(n);
+      return next;
+    });
+  }, []);
+
+  const clearExpandedCites = useCallback(() => {
+    setExpandedCites((prev) => (prev.size === 0 ? prev : new Set()));
+  }, []);
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
 
   const {
@@ -331,6 +355,7 @@ export default function Home() {
     persistedRef.current = false;
     setPendingTurnId(null);
     setActiveSessionId(null);
+    clearExpandedCites();
     reset();
     setInput("");
   }
@@ -339,6 +364,7 @@ export default function Home() {
     persistedRef.current = false;
     setPendingTurnId(null);
     setActiveSessionId(id);
+    clearExpandedCites();
     reset();
   }
 
@@ -351,12 +377,21 @@ export default function Home() {
     if (activeSessionId === id) {
       setActiveSessionId(null);
       setPendingTurnId(null);
+      clearExpandedCites();
       reset();
     }
   }
 
-  function handleCitationClick(_n: number): void {
+  const handleTogglePanel = useCallback(() => {
+    setCitationsOpen((open) => {
+      if (open) clearExpandedCites();
+      return !open;
+    });
+  }, [clearExpandedCites]);
+
+  function handleCitationClick(num: number): void {
     if (!citationsOpen) setCitationsOpen(true);
+    expandCite(num);
   }
 
   const showEmpty = activeSession === null || activeSession.turns.length === 0;
@@ -444,7 +479,9 @@ export default function Home() {
       <CitationsPanel
         citations={activeCitations}
         open={citationsOpen}
-        onToggle={() => setCitationsOpen((v) => !v)}
+        onToggle={handleTogglePanel}
+        expandedCites={expandedCites}
+        onToggleExpand={toggleExpandedCite}
       />
     </div>
   );

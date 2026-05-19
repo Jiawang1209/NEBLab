@@ -10,7 +10,8 @@ function isCitation(value: unknown): value is Citation {
     typeof c.number === "number" &&
     typeof c.doc_id === "number" &&
     typeof c.title === "string" &&
-    (c.openalex_id === null || typeof c.openalex_id === "string")
+    (c.openalex_id === null || typeof c.openalex_id === "string") &&
+    (c.chunk_text === undefined || typeof c.chunk_text === "string")
   );
 }
 

@@ -24,6 +24,7 @@ class Citation(BaseModel):
     doc_id: int
     openalex_id: str | None
     title: str
+    chunk_text: str
 
 
 class GeneratedAnswer(BaseModel):
@@ -199,6 +200,7 @@ class AnswerGenerator:
                 doc_id=c.doc_id,
                 openalex_id=c.openalex_id,
                 title=c.title,
+                chunk_text=c.text,
             )
             for i, c in enumerate(chunks, 1)
         ]

@@ -28,7 +28,7 @@ async def test_answer_orchestrates_retriever_and_generator() -> None:
     generator.generate = AsyncMock(
         return_value=GeneratedAnswer(
             content="Per [1].",
-            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="t")],
+            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="t", chunk_text="x")],
         )
     )
 
@@ -72,7 +72,7 @@ async def test_answer_flags_invalid_citations() -> None:
     generator.generate = AsyncMock(
         return_value=GeneratedAnswer(
             content="Per [5] (hallucinated).",
-            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="t")],
+            citations=[Citation(number=1, doc_id=1, openalex_id="W1", title="t", chunk_text="x")],
         )
     )
 

@@ -141,3 +141,21 @@ async def test_stream_returns_fallback_message_when_no_chunks() -> None:
 
     assert len(pieces) == 1
     assert "暂未找到" in pieces[0]
+
+
+def test_citations_carries_chunk_text() -> None:
+    """Sprint 3 v0.3: Citation must expose the underlying chunk.text so
+    the UI can preview the cited passage without a follow-up RPC."""
+    chunks = [
+        RetrievedChunk(
+            chunk_id=1,
+            doc_id=42,
+            chunk_index=0,
+            openalex_id="W123",
+            title="Sand Storm Atlas",
+            text="We observed that shelterbelt mass transport reduced by 40-60%.",
+            score=0.9,
+        ),
+    ]
+    cits = AnswerGenerator._citations(None, chunks)  # type: ignore[arg-type]
+    assert cits[0].chunk_text == ("We observed that shelterbelt mass transport reduced by 40-60%.")

@@ -53,6 +53,7 @@ class CitationOut(BaseModel):
     doc_id: int
     openalex_id: str | None
     title: str
+    chunk_text: str
 
 
 class QueryResponse(BaseModel):
