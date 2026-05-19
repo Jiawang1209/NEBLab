@@ -3,6 +3,10 @@ export interface Citation {
   doc_id: number;
   openalex_id: string | null;
   title: string;
+  /** Sprint 3 v0.3: full chunk text for inline preview. Optional so
+   * legacy sessions persisted in localStorage before v0.3 (which
+   * carry only title) degrade to the v0.2 card layout without errors. */
+  chunk_text?: string;
 }
 
 export type TaskType = "qa" | "planning" | "meta";
